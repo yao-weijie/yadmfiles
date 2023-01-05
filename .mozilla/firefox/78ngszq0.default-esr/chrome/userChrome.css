@@ -1,0 +1,25 @@
+/* reference */
+/* https://framagit.org/ariasuni/tabcenter-reborn/-/wikis/home#userchromecss-tweaks */
+
+/* Hide the horizontal tab strip */
+/* First navigate to about:config and, if it exists, set browser.tabs.drawInTitlebar to false. */
+#TabsToolbar:not([customizing="true"]) {
+  visibility: collapse !important;
+}
+/* if the titlebar is also hidden and your browser is maximized,
+ * clicking on the top pixel of the screen should trigger menu items (Fitt’s law)
+ */
+#toolbar-menubar {
+  padding-top: 0px !important;
+}
+
+/* Hide sidebar with only one tab open */
+#main-window[titlepreface^="[1] "]
+  #sidebar-box[sidebarcommand="tabcenter-reborn_ariasuni-sidebar-action"] {
+  visibility: collapse;
+}
+
+/* Hide sidebar header */
+#sidebar-box #sidebar-header {
+  visibility: collapse;
+}

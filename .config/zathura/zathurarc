@@ -1,0 +1,10 @@
+set synctex true
+set synctex-editor-command "nvr --remote-silent %f -c %l"
+
+set adjust-open "width"
+
+set incremental-title-basename true
+
+set show-v-scrollbar true
+
+set selection-clipboard clipboard

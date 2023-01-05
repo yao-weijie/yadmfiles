@@ -1,0 +1,12 @@
+[time]
+disabled = false
+format = '[\[ $time \]]($style) '
+time_format = "%H:%M"
+
+[conda]
+ignore_base = false
+
+[character]
+success_symbol = "[➜ ](bold green)"
+error_symbol = "[✗ ](bold red)"
+vicmd_symbol = "[V](bold italic green) "

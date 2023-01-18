@@ -13,12 +13,6 @@
   padding-top: 0px !important;
 }
 
-/* Hide sidebar with only one tab open */
-#main-window[titlepreface^="[1] "]
-  #sidebar-box[sidebarcommand="tabcenter-reborn_ariasuni-sidebar-action"] {
-  visibility: collapse;
-}
-
 /* Hide sidebar header */
 #sidebar-box #sidebar-header {
   visibility: collapse;

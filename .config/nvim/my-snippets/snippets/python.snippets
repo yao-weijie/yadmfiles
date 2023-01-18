@@ -1,0 +1,40 @@
+snippet utf "utf-8 encoding" b
+	# -*- coding: utf-8 -*-
+	$0
+
+snippet env "shebang for python env" b
+	#!/usr/bin/env python
+	# -*- coding: utf-8 -*-
+
+	$0
+
+snippet env2 "shebang for python2 env" b
+	#!/usr/bin/env python2
+	# -*- coding: utf-8 -*-
+
+	$0
+
+snippet env3 "shebang for python3 env" b
+	#!/usr/bin/env python3
+	# -*- coding: utf-8 -*-
+
+	$0
+
+snippet imnp "import numpy" b
+	import numpy as np
+	$1
+
+snippet immat "plt fig and axes types" b
+	import matplotlib.pyplot as plt
+	import matplotlib.figure as figure
+	import matplotlib.axes._axes as axes
+	$0
+
+
+snippet fig "plt fig with one subplot" i
+	fig, ax = plt.subplot() # type:figure.Figure, axes.Axes
+	$0
+
+snippet figs "plt fig with multi subplots" i
+	fig axes = plt.subplots(nrows=${1:1}, ncols=${2:2}, figsize=${3:None}) # type:figure.Figure, axes.Axesendsnippet
+	${0}

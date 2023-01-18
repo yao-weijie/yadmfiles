@@ -1,0 +1,13 @@
+snippet prog "Latexmk build comment string" b
+	% !TEX TS-program = ${1:pdflatex|xelatex}
+	% !TEX encoding = UTF-8 Unicode
+	$0
+
+snippet mi "inline math" w
+	\$ $1 \$ $0
+
+snippet mc "math env between lines" b
+	$$
+		$1
+	$$
+	$0

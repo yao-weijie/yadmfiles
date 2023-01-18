@@ -1,0 +1,33 @@
+[tool.ruff]
+line-length = 100
+select = [
+    # select默认是是 E F
+    "E", # pycodestyle
+    "F", # pyflakes
+]
+
+extend-select = [
+    # 默认是B Q
+    "B", # flake8-bugbear
+    "Q", # flake8-quotes
+    # "D", # pydocstyle
+    # "U", # pyupgrade
+    # "N", # pep8-naming
+    # "S", # flake8-bandit
+    # "C", # flake8-comprehensions
+    # "A", # flake8-builtins
+    # "ANN", # flake8-annotations
+    # "YTT", # flake8-2020
+]
+
+ignore = [
+    # "E501",
+    # "F405",
+]
+
+extend-ignore = [
+    "ANN101",
+]
+
+[tool.black]
+line-length = 100

@@ -7,7 +7,7 @@ end
 notify.setup({
     background_colour = "Normal",
     minimum_width = 20,
-    max_width = 100,
+    max_width = nil,
     max_height = nil,
 })
 vim.notify = notify

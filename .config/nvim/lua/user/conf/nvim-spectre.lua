@@ -13,8 +13,8 @@ spectre.setup({
     line_sep = "-----------------------------------------",
     highlight = {
         ui = "String",
-        search = "DiffChange",
-        replace = "DiffDelete",
+        search = "DiffDelete",
+        replace = "DiffAdd",
     },
     mapping = {
         -- 删除选中
@@ -49,3 +49,6 @@ spectre.setup({
         },
     },
 })
+require("which-key").register({
+    ["<C-r>"] = { "<cmd>Spectre<CR>", "global replace with rg" },
+}, {})

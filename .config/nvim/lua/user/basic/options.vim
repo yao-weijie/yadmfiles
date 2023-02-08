@@ -25,8 +25,11 @@ set wildmenu
 set mouse=a
 set termguicolors
 set background=dark
+if !has('nvim')
+    colorscheme desert
+endif
 
-if has('autocmd')
+if has("autocmd")
     filetype plugin indent on
 endif
 
@@ -52,8 +55,13 @@ set diffopt=vertical,filler,internal,context:4
 
 set pumheight=10
 
-set spell
-set spelllang=en_us
+" set spell
+" set spelllang=en_us
+
+if has('nvim')
+    let g:loaded_netrw = 1
+    let g:loaded_netrwPlugin = 1
+endif
 
 set hidden
 set updatetime=300

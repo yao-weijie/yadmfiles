@@ -3,8 +3,7 @@ local toolset = {
     name = "any",
     treesitter = { "help" },
     sources = {
-        builtins.completion.tags,
-
+        -- single file mode
         builtins.diagnostics.todo_comments,
 
         builtins.code_actions.gitsigns,

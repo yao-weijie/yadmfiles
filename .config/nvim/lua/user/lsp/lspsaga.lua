@@ -8,18 +8,38 @@ saga.setup({
     symbol_in_winbar = {
         enable = true,
     },
-    finder_action_keys = {
+    finder = {
+        edit = { "<CR>", "o" },
         split = "<C-x>",
-        tabe = "<C-t>",
         vsplit = "<C-v>",
+        tabe = "<C-t>",
+        quit = { "q" },
     },
-    definition_action_keys = {
+    definition = {
         edit = "<CR>",
         split = "<C-x>",
         vsplit = "<C-v>",
         tabe = "<C-t>",
+        quit = "q",
+        close = "q",
+    },
+    callhierarchy = {
+        show_detail = false,
+        keys = {
+            edit = "<CR>",
+            split = "<C-x>",
+            vsplit = "<C-v>",
+            tabe = "<C-t>",
+            jump = "<C-p>",
+            quit = "q",
+            expand_collapse = "o",
+        },
     },
     lightbulb = {
         enable = false,
+    },
+    ui = {
+        title = vim.fn.has("nvim-0.9") == 1,
+        border = "single",
     },
 })

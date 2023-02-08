@@ -33,7 +33,6 @@ function _G.set_terminal_keymaps()
     local opts = { noremap = true }
     local keymap = vim.keymap.set
 end
-
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal

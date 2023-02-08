@@ -4,10 +4,12 @@ local toolset = {
     server = { "yamlls" },
     treesitter = { "yaml" },
     sources = {
-        -- builtins.formatting.fixjson,
-        -- builtins.formatting.yamlfmt,
         builtins.formatting.prettierd,
     },
 }
+
+vim.cmd([[
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
+]])
 
 return toolset

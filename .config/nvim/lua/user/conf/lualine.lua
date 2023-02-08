@@ -7,96 +7,126 @@ end
 local diagnostics = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
-    sections = { "error", "warn", "info" },
+    sections = { "error", "warn", "info", "hint" },
     symbols = { error = " ", warn = " ", info = " " },
     always_visible = false,
 }
 
-local filetype = {
-    "filetype",
-    fmt = function(filetype)
-        -- local env = require("py-env").get_env()
+local rime_status = function()
+    if vim.g.rime_enabled then
+        return "ㄓ"
+    else
+        return "EN"
+    end
+end
 
-        -- if filetype == "python" and env ~= nil then
-        --     if env.type == "conda" then
-        --         return string.format("py(%s:%s)", env.name, env.version)
-        --     else
-        --         return string.format("py(%s:%s)", env.type, env.version)
-        --     end
-        -- end
-        return filetype
-    end,
-}
+local python_env = function()
+    if vim.bo.filetype ~= "python" then
+        return ""
+    end
+    -- local ok, env = pcall("require", "py-env.nvim")
 
-local python_env = {
-    fmt = function()
-        return nil
-    end,
-}
+    return ""
+end
 
 local tabsize = function()
     return "tab:" .. vim.bo.shiftwidth
 end
 
 local tex_words = function()
+    if vim.bo.filetype ~= "tex" then
+        return ""
+    end
     return "words:" .. vim.fn.call("vimtex#misc#wordcount", {})
 end
 
+local winbar_symbols = function()
+    return require("lspsaga.symbolwinbar"):get_winbar() or ""
+end
+
+local buffers = {
+    "buffers",
+    mode = 2,
+    filetype_names = {
+        TelescopePrompt = "Telescope",
+        dashboard = "Dashboard",
+        packer = "Packer",
+        fzf = "FZF",
+        alpha = "Alpha",
+    },
+}
+
 lualine.setup({
     options = {
-        icons_enabled = true,
-        theme = "material",
-        component_separators = { left = "", right = "", },
-        section_separators = { left = "", right = "", },
-        disabled_filetypes = {
-          -- statusline = {},
-          -- winbar = {},
-            -- "help",
-            -- "alpha",
-            -- "dashboard",
-            -- "NvimTree",
-            -- "neo-tree",
-            -- "Outline",
-            -- "aerial",
-            -- "dapui_watches",
-            -- "dapui_breakpoints",
-            -- "dapui_stacks",
-            -- "dapui_scopes",
-            -- "dapui_console",
-            -- "dap-repl",
-            -- "neotest-summary",
-            -- "lspsagaoutline",
-            -- "vimtex-toc",
-            -- "spectre_panel",
-        },
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
         always_divide_middle = true,
+        globalstatus = true,
+        -- refresh = {
+        --     winbar = 100,
+        -- },
+        ignore_focus = {
+            "NvimTree",
+        },
+        disabled_filetypes = {
+            -- "help",
+            "alpha",
+            "dashboard",
+            "NvimTree",
+            "neo-tree",
+            "Outline",
+            "aerial",
+            "dapui_watches",
+            "dapui_breakpoints",
+            "dapui_stacks",
+            "dapui_scopes",
+            "dapui_console",
+            "dap-repl",
+            "neotest-summary",
+            "lspsagaoutline",
+            "vimtex-toc",
+            "spectre_panel",
+        },
     },
+
     sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", diagnostics },
-        lualine_c = { "filename" },
+        lualine_c = { rime_status },
+
         lualine_x = {
-            "searchcount",
             tabsize,
             "encoding",
             "fileformat",
         },
         lualine_y = {
-            filetype,
-            tex_words,
+            "filetype",
+            -- tex_words,
+            python_env,
         },
         lualine_z = {
-            -- "location",
             "progress",
             "filesize",
         },
     },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = { "location" },
-        lualine_y = {},
-        lualine_z = {},
-    },
+
+    -- tabline = {
+    --     lualine_a = { buffers },
+    -- },
 })
+
+vim.cmd([[
+    autocmd InsertLeave * lua require('lualine').refresh({scope='all', place={'statusline', 'winbar', 'tabline'}})
+]])
+
+-- require("which-key").register({
+--     ["<leader>1"] = { "<cmd>LualineBuffersJump! 1<CR>", "go to buffer 1" },
+--     ["<leader>2"] = { "<cmd>LualineBuffersJump! 2<CR>", "go to buffer 2" },
+--     ["<leader>3"] = { "<cmd>LualineBuffersJump! 3<CR>", "go to buffer 3" },
+--     ["<leader>4"] = { "<cmd>LualineBuffersJump! 4<CR>", "go to buffer 4" },
+--     ["<leader>5"] = { "<cmd>LualineBuffersJump! 5<CR>", "go to buffer 5" },
+--     ["<leader>6"] = { "<cmd>LualineBuffersJump! 6<CR>", "go to buffer 6" },
+--     ["<leader>7"] = { "<cmd>LualineBuffersJump! 7<CR>", "go to buffer 7" },
+--     ["<leader>8"] = { "<cmd>LualineBuffersJump! 8<CR>", "go to buffer 8" },
+--     ["<leader>9"] = { "<cmd>LualineBuffersJump! 9<CR>", "go to buffer 9" },
+-- }, {})

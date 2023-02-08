@@ -11,8 +11,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- stylua: ignore
 local plugins = {
-    -- NOTE: 依赖性插件
+    -- NOTE: plugin dependencies
     { "folke/lazy.nvim" },
     { "nvim-lua/popup.nvim" },
     { "nvim-lua/plenary.nvim" },
@@ -21,22 +22,33 @@ local plugins = {
     { "MunifTanjim/nui.nvim" },
 
     -- NOTE: core plugins
+    -- load color scheme plugins before other
+    { -- colorschemes
+        "folke/tokyonight.nvim",
+        dependencies = { -- other themes
+            "EdenEast/nightfox.nvim",
+        },
+        priority = 1000,
+        config = function() require("user.core.themes") end,
+    },
+    { "rcarriga/nvim-notify",
+        priority = 900,
+        config = function() require('user.core.nvim-notify') end
+    },
     { -- which key
         "folke/which-key.nvim",
-        config = function()
-            require("user.core.whichkey")
-        end,
+        priority = 800,
+        config = function() require("user.core.whichkey") end,
     },
     { -- syntax parser
         "nvim-treesitter/nvim-treesitter",
         dependencies = {
             "HiPhish/nvim-ts-rainbow2",
             "nvim-treesitter/nvim-treesitter-textobjects",
+            "RRethy/nvim-treesitter-endwise",
         },
         build = ":TSUpdate",
-        config = function()
-            require("user.core.treesitter")
-        end,
+        config = function() require("user.core.treesitter") end,
     },
     { -- auto complete
         "hrsh7th/nvim-cmp",
@@ -46,45 +58,56 @@ local plugins = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "rcarriga/cmp-dap",
+            { dir="~/Projects/cmp-luarime" },
+            -- "Ninlives/cmp-rime",
             "saadparwaiz1/cmp_luasnip",
+
             "L3MON4D3/LuaSnip",
             "rafamadriz/friendly-snippets",
             "honza/vim-snippets",
         },
         event = { "InsertEnter" },
-        config = function()
-            require("user.core.cmp")
-        end,
-    },
-    { --fuzzy search
-        "Yggdroot/LeaderF",
-        build = ":LeaderfInstallCExtension",
-        config = function()
-            require("user.core.leaderf")
-        end,
+        config = function() require("user.core.cmp") end,
     },
     { --fuzzy search
         "nvim-telescope/telescope.nvim",
         dependencies = {
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
             "nvim-telescope/telescope-project.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
         },
-        config = function()
-            require("user.core.telescope")
+        priority = 100,
+        event = { "VeryLazy" },
+        config = function() require("user.core.telescope") end,
+    },
+    { --fuzzy search
+        "Yggdroot/LeaderF",
+        event = { "VeryLazy" },
+        priority = 99,
+        -- need to pip install pynvim
+        build = ":LeaderfInstallCExtension",
+        cond = function() return vim.fn.has("python3") == 1 end,
+        init = function()
+            vim.g.Lf_ShortcutF = ""
+            vim.g.Lf_ShortcutB = ""
         end,
+        config = function() require("user.core.leaderf") end,
     },
     { -- file manager
         "kyazdani42/nvim-tree.lua",
-        config = function()
-            require("user.core.nvim-tree")
-        end,
+        event = { "VeryLazy" },
+        config = function() require("user.core.nvim-tree") end,
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        event = { "VeryLazy" },
+        config = function() require("user.core.neo-tree") end,
     },
     { -- build and run
         "skywind3000/asynctasks.vim",
         dependencies = { "skywind3000/asyncrun.vim" },
-        config = function()
-            require("user.core.asynctasks")
-        end,
+        event = { "VeryLazy" },
+        config = function() require("user.core.asynctasks") end,
     },
     { -- unit test
         "nvim-neotest/neotest",
@@ -92,63 +115,54 @@ local plugins = {
             "antoinemadec/FixCursorHold.nvim",
             "nvim-neotest/neotest-python",
         },
-        cmd = { "NeotestNearest", "NeotestCurrentFile" },
-        config = function()
-            require("user.core.neotest")
-        end,
+        event = { "VeryLazy" },
+        config = function() require("user.core.neotest") end,
     },
 
-    -- NOTE: lsp
-    {
+    { -- NOTE: lsp
         "neovim/nvim-lspconfig",
         dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
             "tamago324/nlsp-settings.nvim",
-
-            -- other lsp plugins
             "glepnir/lspsaga.nvim",
             "folke/trouble.nvim",
             "ray-x/lsp_signature.nvim",
-
             "jose-elias-alvarez/null-ls.nvim",
+            { "j-hui/fidget.nvim", config=true },
+            { "wlh320/rime-ls", build = "cargo build --release" },
+
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
             "jay-babu/mason-null-ls.nvim",
         },
-        event = { "BufEnter" },
-        config = function()
-            require("user.lsp")
-        end,
+        event = { "BufReadPre", "BufNewFile" },
+        config = function() require("user.lsp") end,
     },
 
-    -- NOTE: dap
-    {
+    { -- NOTE: dap
         "mfussenegger/nvim-dap",
         dependencies = {
-            "williamboman/mason.nvim",
-            "jayp0521/mason-nvim-dap.nvim",
-
             "theHamsta/nvim-dap-virtual-text",
             "rcarriga/nvim-dap-ui",
             "Weissle/persistent-breakpoints.nvim",
+
+            "williamboman/mason.nvim",
+            "jayp0521/mason-nvim-dap.nvim",
         },
         ft = { "python", "c", "cpp" },
         config = function()
             require("user.dap")
-            require("user.dap.keymap").setup({ "*.py", "*.c", "*.cpp" })
+            require("user.dap.keymap").setup({ "*.py", "*.c", "*.cc", "*.cpp" })
         end,
     },
 
     -- the rest plugin configuratoins are placed in lua/user/conf/
-    -- UI
-    "rcarriga/nvim-notify",
-    "stevearc/dressing.nvim",
+    -- NOTE: UI
     "goolord/alpha-nvim",
+    "stevearc/dressing.nvim",
     "lukas-reineke/indent-blankline.nvim",
     { "akinsho/bufferline.nvim", version = "v3.*" },
     "nvim-lualine/lualine.nvim",
     "stevearc/aerial.nvim",
-    -- color schemes
-    "EdenEast/nightfox.nvim",
 
     -- NOTE: edit enhanced
     "echasnovski/mini.nvim",
@@ -157,7 +171,6 @@ local plugins = {
     "meain/vim-printer",
     "theniceboy/antovim",
     "nvim-pack/nvim-spectre",
-    "ur4ltz/move.nvim",
     "tpope/vim-repeat",
     "ThePrimeagen/refactoring.nvim",
     { -- fast jump
@@ -169,20 +182,31 @@ local plugins = {
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
     "skywind3000/vim-quickui",
-    { "kevinhwang91/nvim-bqf", ft = "qf" },
-    -- 'junegunn/fzf',
+    -- "junegunn/fzf",
     { "voldikss/vim-translator", cmd = { "TranslateW" } },
-    { "karb94/neoscroll.nvim", config = true },
+    { "karb94/neoscroll.nvim" },
     { "akinsho/toggleterm.nvim", version = "*" },
     "aserowy/tmux.nvim",
-    -- language specified plugins configured in user/lang/<ft>.lua
-    { -- generate python docstring
-        "heavenshell/vim-pydocstring",
-        build = "make install",
-        ft = "python",
+    { -- 控制输入法状态
+        "lilydjwg/fcitx.vim",
+        cond = function() return vim.fn.has("linux") == 1 and vim.fn.has("wsl") == 0 end,
+        event = { "InsertEnter" },
+        config = function() vim.g.fcitx5_rime = 1 end
     },
-    -- { dir = "~/.config/nvim/py-env.nvim", ft = "python" },
-    { "lervag/vimtex", ft = { "tex" }, version = "*" },
+    -- leetcode
+    -- {
+    --     dir = "~/Projects/leetcode-cli.nvim",
+    --     config = true,
+    --     ft = "python",
+    -- },
+    -- filetype specified plugins configured in user/lang/<ft>.lua
+    { "kevinhwang91/nvim-bqf", ft = "qf" },
+    -- { -- generate python docstring
+        -- "heavenshell/vim-pydocstring", build = "make install",
+        -- { dir = "~/.config/nvim/py-env.nvim" },
+        -- ft = "python",
+    -- },
+    { "lervag/vimtex", version = "*", ft = "tex" },
 }
 
 require("lazy").setup(plugins)

@@ -4,10 +4,12 @@ local toolset = {
     server = { "jsonls" },
     treesitter = { "json", "json5" },
     sources = {
-        -- builtins.formatting.fixjson,
-        -- builtins.formatting.yamlfmt,
-        -- builtins.formatting.prettierd,
+        builtins.formatting.prettierd,
     },
 }
+
+vim.cmd([[
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
+]])
 
 return toolset

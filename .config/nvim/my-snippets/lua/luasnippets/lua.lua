@@ -19,10 +19,35 @@ local n = extras.nonempty
 local dl = extras.dynamic_lambda
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local conds = require("luasnip.extras.expand_conditions")
+local conditions = require("luasnip.extras.conditions")
 local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
+
+local line_begin = require("luasnip.extras.expand_conditions").line_begin
+
+local context = [[
+snippet tris "tris description" b
+    tris loaded
+]]
+
+local conds_b = function(line_to_cursor, matched_trigger, captures)
+    return line_to_cursor:match(".*$")
+end
+
+local myparser = function(context)
+    local idx = string.find(context, "\n")
+    local header = string.sub(context, 0, idx - 1)
+    local body = string.sub(context, idx + 1, #context - 1)
+
+    local trig, dscr, cond = string.match(header, [[snippet ([%a%d]+) [\'\"]?([%a%s]+)[\'\"]?[%s]?([ibw]*)$]])
+
+    return ls.parser.parse_snipmate({ trig = trig, dscr = dscr }, body, { condition = conditions.line_end })
+end
+
+local line_b = function(line_to_cursor)
+    return line_to_cursor:match("^[%a]*")
+end
 
 -- stylua: ignore
 return {
@@ -30,6 +55,11 @@ return {
         {1}
     ]], {
         i(1, "trigger"),
-    }), {}),
+    }), {
+        condition = line_begin,
+        show_condition=line_b
+    }),
 
+    -- myparser(context),
+    -- ls.parser.parse_snipmate(context)
 }

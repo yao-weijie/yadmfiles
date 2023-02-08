@@ -9,3 +9,5 @@ require("user.lsp.lspsaga")
 require("user.lsp.lsp-signature")
 require("user.lsp.trouble")
 require("user.lsp.null-ls")
+
+require("user.lsp.settings.rime-ls")

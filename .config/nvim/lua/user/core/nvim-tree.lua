@@ -13,9 +13,6 @@ nvim_tree.setup({
     disable_netrw = true,
     hijack_cursor = true, -- keep the curosr on the first letter of filename
     hijack_unnamed_buffer_when_opening = true,
-    ignore_buffer_on_setup = false,
-    open_on_setup = false,
-    open_on_setup_file = false,
     open_on_tab = true,
     sort_by = "name",
 
@@ -116,15 +113,7 @@ nvim_tree.setup({
         args = {},
     },
 
-    diagnostics = {
-        enable = false,
-    },
-    ignore_ft_on_setup = {
-        "startify",
-        "dashboard",
-        "alpha",
-    },
-
+    diagnostics = { enable = false },
     filters = {
         dotfiles = true,
         custom = {
@@ -174,12 +163,12 @@ nvim_tree.setup({
 local api = require("nvim-tree.api")
 local Event = api.events.Event
 api.events.subscribe(Event.FileCreated, function(file)
-    vim.cmd([[NvimTreeRefresh]])
+    api.tree.reload()
     vim.cmd("edit " .. vim.fn.fnamemodify(file.fname, ":p"))
 end)
 
 api.events.subscribe(Event.FolderCreated, function(folder)
-    vim.cmd([[NvimTreeRefresh]])
+    api.tree.reload()
 end)
 
 require("which-key").register({

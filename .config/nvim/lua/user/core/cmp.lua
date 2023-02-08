@@ -4,6 +4,8 @@ if not status_cmp_ok then
     return
 end
 
+local compare = require("cmp.config.compare")
+
 require("cmp_nvim_lsp").default_capabilities(require("user.lsp.handlers").capabilities)
 
 local luasnip = require("luasnip")
@@ -17,75 +19,79 @@ require("luasnip.loaders.from_snipmate").lazy_load()
 -- luasnippets/<ft>.lua and luasnippets/<ft>/*.lua
 require("luasnip.loaders.from_lua").lazy_load()
 
-local source_menus = {
-    luasnip = "[Snip]",
-    nvim_lsp = "[LSP]",
-    treesitter = "[TS]",
-    path = "[Path]",
-    buffer = "[Buf]",
-    spell = "[Spell]",
-    nvim_lsp_signature_help = "[Param]",
-
-    cmdline = "[Command]",
-    cmdline_history = "[Cmd History]",
-}
-local sources = {
-    { name = "luasnip" },
-    {
+-- name
+-- option
+-- keyword_length
+-- keyword_pattern
+-- trigger_characters
+-- priority
+-- max_item_count
+-- group_index
+local source_candidates = {
+    luasnip = { name = "luasnip", menu = "[Snip]" },
+    nvim_lsp = {
         name = "nvim_lsp",
-        -- disable snippets from lsp
+        menu = "[LSP]",
         entry_filter = function(entry)
             return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
         end,
     },
-    { name = "path" },
-    { name = "buffer", dup = 0 },
-    { name = "spell", keyword_length = 3, dup = 0 },
-    -- { name = "nvim_lsp_signature_help" },
+    treesitter = { name = "treesitter", menu = "[TS]" },
+    path = { name = "path", menu = "[Path]", group_index = 1 },
+    buffer = { name = "buffer", menu = "[Buf]" },
+    spell = { name = "spell", menu = "[Spell]" },
+    nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
+    luarime = {
+        name = "luarime",
+        menu = "[Rime]",
+        option = {
+            shared_data_dir = "/usr/share/rime-data",
+            user_data_dir = vim.fn.getenv("HOME") .. "/.local/share/cmp-luarime",
+            max_candidates = 10,
+        },
+    },
+    cmdline = { name = "cmdline", menu = "[Command]", group_index = 2 },
+    cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
+    dap = { name = "dap", menu = "[Dap]" },
 }
-
-local priority_default = 1
-local priorities = {
-    luasnip = 3,
-    nvim_lsp = 2,
-}
-
-for i, v in ipairs(sources) do
-    sources[i]["priority"] = priorities[v.name] -- or nil
-end
 
 cmp.setup({
-    enabled = function()
-        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
-    end,
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     formatting = {
         fields = { "abbr", "kind", "menu" },
+        format = require("lspkind").cmp_format({
+            mode = "text",
+            maxwidth = 50,
 
-        format = function(entry, vim_item)
-            vim_item.menu = source_menus[entry.source.name]
-            return vim_item
-        end,
-        -- format = lspkind.cmp_format({
-        --     mode = "text",
-        --     -- maxwidth = 50,
-        --     ellipsis_char = "..",
-
-        --     before = function(entry, vim_item)
-        --         vim_item.menu = source_menus[entry.source.name]
-        --         return vim_item
-        --     end,
-        -- }),
+            before = function(entry, vim_item)
+                vim_item.menu = source_candidates[entry.source.name].menu
+                return vim_item
+            end,
+        }),
     },
     -- global setting and can be overwritten in sources
-    completion = { keyword_length = 1, priority = priority_default },
-    sources = sources,
+    experimental = { ghost_text = true },
+    sources = {
+        source_candidates.nvim_lsp,
+        source_candidates.luasnip,
+        source_candidates.buffer,
+        source_candidates.luarime,
+        source_candidates.path,
+    },
     sortting = {
         priority_weight = 1.0,
         comparators = {
-            cmp.config.compare.socre,
-            cmp.config.compare.kind,
-            cmp.config.compare.exact,
-            -- cmp.config.compare.offset,
+            compare.sort_text,
+            compare.offset,
+            compare.exact,
+            compare.score,
+            compare.recently_used,
+            compare.kind,
+            compare.length,
+            compare.order,
         },
     },
 
@@ -125,9 +131,18 @@ cmp.setup({
                 cmp.complete()
             end
         end),
+        -- rime-ls 空格上屏
+        ["<Space>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and vim.g.rime_enabled then
+                cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace })
+                cmp.close()
+            else
+                fallback()
+            end
+        end),
         ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            -- select = false,
+            -- select = true,
         }),
     }),
 })
@@ -137,7 +152,7 @@ for _, cmd_type in ipairs({ "/", "?" }) do
     cmp.setup.cmdline(cmd_type, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-            { name = "buffer" },
+            source_candidates.buffer,
         },
     })
 end
@@ -145,12 +160,12 @@ end
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "cmdline" },
-        { name = "path" },
+        source_candidates.path,
+        source_candidates.cmdline,
     },
 })
 
-require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
     sources = {
         { name = "dap" },
     },

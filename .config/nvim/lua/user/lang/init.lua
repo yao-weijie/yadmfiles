@@ -1,4 +1,6 @@
+local null_ls = require("null-ls")
 local curr_dir = vim.fn.stdpath("config") .. "/lua/user/lang/"
+local create_command = vim.api.nvim_create_user_command
 
 local toolsets = {}
 
@@ -6,7 +8,6 @@ local function setup_sources(sources)
     if sources == nil then
         return
     end
-    local null_ls = require("null-ls")
 
     for _, source in ipairs(sources) do
         null_ls.register(source)
@@ -61,7 +62,6 @@ local function get_toolset_name(ArgLead, CmdLine, CursorPos)
     return set
 end
 
-local create_command = vim.api.nvim_create_user_command
 -- define ToolsetInstall, ToolsetUninstall
 for _, cmd in ipairs({ "Install", "Uninstall" }) do
     create_command("Toolset" .. cmd, function(opts)

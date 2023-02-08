@@ -22,6 +22,9 @@
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
+" C-r用作搜索替换
+nnoremap U <C-r>
+
 nnoremap j gj
 nnoremap k gk
 
@@ -68,6 +71,12 @@ nnoremap <C-Up>    :resize +2<CR>
 nnoremap <C-Down>  :resize -2<CR>
 nnoremap <C-Left>  :vertical resize +2<CR>
 nnoremap <C-Right> :vertical resize -2<CR>
+
+" previous and next buffer
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
 
 " emacs mode in insert_mode
 inoremap <C-d>   <Del>

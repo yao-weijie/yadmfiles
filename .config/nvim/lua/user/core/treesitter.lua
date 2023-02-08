@@ -9,12 +9,15 @@ configs.setup({
     sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "foam" }, -- List of parsers to ignore installing
     highlight = {
-        enable = false, -- false will disable the whole extension
+        enable = true, -- false will disable the whole extension
         disable = function(lang, buf)
-            -- local dis_lang = { "latex", "foam" }
-            -- if vim.tbl_contains(dis_lang, lang) then
-            --     return true
-            -- end
+            local lang_backlist = {
+                "latex",
+                "foam",
+            }
+            if vim.tbl_contains(lang_backlist, lang) then
+                return true
+            end
 
             local max_filesize = 100 * 1024 -- 100 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -25,13 +28,14 @@ configs.setup({
         additional_vim_regex_highlighting = false,
     },
 
-    indent = { enable = false },
+    indent = { enable = true },
+    -- Wisely add "end" in Ruby, Vimscript, Lua, etc.
+    -- https://github.com/RRethy/nvim-treesitter-endwise
+    endwise = { enable = true },
 
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     textobjects = {
-        swap = {
-            enable = false,
-        },
+        swap = { enable = false },
         select = {
             enable = true,
             -- Automatically jump forward to textobj, similar to targets.vim
@@ -66,6 +70,7 @@ configs.setup({
         },
         lsp_interop = { enable = false },
     },
+
     -- https://github.com/p00f/nvim-ts-rainbow
     rainbow = {
         enable = true,

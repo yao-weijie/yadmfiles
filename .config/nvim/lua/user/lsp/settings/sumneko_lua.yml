@@ -8,3 +8,5 @@ Lua.workspace.library:
   - "$VIMRUNTIME/lua/vim"
   - "$HOME/.config/nvim/lua"
   - "$HOME/.local/share/nvim/lazy"
+Lua.workspace.maxPreload: 10000
+Lua.workspace.preloadFileSize: 10000

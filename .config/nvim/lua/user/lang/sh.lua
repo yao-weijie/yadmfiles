@@ -5,8 +5,8 @@ local toolset = {
     server = { "bashls" },
     treesitter = { "bash" },
     sources = {
-        builtins.formatting.shfmt,
         builtins.diagnostics.zsh,
+        builtins.formatting.shfmt,
     },
 }
 

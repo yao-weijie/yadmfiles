@@ -5,6 +5,7 @@ local toolset = {
     dap_adapter = { "codelldb" },
     treesitter = { "c", "cpp", "cmake" },
     sources = {
+        -- C, C++, Java, JavaScript, JSON, C#
         builtins.formatting.clang_format,
     },
 }

@@ -6,19 +6,18 @@ end
 
 local fd_cmd = vim.fn.executable("fdfind") == 1 and "fdfind" or "fd"
 
+local actions = require("telescope.actions")
 telescope.setup({
-    mappings = telescope.default_mappings,
     defaults = {
         prompt_prefix = "🔍 ",
         selection_caret = "->",
         path_display = {
             "smart_case",
             shorten = {
-                len = 5,
+                len = 3,
                 exclude = { 1, -1 },
             },
         },
-        -- generic_sorter = require("mini.fuzzy").get_telescope_sorter,
         sorting_strategy = "ascending", -- put best matching results on the top
         -- horizontal, center, vertical, flex, cursor, bottom_pane
         layout_strategy = "flex",
@@ -31,6 +30,18 @@ telescope.setup({
         },
         -- themes: dropdown: float, ivy: on the bottom, cursor: follow cursor,
         themes = "dropdown",
+        mappings = {
+            i = {
+                -- 和leaderf 相同的快捷键设置
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-p>"] = actions.cycle_history_prev,
+                ["<C-n>"] = actions.cycle_history_next,
+            },
+            n = {
+                ["q"] = actions.close,
+            },
+        },
     },
     pickers = {
         find_files = {
@@ -39,21 +50,18 @@ telescope.setup({
         lsp_references = {
             initial_mode = "normal",
             layout_strategy = "vertical",
-            -- theme = "ivy",
         },
         lsp_implementations = {
             initial_mode = "normal",
             layout_strategy = "vertical",
-            -- theme = "ivy",
         },
     },
     extensions = {
         fzf = {
-            fuzzy = true, -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
         },
         project = {
             base_dirs = {
@@ -62,15 +70,18 @@ telescope.setup({
             },
             hidden_files = false,
             theme = "dropdown",
-            order_by = "asc",
             search_by = "title",
             sync_with_nvim_tree = false,
+        },
+        file_browser = {
+            --
         },
     },
 })
 
 telescope.load_extension("project")
 telescope.load_extension("fzf")
+telescope.load_extension("file_browser")
 
 require("which-key").register({
     ["<leader>f"] = {
@@ -78,6 +89,7 @@ require("which-key").register({
         ["/"] = { "<cmd>Telescope<CR>", "pickers" },
 
         f = { "<cmd>Telescope find_files<CR>", "files" },
+        F = { "<cmd>Telescope file_browser<CR>", "file browser" },
         b = { "<cmd>Telescope buffers<CR>", "buffers" },
         l = { "<cmd>Telescope current_buffer_fuzzy_find<CR>", "lines" },
         L = { "<cmd>Telescope live_grep<CR>", "live grep" },
@@ -96,6 +108,7 @@ require("which-key").register({
         s = { "<cmd>Telescope lsp_document_symbols<CR>", "lsp_document_symbols" },
         S = { "<cmd>Telescope lsp_workspace_symbols<CR>", "lsp_workspace_symbols" },
     },
+    ["<C-f>"] = { "<cmd>Telescope current_buffer_fuzzy_find<CR>", "lines" },
 }, {})
 vim.cmd([[
     cnoremap <expr> ;t getcmdtype() == ':' ? 'Telescope ' : ';t'

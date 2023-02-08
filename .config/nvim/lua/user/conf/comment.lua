@@ -5,53 +5,28 @@ if not status_ok then
 end
 
 Comment.setup({
-    ---Add a space b/w comment and the line
-    ---@type boolean|fun():boolean
     padding = true,
 
-    ---Whether the cursor should stay at its position
-    ---NOTE: This only affects NORMAL mode mappings and doesn't work with dot-repeat
-    ---@type boolean
     sticky = true,
 
-    ---Lines to be ignored while comment/uncomment.
-    ---Could be a regex string or a function that returns a regex string.
-    ---Example: Use '^$' to ignore empty lines
-    ---@type string|fun():string
     ignore = "^$",
 
-    ---LHS of toggle mappings in NORMAL + VISUAL mode
-    ---@type table
     toggler = {
-        ---Line-comment toggle keymap
         line = "<leader>cc",
-        ---Block-comment toggle keymap
-        block = "<leader>cb",
+        block = "<leader>CC",
     },
 
-    ---LHS of operator-pending mappings in NORMAL + VISUAL mode
-    ---@type table
     opleader = {
-        ---Line-comment keymap
         line = "<leader>c",
-        -- -Block-comment keymap
-        block = "<leader>b",
+        block = "<leader>C",
     },
 
-    ---LHS of extra mappings
-    ---@type table
     extra = {
-        ---Add comment on the line above
         above = "<leader>cO",
-        ---Add comment on the line below
         below = "<leader>co",
-        ---Add comment at the end of line
         eol = "<leader>cA",
     },
 
-    ---Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
-    ---NOTE: If `mappings = false` then the plugin won't create any mappings
-    ---@type boolean|table
     mappings = {
         ---Operator-pending mapping
         ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
@@ -62,11 +37,6 @@ Comment.setup({
         extra = true,
     },
 
-    ---Pre-hook, called before commenting the line
-    ----@type fun(ctx: CommentCtx):string
     pre_hook = nil,
-
-    ---Post-hook, called after commenting is done
-    ----@type fun(ctx: CommentCtx)
     post_hook = nil,
 })

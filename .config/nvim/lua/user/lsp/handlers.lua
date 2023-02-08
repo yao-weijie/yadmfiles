@@ -17,7 +17,7 @@ M.on_attach = function(client, bufnr)
     }, opts)
     -- Trouble可以显示null-ls linter的信息,所以不绑定buffer
     require("which-key").register({
-        ["<leader>d"] = { "<cmd>Trouble<CR>", "diagnostics trouble" },
+        ["<leader>d"] = { "<cmd>Trouble document_diagnostics<CR>", "diagnostics trouble" },
     }, {})
 end
 
@@ -80,7 +80,7 @@ M.setup = function()
     -- 通过yaml/json文件来设置lsp-server
     -- nlspsettings必须放在server启动之前
     require("nlspsettings").setup({
-        config_home = vim.fn.stdpath("config") .. "/lua/user/lsp/nlsp-settings",
+        config_home = vim.fn.stdpath("config") .. "/lua/user/lsp/settings",
         loader = "yaml",
         nvim_notify = { enable = true },
     })
@@ -89,15 +89,16 @@ M.setup = function()
     require("mason-lspconfig").setup({})
     require("mason-lspconfig").setup_handlers({
         function(server_name)
-            local capabilities = M.capabilities
-            if server_name == "clangd" then
-                capabilities.offsetEncoding = { "utf-16" }
-            end
+            -- local capabilities = M.capabilities
+            -- if server_name == "clangd" then
+            --     capabilities.offsetEncoding = { "utf-16" }
+            -- end
+
             require("lspconfig")[server_name].setup({
                 on_attach = M.on_attach,
-                capabilities = capabilities,
+                capabilities = M.capabilities,
                 flags = M.lsp_flags,
-                root_dir = require("lspconfig").util.root_pattern(vim.g.ROOT_MARKERS),
+                -- root_dir = require("lspconfig").util.root_pattern(vim.g.ROOT_MARKERS),
             })
         end,
     })

@@ -25,7 +25,6 @@ end
 
 local load_ignores = {
     "init.lua",
-    "README.md",
 }
 
 -- TODO

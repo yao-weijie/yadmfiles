@@ -12,11 +12,6 @@ augroup _hlsearch
     autocmd cursorhold * set nohlsearch
 augroup end
 
-augroup _tabsize
-    autocmd!
-    autocmd FileType json,yaml,tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
-augroup end
-
 if has("wsl")
     let s:clip = '/mnt/c/Windows/System32/clip.exe'
     if executable(s:clip)

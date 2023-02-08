@@ -187,12 +187,6 @@ local plugins = {
     { "karb94/neoscroll.nvim" },
     { "akinsho/toggleterm.nvim", version = "*" },
     "aserowy/tmux.nvim",
-    { -- 控制输入法状态
-        "lilydjwg/fcitx.vim",
-        cond = function() return vim.fn.has("linux") == 1 and vim.fn.has("wsl") == 0 end,
-        event = { "InsertEnter" },
-        config = function() vim.g.fcitx5_rime = 1 end
-    },
     -- leetcode
     -- {
     --     dir = "~/Projects/leetcode-cli.nvim",

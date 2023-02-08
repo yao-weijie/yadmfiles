@@ -127,8 +127,6 @@ local plugins = {
             "folke/trouble.nvim",
             "ray-x/lsp_signature.nvim",
             "jose-elias-alvarez/null-ls.nvim",
-            { "j-hui/fidget.nvim", config=true },
-            { "wlh320/rime-ls", build = "cargo build --release" },
 
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",

@@ -44,7 +44,7 @@ local function on_attach(client, bufnr)
         client.request("workspace/executeCommand", { command = "rime-ls.sync-user-data" })
     end, {})
 
-    vim.keymap.set("i", "<C-t>", function()
+    vim.keymap.set("i", "<C-r>", function()
         toggle_rime()
     end, { buffer = bufnr })
 end

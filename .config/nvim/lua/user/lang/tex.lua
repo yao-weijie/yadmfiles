@@ -5,7 +5,7 @@ local toolset = {
     server = { "texlab", "ltex" },
     treesitter = { "latex" },
     sources = {
-        -- builtins.formatting.latexindent,
+        builtins.formatting.latexindent,
     },
 }
 
@@ -86,10 +86,21 @@ vim.cmd([[
     augroup _VimTeX
         autocmd!
         autocmd BufWritePost *.tex call vimtex#toc#refresh()
-        autocmd FileType tex nnoremap <buffer> <leader>o <cmd>VimtexTocToggle<CR>
-        autocmd FileType tex nnoremap == gg=G
         autocmd FileType tex setlocal conceallevel=2
         autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+        autocmd FileType tex nnoremap <buffer> <leader>o <cmd>VimtexTocToggle<CR>
+        autocmd FileType tex nnoremap <buffer> == gg=G
+        autocmd FileType tex nnoremap <buffer> H g^
+        autocmd FileType tex nnoremap <buffer> L g$
+        autocmd FileType tex vnoremap <buffer> H g^
+        autocmd FileType tex vnoremap <buffer> L g$
+        autocmd FileType tex onoremap <buffer> H g^
+        autocmd FileType tex onoremap <buffer> L g$
+        autocmd FileType tex nnoremap <buffer> <Down> gj
+        autocmd FileType tex vnoremap <buffer> <Down> gj
+        autocmd FileType tex nnoremap <buffer> <Up> gk
+        autocmd FileType tex vnoremap <buffer> <Up> gk
     augroup END
 ]])
 

@@ -37,23 +37,35 @@ local source_candidates = {
         end,
     },
     treesitter = { name = "treesitter", menu = "[TS]" },
-    path = { name = "path", menu = "[Path]", group_index = 1 },
+    path = { name = "path", menu = "[Path]" },
     buffer = { name = "buffer", menu = "[Buf]" },
     spell = { name = "spell", menu = "[Spell]" },
     nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
-    luarime = {
-        name = "luarime",
-        menu = "[Rime]",
-        option = {
-            shared_data_dir = "/usr/share/rime-data",
-            user_data_dir = vim.fn.getenv("HOME") .. "/.local/share/cmp-luarime",
-            max_candidates = 10,
-        },
-    },
-    cmdline = { name = "cmdline", menu = "[Command]", group_index = 2 },
+    rime = { name = "rime", menu = "[Rime]" },
+    cmdline = { name = "cmdline", menu = "[Command]" },
     cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
     dap = { name = "dap", menu = "[Dap]" },
 }
+
+local cmp_rime = require("cmp_rime")
+cmp_rime.setup({
+    libpath = "librime.so",
+    traits = {
+        shared_data_dir = "/usr/share/rime-data",
+        user_data_dir = vim.fn.expand("~/.local/share/cmp-rime"),
+        log_dir = "/tmp/cmp-rime",
+    },
+    enable = {
+        global = false,
+        comment = true,
+    },
+    preselect = true,
+    auto_commit = false,
+    number_select = 5,
+})
+vim.keymap.set({ "n", "i" }, "<C-g>", function()
+    cmp_rime.mapping.toggle()
+end, { desc = "toggle rime" })
 
 cmp.setup({
     window = {
@@ -72,26 +84,37 @@ cmp.setup({
             end,
         }),
     },
+
     -- global setting and can be overwritten in sources
     experimental = { ghost_text = true },
     sources = {
         source_candidates.nvim_lsp,
         source_candidates.luasnip,
         source_candidates.buffer,
-        source_candidates.luarime,
+        source_candidates.rime,
         source_candidates.path,
+        source_candidates.nvim_lsp_signature_help,
     },
+    matching = {
+        disallow_fuzzy_matching = true,
+        disallow_partial_fuzzy_matching = true,
+        disallow_partial_matching = true,
+        disallow_prefix_unmatching = true,
+    },
+
     sortting = {
-        priority_weight = 1.0,
+        priority = 0,
         comparators = {
-            compare.sort_text,
-            compare.offset,
-            compare.exact,
-            compare.score,
-            compare.recently_used,
-            compare.kind,
-            compare.length,
-            compare.order,
+            -- compare.sort_text,
+            -- require("cmp_rime.compare").length,
+            -- require("cmp_rime.compare").order,
+            -- compare.length,
+            -- compare.offset,
+            -- compare.exact,
+            -- compare.score,
+            -- compare.recently_used,
+            -- compare.kind,
+            -- compare.order,
         },
     },
 
@@ -111,6 +134,7 @@ cmp.setup({
             end
         end, { "i", "s" }),
         ["<C-k>"] = cmp.mapping(function(fallback)
+            -- TODO: check  in snippet
             if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             elseif cmp.visible() then
@@ -123,27 +147,18 @@ cmp.setup({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
 
-        -- toggle cmp window
-        ["<C-space>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.abort()
-            else
-                cmp.complete()
-            end
-        end),
-        -- rime-ls 空格上屏
-        ["<Space>"] = cmp.mapping(function(fallback)
-            if cmp.visible() and vim.g.rime_enabled then
-                cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace })
-                cmp.close()
-            else
-                fallback()
-            end
-        end),
-        ["<CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            -- select = true,
-        }),
+        ["<C-n>"] = cmp_rime.mapping.select_next_item,
+        ["<C-p>"] = cmp_rime.mapping.select_prev_item,
+
+        ["<C-Space>"] = cmp_rime.mapping.toggle_menu,
+        ["<Space>"] = cmp_rime.mapping.space_commit,
+        ["<CR>"] = cmp_rime.mapping.confirm,
+
+        ["."] = cmp_rime.mapping.page_down,
+        [","] = cmp_rime.mapping.page_up,
+
+        [";"] = cmp_rime.mapping["2"],
+        ["'"] = cmp_rime.mapping["3"],
     }),
 })
 
@@ -167,7 +182,7 @@ cmp.setup.cmdline(":", {
 
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
     sources = {
-        { name = "dap" },
+        source_candidates.dap,
     },
 })
 

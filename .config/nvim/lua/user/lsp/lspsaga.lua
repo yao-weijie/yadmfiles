@@ -9,11 +9,15 @@ saga.setup({
         enable = true,
     },
     finder = {
-        edit = { "<CR>", "o" },
-        split = "<C-x>",
-        vsplit = "<C-v>",
-        tabe = "<C-t>",
-        quit = { "q" },
+        keys = {
+            jump_to = "p", -- 跳到预览框里
+            edit = { "o", "<CR>" }, -- 跳到文件定义处
+            split = "<C-x>",
+            vsplit = "<C-v>",
+            tabe = "<C-t>",
+            quit = { "q" },
+            close_in_preview = "<Esc>",
+        },
     },
     definition = {
         edit = "<CR>",
@@ -21,7 +25,7 @@ saga.setup({
         vsplit = "<C-v>",
         tabe = "<C-t>",
         quit = "q",
-        close = "q",
+        close = "<Esc>",
     },
     callhierarchy = {
         show_detail = false,

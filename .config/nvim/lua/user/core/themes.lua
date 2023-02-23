@@ -1,19 +1,14 @@
 local dark_themes = {
-    "nightfox",
-    "duskfox",
-    "nordfox",
-    "carbonfox",
     "tokyonight",
     "tokyonight-moon",
     "tokyonight-night",
     "tokyonight-storm",
 }
 local light_themes = {
-    "dayfox",
-    "terafox",
     "tokyonight-day",
 }
 
+math.randomseed(os.clock())
 if vim.o.background == "dark" then
     vim.cmd("colorscheme " .. dark_themes[math.random(#dark_themes)])
 else

@@ -27,7 +27,7 @@ nnoremap U <C-r>
 
 nnoremap j gj
 nnoremap k gk
-
+     """"""""''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''           ''''''''''''''''''''''''''''''
 " H, L jump to line home / end
 nnoremap H ^
 nnoremap L $
@@ -45,18 +45,18 @@ nnoremap # #N:set hlsearch<CR>
 " q/Q and quit
 nnoremap Q q
 nnoremap q <Nop>
-" nnoremap <leader>x :x<CR>
+nnoremap <leader>x :x<CR>
 nnoremap <leader>q :bd<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>Q :copen<CR>
 
 " paste
-" BUG:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
+" TODO:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
 vnoremap p P
 vnoremap P p
 
 " format
-nnoremap <leader>= gg=G<C-o>zz:w<CR>
+nnoremap <leader>= gg=G
 vnoremap > >gv
 vnoremap < <gv
 
@@ -85,6 +85,7 @@ inoremap <C-e>   <End>
 inoremap <C-f>   <Right>
 inoremap <C-b>   <Left>
 inoremap <C-Del> <C-o>dw
+inoremap <C-k>   <C-o>c$
 
 inoremap <M-w> <C-Right>
 inoremap <M-b> <C-Left>
@@ -92,3 +93,7 @@ inoremap <M-b> <C-Left>
 inoremap <C-l> <C-o>zz
 
 cnoremap <expr> ;; getcmdtype() == ':' ? expand('%:p:h') .'/' : ';p'
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>

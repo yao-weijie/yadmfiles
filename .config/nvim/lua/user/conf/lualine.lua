@@ -13,7 +13,7 @@ local diagnostics = {
 }
 
 local rime_status = function()
-    if vim.g.rime_enabled then
+    if require("cmp_rime").status() then
         return "ㄓ"
     else
         return "EN"
@@ -24,7 +24,6 @@ local python_env = function()
     if vim.bo.filetype ~= "python" then
         return ""
     end
-    -- local ok, env = pcall("require", "py-env.nvim")
 
     return ""
 end
@@ -40,36 +39,17 @@ local tex_words = function()
     return "words:" .. vim.fn.call("vimtex#misc#wordcount", {})
 end
 
-local winbar_symbols = function()
-    return require("lspsaga.symbolwinbar"):get_winbar() or ""
-end
-
-local buffers = {
-    "buffers",
-    mode = 2,
-    filetype_names = {
-        TelescopePrompt = "Telescope",
-        dashboard = "Dashboard",
-        packer = "Packer",
-        fzf = "FZF",
-        alpha = "Alpha",
-    },
-}
-
 lualine.setup({
     options = {
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         always_divide_middle = true,
         globalstatus = true,
-        -- refresh = {
-        --     winbar = 100,
-        -- },
         ignore_focus = {
             "NvimTree",
         },
         disabled_filetypes = {
-            -- "help",
+            "help",
             "alpha",
             "dashboard",
             "NvimTree",

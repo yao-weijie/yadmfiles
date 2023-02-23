@@ -54,6 +54,8 @@ dressing.setup({
             i = {
                 ["<C-c>"] = "Close",
                 ["<CR>"] = "Confirm",
+                ["<C-p>"] = "HistoryPrev",
+                ["<C-n>"] = "HistoryNext",
                 ["<Up>"] = "HistoryPrev",
                 ["<Down>"] = "HistoryNext",
             },
@@ -73,7 +75,7 @@ dressing.setup({
         enabled = true,
 
         -- Priority list of preferred vim.select implementations
-        backend = { "telescope", "builtin", "nui" },
+        backend = { "telescope" },
 
         -- Trim trailing `:` from prompt
         trim_prompt = true,
@@ -113,18 +115,6 @@ dressing.setup({
                 ["<C-c>"] = "Close",
                 ["<CR>"] = "Confirm",
             },
-
-            override = function(conf)
-                -- This is the config that will be passed to nvim_open_win.
-                -- Change values here to customize the layout
-                return conf
-            end,
         },
-
-        -- Used to override format_item. See :help dressing-format
-        format_item_override = {},
-
-        -- see :help dressing_get_config
-        get_config = nil,
     },
 })

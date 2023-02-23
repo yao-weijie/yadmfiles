@@ -28,7 +28,7 @@ configs.setup({
         additional_vim_regex_highlighting = false,
     },
 
-    indent = { enable = true },
+    indent = { enable = false },
     -- Wisely add "end" in Ruby, Vimscript, Lua, etc.
     -- https://github.com/RRethy/nvim-treesitter-endwise
     endwise = { enable = true },
@@ -71,7 +71,7 @@ configs.setup({
         lsp_interop = { enable = false },
     },
 
-    -- https://github.com/p00f/nvim-ts-rainbow
+    -- https://github.com/p00f/nvim-ts-rainbow2
     rainbow = {
         enable = true,
         extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean

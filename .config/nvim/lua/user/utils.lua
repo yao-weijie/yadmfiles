@@ -2,10 +2,10 @@ local M = {}
 
 M.create_file = function()
     vim.ui.input("File path", function(path)
+        vim.cmd(":e " .. path)
         vim.notify(path)
     end)
 end
-M.create_file()
 
 M.join_path = function(...)
     local args = { ... }

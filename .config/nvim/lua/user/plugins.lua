@@ -17,7 +17,7 @@ local plugins = {
     { "folke/lazy.nvim" },
     { "nvim-lua/popup.nvim" },
     { "nvim-lua/plenary.nvim" },
-    { "kyazdani42/nvim-web-devicons" },
+    { "nvim-tree/nvim-web-devicons" },
     { "onsails/lspkind.nvim" },
     { "MunifTanjim/nui.nvim" },
 
@@ -25,8 +25,7 @@ local plugins = {
     -- load color scheme plugins before other
     { -- colorschemes
         "folke/tokyonight.nvim",
-        dependencies = { -- other themes
-            "EdenEast/nightfox.nvim",
+            dependencies = { -- other themes
         },
         priority = 1000,
         config = function() require("user.core.themes") end,
@@ -58,15 +57,15 @@ local plugins = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "rcarriga/cmp-dap",
-            { dir="~/Projects/cmp-luarime" },
-            -- "Ninlives/cmp-rime",
+            { dir="~/Projects/dev/cmp-rime" },
             "saadparwaiz1/cmp_luasnip",
+            -- "hrsh7th/cmp-nvim-lsp-signature-help",
 
             "L3MON4D3/LuaSnip",
             "rafamadriz/friendly-snippets",
             "honza/vim-snippets",
         },
-        event = { "InsertEnter" },
+        event = { "VeryLazy" },
         config = function() require("user.core.cmp") end,
     },
     { --fuzzy search
@@ -123,12 +122,12 @@ local plugins = {
         "neovim/nvim-lspconfig",
         dependencies = {
             "tamago324/nlsp-settings.nvim",
-            "glepnir/lspsaga.nvim",
+            { "glepnir/lspsaga.nvim", commit="4572ea5010a690e0bc5f132c1df27072df0ecdc1" },
             "folke/trouble.nvim",
             "ray-x/lsp_signature.nvim",
             "jose-elias-alvarez/null-ls.nvim",
 
-            "williamboman/mason.nvim",
+            { "williamboman/mason.nvim", commit="24846a00941ec020c8addc7f52040a1b2fc12174" },
             "williamboman/mason-lspconfig.nvim",
             "jay-babu/mason-null-ls.nvim",
         },
@@ -149,7 +148,15 @@ local plugins = {
         ft = { "python", "c", "cpp" },
         config = function()
             require("user.dap")
-            require("user.dap.keymap").setup({ "*.py", "*.c", "*.cc", "*.cpp" })
+            vim.api.nvim_create_autocmd({ "FileType" }, {
+                pattern = "python,c,cpp",
+                callback = function(file)
+                    require("which-key").register({
+                        ["<F8>"] = { "<cmd>DapContinue<CR>", "start debug" },
+                        ["<2-LeftMouse>"] = { "<cmd>PBToggleBreakpoint<CR>", "toggle breakpont" },
+                    }, { buffer = file.buf })
+                end,
+            })
         end,
     },
 
@@ -179,18 +186,30 @@ local plugins = {
     -- NOTE: other tools
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
-    "skywind3000/vim-quickui",
+    "akinsho/git-conflict.nvim",
+    "rbong/vim-flog",
+    "tpope/vim-fugitive",
+    { "skywind3000/vim-quickui",
+        init = function()
+            vim.g.quickui_color_scheme = "gruvbox"
+            vim.g.quickui_border_style = 3
+            vim.g.quickui_show_tip = 1
+        end
+    },
     -- "junegunn/fzf",
     { "voldikss/vim-translator", cmd = { "TranslateW" } },
+    { "mbbill/undotree" },
     { "karb94/neoscroll.nvim" },
     { "akinsho/toggleterm.nvim", version = "*" },
     "aserowy/tmux.nvim",
     -- leetcode
-    -- {
-    --     dir = "~/Projects/leetcode-cli.nvim",
-    --     config = true,
-    --     ft = "python",
-    -- },
+    {
+        dir = "~/Projects/dev/leetcode.nvim",
+        -- dependencies = { "kkharji/sqlite.lua" },
+        opts = {
+            leetcode_china = true,
+        }
+    },
     -- filetype specified plugins configured in user/lang/<ft>.lua
     { "kevinhwang91/nvim-bqf", ft = "qf" },
     -- { -- generate python docstring
@@ -199,6 +218,11 @@ local plugins = {
         -- ft = "python",
     -- },
     { "lervag/vimtex", version = "*", ft = "tex" },
+    -- { "nvim-orgmode/orgmode",
+    --     config=function()
+    --         require('orgmode').setup_ts_grammar()
+    -- end},
+    -- { "epwalsh/obsidian.nvim" },
 }
 
 require("lazy").setup(plugins)

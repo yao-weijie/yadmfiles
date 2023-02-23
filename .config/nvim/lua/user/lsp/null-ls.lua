@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command("LspFormat", function()
 
     vim.lsp.buf.format({
         -- 加上这个好像下面自动格式化会有点问题
-        -- async = true,
+        async = true,
         filter = function(client)
             return client.name == "null-ls"
         end,

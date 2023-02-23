@@ -29,11 +29,17 @@ toggleterm.setup({
     },
 })
 
-function _G.set_terminal_keymaps()
+function set_terminal_keymaps()
     local opts = { noremap = true }
     local keymap = vim.keymap.set
 end
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+-- vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
+    callback = function()
+        set_terminal_keymaps()
+    end,
+})
 
 local Terminal = require("toggleterm.terminal").Terminal
 local float_opts = {

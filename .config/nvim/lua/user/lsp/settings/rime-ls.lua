@@ -16,7 +16,7 @@ if not configs.rime_ls then
                 shared_data_dir = "/usr/share/rime-data",
                 user_data_dir = vim.fn.expand("~/.local/share/rime-ls"),
                 log_dir = vim.fn.expand("~/.local/share/rime-ls/log"),
-                max_candidates = 10,
+                max_candidates = 5,
                 trigger_characters = {},
             },
         },
@@ -36,6 +36,11 @@ local function on_attach(client, bufnr)
         client.request("workspace/executeCommand", { command = "rime-ls.toggle-rime" }, function(_, result, ctx, _)
             if ctx.client_id == client.id then
                 vim.g.rime_enabled = result
+                if vim.g.rime_enabled then
+                    vim.cmd([[set pumheight=5]])
+                else
+                    vim.cmd([[set pumheight=8]])
+                end
             end
         end)
     end
@@ -44,7 +49,7 @@ local function on_attach(client, bufnr)
         client.request("workspace/executeCommand", { command = "rime-ls.sync-user-data" })
     end, {})
 
-    vim.keymap.set("i", "<C-r>", function()
+    vim.keymap.set("i", "<C-o>", function()
         toggle_rime()
     end, { buffer = bufnr })
 end

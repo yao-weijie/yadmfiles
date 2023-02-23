@@ -1,11 +1,11 @@
 -- TODO
 local call = vim.api.nvim_call_function
 
--- set menu style
-vim.g.quickui_color_scheme = "gruvbox"
--- border style not work(bug?)
-vim.g.quickui_border_style = 2
-vim.g.quickui_show_tip = 1
+-- -- set menu style
+-- vim.g.quickui_color_scheme = "gruvbox"
+-- -- border style not work(bug?)
+-- vim.g.quickui_border_style = 2
+-- vim.g.quickui_show_tip = 1
 
 -- file, project, preferences
 local menu_file = {

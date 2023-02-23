@@ -10,7 +10,7 @@ M.on_attach = function(client, bufnr)
         ["gr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "reanme symbol" },
         ["<C-LeftMouse>"] = { "<cmd>Lspsaga lsp_finder<CR>", "preview definition" },
         ["gh"] = { "<cmd>Lspsaga lsp_finder<CR>", "preview definition" },
-        ["gd"] = { "<cmd>Lspsaga peek_definition<CR>", "preview definition" },
+        -- ["gd"] = { "<cmd>Lspsaga peek_definition<CR>", "preview definition" },
         ["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code_action" },
         ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "diagnostics prev" },
         ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "diagnostics next" },
@@ -89,10 +89,10 @@ M.setup = function()
     require("mason-lspconfig").setup({})
     require("mason-lspconfig").setup_handlers({
         function(server_name)
-            -- local capabilities = M.capabilities
-            -- if server_name == "clangd" then
-            --     capabilities.offsetEncoding = { "utf-16" }
-            -- end
+            local capabilities = M.capabilities
+            if server_name == "clangd" then
+                capabilities.offsetEncoding = { "utf-16" }
+            end
 
             require("lspconfig")[server_name].setup({
                 on_attach = M.on_attach,

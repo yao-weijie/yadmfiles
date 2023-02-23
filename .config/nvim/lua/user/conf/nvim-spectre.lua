@@ -5,12 +5,6 @@ if not status_ok then
 end
 
 spectre.setup({
-    color_devicons = true,
-    open_cmd = "vnew",
-    live_update = false, -- auto excute search again when you write any file in vim
-    line_sep_start = "-----------------------------------------",
-    result_padding = "  ",
-    line_sep = "-----------------------------------------",
     highlight = {
         ui = "String",
         search = "DiffDelete",
@@ -25,30 +19,62 @@ spectre.setup({
         },
         -- 前往文件
         ["enter_file"] = {
-            map = "o",
+            map = "gf",
             cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
             desc = "goto current file",
         },
         -- 查看菜单（忽略大小写、忽略隐藏文件）
         ["show_option_menu"] = {
-            map = "<leader>o",
+            map = "ga",
             cmd = "<cmd>lua require('spectre').show_options()<CR>",
             desc = "show option",
         },
         -- 开始替换
         ["run_replace"] = {
-            map = "<leader>r",
+            map = "R",
             cmd = "<cmd>lua require('spectre.actions').run_replace()<CR>",
             desc = "replace all",
         },
         -- 显示差异
         ["change_view_mode"] = {
-            map = "<leader>v",
+            map = "D",
             cmd = "<cmd>lua require('spectre').change_view()<CR>",
             desc = "change result view mode",
+        },
+        ["send_to_qf"] = {
+            map = "<leader>Q",
+            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+            desc = "send all item to quickfix",
+        },
+        ["run_current_replace"] = {
+            map = "r",
+            cmd = "<cmd>lua require('spectre.actions').run_current_replace()<CR>",
+            desc = "replace current line",
+        },
+        ["toggle_live_update"] = {
+            map = "tu",
+            cmd = "<cmd>lua require('spectre').toggle_live_update()<CR>",
+            desc = "update change when vim write file.",
+        },
+        ["toggle_ignore_case"] = {
+            map = "tc",
+            cmd = "<cmd>lua require('spectre').change_options('ignore-case')<CR>",
+            desc = "toggle ignore case",
+        },
+        ["toggle_ignore_hidden"] = {
+            map = "th",
+            cmd = "<cmd>lua require('spectre').change_options('hidden')<CR>",
+            desc = "toggle search hidden",
+        },
+
+        -- unused
+        ["replace_cmd"] = {
+            map = "<leader>c",
+            cmd = "<cmd>lua require('spectre.actions').replace_cmd()<CR>",
+            desc = "input replace vim command",
         },
     },
 })
 require("which-key").register({
-    ["<C-r>"] = { "<cmd>Spectre<CR>", "global replace with rg" },
+    ["<leader>R"] = { "<cmd>Spectre<CR>", "global replace with rg" },
 }, {})

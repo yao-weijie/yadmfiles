@@ -5,7 +5,12 @@ local toolset = {
     server = { "texlab", "ltex" },
     treesitter = { "latex" },
     sources = {
-        builtins.formatting.latexindent,
+        builtins.formatting.latexindent.with({
+            extra_args = {
+                "-g",
+                "/dev/null",
+            },
+        }),
     },
 }
 

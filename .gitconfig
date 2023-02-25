@@ -3,3 +3,5 @@
 [user]
     name = Yao Weijie
     email = yaowj.it@outlook.com
+[core]
+	quotepath = false

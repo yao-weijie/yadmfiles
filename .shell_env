@@ -1,0 +1,88 @@
+add_to_path() {
+	local p=$1
+	if [[ ! $p ]]; then
+		return
+	fi
+
+	if [[ ! "$PATH" == *"$p"* ]]; then
+		export PATH="$p:$PATH"
+	fi
+}
+
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.cargo/bin"
+. "$HOME/anaconda3/etc/profile.d/conda.sh"
+add_to_path "/opt/TinyTeX/bin/x86_64-linux"
+add_to_path "$HOME/.local/share/nvim/mason/bin"
+# need to config npm
+# mkdir -p ~/.local/share/npm-global
+# npm config set prefix '~/.local/share/npm-global'
+add_to_path "$HOME/.local/share/npm-global/bin"
+if [[ -d /opt/java/jdk-11 ]]; then
+	JAVA_HOME=/opt/java/jdk-11
+	JRE_HOME=/opt/java/jdk-11/jre
+	CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+
+	add_to_path "$JAVA_HOME/bin"
+	add_to_path "$JRE_HOME/bin"
+	export JAVA_HOME JRE_HOME CLASS_PATH
+fi
+# 去除重复内容, 且不排序
+export PATH=$(echo $PATH | sed "s/:/\n/g" | uniq | tr -s "\n" ":" | sed "s/:$//g")
+
+# 禁用python输出缓存，实时输出结果到屏幕和文件, 或者在执行的时候加上 -u 参数
+export PYTHONUNBUFFERED=1
+
+if [[ ! ($TERM == "xterm-256color" || $TERM == "tmux-256color") ]]; then
+	export TERM="xterm-256color"
+fi
+
+# default editor
+export EDITOR=nvim
+
+GLFW_IM_MODULE=ibus
+
+if [ $WSL_DISTRO_NAME ]; then
+	n=$(cat /etc/resolv.conf | grep -o nameserver | wc -l)
+	# /etc/resolv.conf文件中只有一个nameserver则是wsl2,否则是wsl1
+	if [ $n -eq 1 ]; then
+		export WSL_VERSION=2
+		export WSL_HOST_IP=$(cat /etc/resolv.conf | grep "nameserver" | cut -f 2 -d " ")
+		export DISPLAY=$WSL_HOST_IP:0
+	else
+		export WSL_VERSION=1
+	fi
+fi
+
+function setproxy() {
+	# default
+	host_ip="127.0.0.1"
+	proxy_port=7890
+
+	# if .. then ..
+	[[ $1 ]] && host_ip=$1
+	[[ $2 ]] && proxy_port=$2
+	[[ $WSL_VERSION -eq 2 ]] && host_ip=$WSL_HOST_IP
+
+	export http_proxy="http://${host_ip}:${proxy_port}"
+	export https_proxy="http://${host_ip}:${proxy_port}"
+	export all_proxy="socks5://${host_ip}:${proxy_port}"
+	echo "set http(s)_proxy=${http_proxy}"
+	echo "set all_proxy=${all_proxy}"
+}
+# alias unproxy="unset http_proxy;unset https_proxy;unset all_proxy;echo 'unset http(s)_proxy';echo 'unset all_proxy'"
+function unproxy() {
+	unset http_proxy
+	unset https_proxy
+	unset all_proxy
+	echo "unset http(s)_proxy"
+	echo "unset all_proxy"
+}
+function proxyenv() {
+	echo "http_proxy=$http_proxy"
+	echo "https_proxy=$https_proxy"
+	echo "all_proxy=$all_proxy"
+}
+setproxy >/dev/null
+
+# vim:ft=sh:

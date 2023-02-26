@@ -1,0 +1,57 @@
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls="ls --color=auto"
+	alias dir="dir --color=auto"
+	alias vdir="vdir --color=auto"
+
+	alias grep="grep --color=auto"
+	alias fgrep="fgrep --color=auto"
+	alias egrep="egrep --color=auto"
+fi
+
+# some more ls aliases
+alias ll="ls -lFh"
+alias la="ls -lAFh"
+alias l="ls -CF"
+alias lsg="ll | grep "
+alias lag="la | grep"
+# 返回上一级、上两级、上三级目录
+alias ..="cd ..; l"
+alias ...="cd ../..; l"
+alias ....="cd ../../..; l"
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias baidu="ping www.baidu.com"
+
+# apt alias
+alias update="sudo apt update"
+alias upgrade="sudo apt upgrade -y"
+alias distupgrade="sudo apt dist-upgrade -y"
+alias upgradable="apt list --upgradable"
+alias autoremove="sudo apt autoremove"
+alias cleanconf="dpkg -l | grep ^rc | awk '{print \$2}' | sudo xargs dpkg -P"
+
+alias of5="source ~/OpenFOAM/OpenFOAM-5.x/etc/bashrc; echo sourced OpenFOAM-5.x"
+
+if [[ $SHELL == *zsh* ]]; then
+	alias reload="source ~/.zshrc; echo reloaded ~/.zshrc"
+elif [[ $SHELL == *bash* ]]; then
+	alias reload="source ~/.bashrc; echo reloaded ~/.bashrc"
+fi
+alias nv="nvim"
+alias cls="clear"
+alias bat="batcat"
+alias cda="conda activate "
+alias cdd="conda deactivate "
+alias dea="deactivate"
+alias autoenv="touch .autoenv.zsh .autoenv_leave.zsh && chmod +x .autoenv.zsh .autoenv_leave.zsh && echo 'touched .autoenv.zsh and .autoenv_leave.zsh'"
+alias rmautoenv='trash .autoenv.zsh .autoenv_leave.zsh'
+alias cp="cp -r"
+alias rm="rm -i" # 使用rm 删除的时候，会有一个确认的提示。
+alias psg="ps -A | grep"
+
+# vim:ft=sh:

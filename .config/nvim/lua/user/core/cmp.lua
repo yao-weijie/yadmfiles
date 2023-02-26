@@ -204,6 +204,10 @@ vim.cmd([[
     highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
     highlight! link CmpItemKindProperty CmpItemKindKeyword
     highlight! link CmpItemKindUnit CmpItemKindKeyword
+
+    " 文档window 隐藏链接
+    autocmd FileType cmp_docs setlocal filetype=markdown
+    autocmd FileType markdown setlocal conceallevel=2
 ]])
 
 -- other settings

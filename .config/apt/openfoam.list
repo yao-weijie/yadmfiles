@@ -1,0 +1,3 @@
+# 适用于ubuntu 18.04
+deb http://dl.cfdem.cn/ubuntu bionic main
+# deb-src http://dl.cfdem.cn/ubuntu bionic main

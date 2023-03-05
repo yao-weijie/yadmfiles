@@ -1,7 +1,5 @@
-source ~/.config/nvim/lua/user/basic/init.vim
+source ~/.config/nvim/lua/config/init.vim
 
 if has("nvim")
-    lua require("user.plugins")
-    lua require("user.conf")
-    lua require("user.lang")
+    lua require("plugins")
 endif

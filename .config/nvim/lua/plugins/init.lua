@@ -14,6 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
     dev = {
         path = "~/Projects/dev/",
+        fallback = true, -- 如果本地没有就用github 上的
+    },
+    git = {
+        log = { "-10" },
     },
 })
 

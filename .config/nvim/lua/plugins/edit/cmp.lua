@@ -43,15 +43,10 @@ return {
             "yao-weijie/cmp-rime",
             dev = true,
             opts = {
-                traits = {
-                    shared_data_dir = "/usr/share/rime-data",
-                    user_data_dir = vim.fn.expand("~/.local/share/cmp-rime"),
-                },
                 enable = {
-                    global = false,
                     comment = true,
                 },
-                preset = true,
+                preselect = true,
             },
             keys = {
                 { "<C-g>", "<cmd>lua require('cmp_rime').mapping.toggle()<CR>", mode = { "i", "n" } },

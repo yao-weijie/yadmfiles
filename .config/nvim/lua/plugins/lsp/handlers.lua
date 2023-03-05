@@ -30,36 +30,7 @@ M.lsp_flags = {
 }
 
 M.setup = function()
-    local signs = {
-        { name = "DiagnosticSignError", text = "" },
-        { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
-        { name = "DiagnosticSignInfo", text = "" },
-    }
-
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
-
-    local config = {
-        virtual_text = true,
-        signs = {
-            active = signs,
-        },
-        update_in_insert = false,
-        underline = true,
-        severity_sort = true,
-        float = {
-            focusable = true,
-            style = "minimal",
-            border = "rounded",
-            source = "always",
-            header = "",
-            prefix = "",
-        },
-    }
-
-    vim.diagnostic.config(config)
+    -- diagnostic signs defined in plugins/ui/signs
 
     -- 通过yaml/json文件来设置lsp-server
     -- nlspsettings必须放在server启动之前

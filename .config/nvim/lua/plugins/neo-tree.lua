@@ -6,7 +6,7 @@ return {
         "MunifTanjim/nui.nvim",
     },
     keys = {
-        { "<leader>e", "<cmd>NeoTreeFloatToggle<CR>", "toggle neo-tree" },
+        { "<leader>e", "<cmd>NeoTreeFloatToggle<CR>", desc = "toggle neo-tree" },
     },
     opts = {
         source_selector = {

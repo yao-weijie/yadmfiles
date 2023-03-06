@@ -111,6 +111,7 @@ return {
     cond = vim.fn.executable("latexmk") == 1,
     ft = "tex",
     config = function()
+        vimtex_setup()
         vim.cmd([[
             autocmd BufWritePost *.tex call vimtex#toc#refresh()
             autocmd FileType tex nnoremap <buffer> <leader>o <cmd>VimtexTocToggle<CR>

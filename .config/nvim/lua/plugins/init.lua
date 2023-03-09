@@ -83,7 +83,6 @@ return {
     },
     {
         dir = "~/Projects/dev/leetcode.nvim",
-        ft = { "python" },
         opts = {
             leetcode_china = true,
         },

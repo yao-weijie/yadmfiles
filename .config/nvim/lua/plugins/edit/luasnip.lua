@@ -4,6 +4,7 @@ return {
         "rafamadriz/friendly-snippets",
         "honza/vim-snippets",
     },
+    event = { "InsertEnter" },
     config = function()
         require("luasnip").setup()
         -- load snippet folders in runtimeapth

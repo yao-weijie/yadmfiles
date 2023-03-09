@@ -20,7 +20,7 @@ end
 
 return {
     "nvim-lualine/lualine.nvim",
-    event = { "UIEnter" },
+    event = { "VeryLazy" },
     opts = {
         options = {
             component_separators = { left = "", right = "" },

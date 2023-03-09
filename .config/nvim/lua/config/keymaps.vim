@@ -39,22 +39,20 @@ onoremap H ^
 onoremap L $
 
 " search
-" nnoremap n nzz<cmd>set hlsearch<CR>
-" nnoremap N Nzz<cmd>set hlsearch<CR>
-nnoremap n nzz<cmd>set hlsearch<CR>
-nnoremap N Nzz<cmd>set hlsearch<CR>
-nnoremap * *N<cmd>set hlsearch<CR>
-nnoremap # #N<cmd>set hlsearch<CR>
+nnoremap n nzz:set hlsearch<CR>
+nnoremap N Nzz:set hlsearch<CR>
+nnoremap * *N:set hlsearch<CR>
+nnoremap # #N:set hlsearch<CR>
 
 " q/Q and quit
 nnoremap Q q
 vnoremap Q q
 nnoremap q <Nop>
 vnoremap q <Nop>
-nnoremap <leader>x <cmd>x<CR>
-nnoremap <leader>q <cmd>bd<CR>
-nnoremap <leader>w <cmd>w<CR>
-nnoremap <leader>Q <cmd>copen<CR>
+nnoremap <leader>x :x<CR>
+nnoremap <leader>q :bd<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>Q :copen<CR>
 
 " paste
 " TODO:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
@@ -73,16 +71,16 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " resize window
-nnoremap <C-Up>    <cmd>resize +2<CR>
-nnoremap <C-Down>  <cmd>resize -2<CR>
-nnoremap <C-Left>  <cmd>vertical resize +2<CR>
-nnoremap <C-Right> <cmd>vertical resize -2<CR>
+nnoremap <C-Up>    :resize +2<CR>
+nnoremap <C-Down>  :resize -2<CR>
+nnoremap <C-Left>  :vertical resize +2<CR>
+nnoremap <C-Right> :vertical resize -2<CR>
 
 " previous and next buffer
-nnoremap [b    <cmd>bprevious<CR>
-nnoremap ]b    <cmd>bnext<CR>
-nnoremap <C-n> <cmd>bnext<CR>
-nnoremap <C-p> <cmd>bprevious<CR>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
 
 " emacs mode in insert_mode
 inoremap <C-d>   <Del>

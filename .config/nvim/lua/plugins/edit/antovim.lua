@@ -1,6 +1,5 @@
 return {
     "theniceboy/antovim",
-    event = { "BufRead" },
     config = function()
         vim.g.custom_antovim_definitions = {
             { "on", "off" },

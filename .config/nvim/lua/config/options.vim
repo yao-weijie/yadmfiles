@@ -13,9 +13,6 @@ set fileformats=unix,dos
 
 set cursorline
 set colorcolumn=80
-if has('nvim')
-    set signcolumn=auto:1-2
-endif
 set number
 set numberwidth=2
 set scrolloff=10
@@ -69,6 +66,5 @@ endif
 set hidden
 set updatetime=300
 
-let g:python3_host_prog = "/usr/bin/python3"
 let g:python3_prog_host = "/usr/bin/python3"
 let g:ROOT_MARKERS = [ ".git", ".hg", ".svn", ".root", ".project", "Makefile" ]

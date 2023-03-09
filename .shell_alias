@@ -35,7 +35,7 @@ alias upgradable="apt list --upgradable"
 alias autoremove="sudo apt autoremove"
 alias cleanconf="dpkg -l | grep ^rc | awk '{print \$2}' | sudo xargs dpkg -P"
 
-alias of5="source ~/OpenFOAM/OpenFOAM-5.x/etc/bashrc; echo sourced OpenFOAM-5.x"
+alias of5="source ~/OpenFOAM/OpenFOAM-5.x/etc/bashrc; export PATH=~/OpenFOAM/Paraview-5.4/bin:\$PATH; echo sourced OpenFOAM-5.x"
 
 if [[ $SHELL == *zsh* ]]; then
 	alias reload="source ~/.zshrc; echo reloaded ~/.zshrc"

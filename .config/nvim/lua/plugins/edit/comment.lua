@@ -1,9 +1,6 @@
 return {
     "numToStr/Comment.nvim",
-    -- keys = {
-    --     { "<leader>c", mode = { "n", "v" } },
-    --     { "<leader>C", mode = { "n", "v" } },
-    -- },
+    event = { "BUfRead" },
     opts = {
         padding = true,
         sticky = true,
@@ -27,4 +24,10 @@ return {
             extra = true,
         },
     },
+    config = function(_, opts)
+        require("Comment").setup(opts)
+        local ft = require("Comment.ft")
+
+        ft({ "c", "cpp", "foam" }, { "//%s", "/*%s*/" })
+    end,
 }

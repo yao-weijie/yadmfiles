@@ -21,5 +21,5 @@ if has("wsl")
         augroup end
     endif
 else
-    set clipboard=unnamed
+    set clipboard=unnamedplus
 endif

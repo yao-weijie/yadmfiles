@@ -22,6 +22,7 @@ dap.configurations.python = {
     },
 }
 
+--------------------------------------------------------------------------------
 -- debug编译型语言, 编译参数必须设置成debug模式,如果release模式会闪退
 -- 参考asynctask的设置
 -- local dap = require("dap")
@@ -47,3 +48,4 @@ local lldb = {
 -- c,cpp简单测试过可用
 dap.configurations.c = lldb
 dap.configurations.cpp = lldb
+--------------------------------------------------------------------------------

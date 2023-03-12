@@ -1,5 +1,23 @@
 local M = {}
-local luapath = vim.fn.stdpath("config") .. "/lua/"
+
+M.setup = function()
+    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+        vim.fn.system("git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git " .. lazypath)
+    end
+    vim.opt.rtp:prepend(lazypath)
+
+    require("lazy").setup("plugins", {
+        dev = {
+            path = "~/Projects/dev/",
+            fallback = true, -- 如果本地没有就用github 上的
+        },
+        git = {
+            log = { "-10" },
+        },
+    })
+end
+
 
 ---@param relpath string 相对~/.config/nvim/lua/ 的相对路径,例如 "plugins/edit/"
 ---@param plugins table
@@ -7,6 +25,7 @@ local luapath = vim.fn.stdpath("config") .. "/lua/"
 M.lazy_require = function(relpath, plugins)
     relpath = vim.endswith(relpath, "/") and relpath or relpath .. "/"
     plugins = plugins or {}
+    local luapath = vim.fn.stdpath("config") .. "/lua/"
     local folder = vim.fn.expand(luapath .. relpath)
     for _, fname in ipairs(vim.fn.readdir(folder)) do
         if vim.endswith(fname, ".lua") and fname ~= "init.lua" then
@@ -19,8 +38,7 @@ M.lazy_require = function(relpath, plugins)
             if type(plugs) == "boolean" then
                 -- pass
             elseif vim.tbl_islist(plugs) then
---                 plugins = vim.fn.extend(plugins, plugs)
-                   plugins  = vim.list_extend(plugins, plugs)
+                plugins = vim.fn.extend(plugins, plugs)
             else
                 table.insert(plugins, plugs)
             end
@@ -28,5 +46,3 @@ M.lazy_require = function(relpath, plugins)
     end
     return plugins
 end
-
-return M

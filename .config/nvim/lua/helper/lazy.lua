@@ -3,7 +3,9 @@ local M = {}
 M.setup = function()
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
-        vim.fn.system("git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git " .. lazypath)
+        vim.fn.system(
+            "git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git " .. lazypath
+        )
     end
     vim.opt.rtp:prepend(lazypath)
 
@@ -12,12 +14,8 @@ M.setup = function()
             path = "~/Projects/dev/",
             fallback = true, -- 如果本地没有就用github 上的
         },
-        git = {
-            log = { "-10" },
-        },
     })
 end
-
 
 ---@param relpath string 相对~/.config/nvim/lua/ 的相对路径,例如 "plugins/edit/"
 ---@param plugins table
@@ -38,7 +36,7 @@ M.lazy_require = function(relpath, plugins)
             if type(plugs) == "boolean" then
                 -- pass
             elseif vim.tbl_islist(plugs) then
-                plugins = vim.fn.extend(plugins, plugs)
+                plugins = vim.list_extend(plugins, plugs)
             else
                 table.insert(plugins, plugs)
             end
@@ -46,3 +44,5 @@ M.lazy_require = function(relpath, plugins)
     end
     return plugins
 end
+
+return M

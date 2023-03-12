@@ -1,5 +1,5 @@
 source ~/.config/nvim/lua/config/init.vim
 
 if has("nvim")
-    lua require("plugins")
+    lua require("helper.lazy").setup()
 endif

@@ -1,26 +1,3 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup("plugins", {
-    dev = {
-        path = "~/Projects/dev/",
-        fallback = true, -- 如果本地没有就用github 上的
-    },
-    git = {
-        log = { "-10" },
-    },
-})
-
 -- init.lua 加载优先级高于同级目录下其他所有文件
 -- 一些基础性的插件可以放在这里
 -- 为了ft_spec 里不报错,null-ls 也放在这里
@@ -44,6 +21,4 @@ return {
         config = true,
     },
     { "nvim-lua/plenary.nvim", lazy = true },
-
-
 }

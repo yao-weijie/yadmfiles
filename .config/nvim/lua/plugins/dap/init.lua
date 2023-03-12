@@ -1,3 +1,4 @@
+local dap_ft = "python,c,cpp"
 return {
     {
         "Weissle/persistent-breakpoints.nvim",
@@ -14,7 +15,7 @@ return {
             { "theHamsta/nvim-dap-virtual-text", config = true },
             require("plugins.dap.dap-ui"),
         },
-        ft = { "python", "c", "cpp" },
+        ft = vim.split(dap_ft, ""),
         keys = {
             { "<F8>", "<cmd>DapContinue<CR>", desc = "start debug" },
         },

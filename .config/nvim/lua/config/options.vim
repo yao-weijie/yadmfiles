@@ -21,6 +21,9 @@ set ruler
 set showcmd
 set noshowmode
 set wildmenu
+if has('nvim')
+    set signcolumn=auto:2
+endif
 
 set mouse=a
 set termguicolors

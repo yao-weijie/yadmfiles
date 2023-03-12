@@ -1,4 +1,4 @@
-return require("utils").lazy_require("plugins/ui", {
+return require("helper.lazy").lazy_require("plugins/ui", {
     "nvim-tree/nvim-web-devicons",
     "nvim-lua/popup.nvim",
     "onsails/lspkind.nvim",

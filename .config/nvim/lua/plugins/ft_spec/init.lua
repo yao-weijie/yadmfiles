@@ -1,5 +1,5 @@
 _G.toolset = _G.toolset or {}
-local plugins = require("utils").lazy_require("plugins/ft_spec", {})
+local plugins = require("helper.lazy").lazy_require("plugins/ft_spec", {})
 
 require("null-ls").reset_sources()
 for _, toolset in pairs(_G.toolset) do

@@ -1,4 +1,4 @@
-return require("utils").lazy_require("plugins/tools", {
+return require("helper.lazy").lazy_require("plugins/tools", {
     {
         "karb94/neoscroll.nvim",
         keys = { "<C-u>", "<C-d>" },
@@ -42,9 +42,5 @@ return require("utils").lazy_require("plugins/tools", {
         },
     },
 
-
     { "kevinhwang91/nvim-bqf", ft = "qf" },
-
-
-
 })

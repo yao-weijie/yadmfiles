@@ -21,7 +21,7 @@ local source_candidates = {
     spell = { name = "spell", menu = "[Spell]" },
     nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
     rime = { name = "rime", menu = "[Rime]" },
-    cmdline = { name = "cmdline", menu = "[Command]" },
+    cmdline = { name = "cmdline", menu = "[Cmd]" },
     cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
     dap = { name = "dap", menu = "[Dap]" },
 }
@@ -90,9 +90,9 @@ return {
                 source_candidates.path,
             },
 
-            sortting = {
-                priority = 1,
+            sorting = {
                 comparators = {
+                    compare.order,
                     compare.sort_text,
                     compare.length,
                     compare.offset,
@@ -100,7 +100,6 @@ return {
                     compare.score,
                     compare.recently_used,
                     compare.kind,
-                    compare.order,
                 },
             },
 
@@ -161,8 +160,10 @@ return {
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
-                source_candidates.path,
-                source_candidates.cmdline,
+                -- source_candidates.path,
+                -- source_candidates.cmdline,
+                { name = "path", menu = "[Path]", group_index = 1 },
+                { name = "cmdline", menu = "[Cmd]", group_index = 2 },
             },
         })
 

@@ -3,8 +3,8 @@ return {
     version = "*",
     opts = {
         keymaps = {
-            insert = "<C-y>s",
-            insert_line = "<C-y>S",
+            insert = false,
+            insert_line = false,
             normal = "ys",
             normal_cur = "yss",
             normal_line = "yS",

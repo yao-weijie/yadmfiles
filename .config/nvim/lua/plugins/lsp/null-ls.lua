@@ -1,4 +1,8 @@
 vim.api.nvim_create_user_command("LspFormat", function()
+    if vim.fn.filewritable(vim.fn.expand("%")) == 0 then
+        return vim.notify("File not writable!")
+    end
+
     local format_ignore = {
         -- "plugins.lua",
     }

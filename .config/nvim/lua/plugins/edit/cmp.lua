@@ -15,15 +15,17 @@ local source_candidates = {
             return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind()
         end,
     },
-    treesitter = { name = "treesitter", menu = "[TS]" },
     path = { name = "path", menu = "[Path]" },
     buffer = { name = "buffer", menu = "[Buf]" },
-    spell = { name = "spell", menu = "[Spell]" },
-    nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
     rime = { name = "rime", menu = "[Rime]" },
     cmdline = { name = "cmdline", menu = "[Cmd]" },
-    cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
     dap = { name = "dap", menu = "[Dap]" },
+
+    -- unused
+    treesitter = { name = "treesitter", menu = "[TS]" },
+    cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
+    nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
+    spell = { name = "spell", menu = "[Spell]" },
 }
 
 return {

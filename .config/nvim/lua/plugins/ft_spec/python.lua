@@ -1,6 +1,6 @@
 local builtins = require("null-ls").builtins
 _G.toolset["python"] = {
-    server = { "jedi_language_server", "ruff_lsp" },
+    server = { "jedi_language_server", "ruff_lsp", "pyre" },
     treesitter = { "python" },
     adapters = { "python" },
     sources = {
@@ -9,3 +9,5 @@ _G.toolset["python"] = {
         builtins.formatting.isort,
     },
 }
+
+vim.fn.setenv("PYRE_BINARY", vim.fn.stdpath("data") .. "/mason/bin/pyre")

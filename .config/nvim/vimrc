@@ -1,3 +1,82 @@
+" options
+" ------------------------------------------------------------------------------
+set nocompatible
+set nobackup
+set noswapfile
+set nowritebackup
+set autoread
+set autowriteall
+set history=200
+
+set encoding=utf-8
+set fileencodings=utf-8,gb2312,gbk,gb18030,latin1
+set fileformat=unix
+set fileformats=unix,dos
+
+set cursorline
+set colorcolumn=80
+set number
+set numberwidth=2
+set scrolloff=10
+set sidescrolloff=8
+set ruler
+set showcmd
+set noshowmode
+set wildmenu
+if has('nvim')
+    set signcolumn=auto:2
+endif
+
+set mouse=a
+set termguicolors
+set background=dark
+if !has('nvim')
+    colorscheme desert
+endif
+
+if has('autocmd')
+    filetype plugin indent on
+endif
+
+set autoindent
+set smarttab
+set cindent
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set softtabstop=4
+set linebreak
+
+set textwidth=100
+set backspace=eol,start,indent
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set splitright
+set diffopt=vertical,filler,internal,context:4
+
+set pumheight=10
+
+" set spell
+" set spelllang=en_us
+
+if has('nvim')
+    let g:loaded_netrw = 1
+    let g:loaded_netrwPlugin = 1
+endif
+
+set hidden
+set updatetime=300
+
+let g:python3_prog_host = '/usr/bin/python3'
+let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
+
+
+" keymaps
+" ------------------------------------------------------------------------------
 " -- Mode           | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
 " -- Command        +------+-----+-----+-----+-----+-----+------+------+ ~
 " -- [nore]map      | yes  |  -  |  -  | yes | yes | yes |  -   |  -   |
@@ -101,3 +180,32 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+
+
+" autocmd
+" ------------------------------------------------------------------------------
+augroup _general_settings
+    autocmd!
+    autocmd FileType TelescopePrompt,qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q :close<CR>
+    if has('nvim')
+        autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({ timeout = 500 })
+    endif
+    autocmd BufWinEnter * set formatoptions-=cro
+augroup end
+
+augroup _hlsearch
+    autocmd!
+    autocmd cursorhold * set nohlsearch
+augroup end
+
+if has("wsl")
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup end
+    endif
+else
+    set clipboard=unnamed
+endif

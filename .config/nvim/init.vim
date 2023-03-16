@@ -1,4 +1,4 @@
-source ~/.config/nvim/lua/config/init.vim
+source ~/.config/nvim/vimrc
 
 if has("nvim")
     lua require("helper.lazy").setup()

@@ -1,0 +1,4 @@
+var:
+  option:
+    simplification: true
+  previously_selected_schema: double_pinyin_flypy

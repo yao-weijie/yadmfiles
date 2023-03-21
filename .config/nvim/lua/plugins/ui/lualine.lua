@@ -6,13 +6,13 @@ local diagnostics = {
     always_visible = false,
 }
 
--- local rime_status = function()
---     if require("cmp_rime").status() then
---         return "ㄓ"
---     else
---         return "EN"
---     end
--- end
+local rime_status = function()
+    if vim.g.rime_available then
+        return "ㄓ"
+    else
+        return "EN"
+    end
+end
 
 local tabsize = function()
     return "tab:" .. vim.bo.shiftwidth
@@ -36,7 +36,7 @@ return {
             lualine_a = { "mode" },
             lualine_b = { "branch", diagnostics },
             lualine_c = {
-                -- rime_status
+                rime_status,
             },
 
             lualine_x = {

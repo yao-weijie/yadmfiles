@@ -1,5 +1,6 @@
 " options
 " ------------------------------------------------------------------------------
+
 set nocompatible
 set nobackup
 set noswapfile
@@ -18,25 +19,22 @@ set colorcolumn=80
 set number
 set numberwidth=2
 set scrolloff=10
-set sidescrolloff=8
+set sidescrolloff=10
 set ruler
 set showcmd
 set noshowmode
 set wildmenu
 if has('nvim')
-    set signcolumn=auto:2
+    set signcolumn=auto:1-2
 endif
 
-set mouse=a
+set mouse=nvi " nvi default
 set termguicolors
-set background=dark
 if !has('nvim')
     colorscheme desert
 endif
 
-if has('autocmd')
-    filetype plugin indent on
-endif
+filetype plugin indent on
 
 set autoindent
 set smarttab
@@ -58,15 +56,11 @@ set smartcase
 set splitright
 set diffopt=vertical,filler,internal,context:4
 
-set pumheight=10
+set pumheight=8
 
 " set spell
 " set spelllang=en_us
 
-if has('nvim')
-    let g:loaded_netrw = 1
-    let g:loaded_netrwPlugin = 1
-endif
 
 set hidden
 set updatetime=300
@@ -156,8 +150,8 @@ nnoremap <C-Left>  <cmd>vertical resize +2<CR>
 nnoremap <C-Right> <cmd>vertical resize -2<CR>
 
 " previous and next buffer
-nnoremap [b <cmd>bprevious<CR>
-nnoremap ]b <cmd>bnext<CR>
+nnoremap [b    <cmd>bprevious<CR>
+nnoremap ]b    <cmd>bnext<CR>
 nnoremap <C-n> <cmd>bnext<CR>
 nnoremap <C-p> <cmd>bprevious<CR>
 
@@ -173,6 +167,17 @@ inoremap <C-k>   <C-o>c$
 inoremap <M-w> <C-Right>
 inoremap <M-b> <C-Left>
 
+" auto-pair
+if !has('nvim')
+    inoremap ( ()<Left>
+    inoremap [ []<Left>
+    inoremap { {}<Left>
+    inoremap < <><Left>
+    inoremap ' ''<Left>
+    inoremap " ""<Left>
+    inoremap ` ``<Left>
+endif
+
 inoremap <C-l> <C-o>zz
 
 cnoremap <expr> ;; getcmdtype() == ':' ? expand('%:p:h') .'/' : ';p'
@@ -186,19 +191,15 @@ cnoremap <C-f> <Right>
 " ------------------------------------------------------------------------------
 augroup _general_settings
     autocmd!
-    autocmd FileType TelescopePrompt,qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q :close<CR>
+    autocmd FileType TelescopePrompt,qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q <cmd>close<CR>
     if has('nvim')
         autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({ timeout = 500 })
     endif
     autocmd BufWinEnter * set formatoptions-=cro
+    autocmd CursorHold * set nohlsearch
 augroup end
 
-augroup _hlsearch
-    autocmd!
-    autocmd cursorhold * set nohlsearch
-augroup end
-
-if has("wsl")
+if has('wsl')
     let s:clip = '/mnt/c/Windows/System32/clip.exe'
     if executable(s:clip)
         augroup WSLYank
@@ -207,5 +208,5 @@ if has("wsl")
         augroup end
     endif
 else
-    set clipboard=unnamed
+    set clipboard=unnamedplus
 endif

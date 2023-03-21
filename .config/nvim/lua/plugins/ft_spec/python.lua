@@ -7,6 +7,7 @@ _G.toolset["python"] = {
         -- configure with pyproject.toml in project root
         builtins.formatting.black,
         builtins.formatting.isort,
+        builtins.diagnostics.mypy,
     },
 }
 

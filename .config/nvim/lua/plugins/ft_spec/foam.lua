@@ -1,5 +1,5 @@
 -- local builtins = require("null-ls").builtins
--- _G.toolset["any"] = {
+-- _G.toolset["foam"] = {
 
 -- }
 

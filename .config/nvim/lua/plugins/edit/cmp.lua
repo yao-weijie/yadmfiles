@@ -31,12 +31,7 @@ local source_candidates = {
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
-        {
-            "hrsh7th/cmp-nvim-lsp",
-            config = function()
-                require("cmp_nvim_lsp").default_capabilities()
-            end,
-        },
+        "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -94,14 +89,14 @@ return {
 
             sorting = {
                 comparators = {
-                    compare.order,
-                    compare.sort_text,
+                    require("cmp_rime.compare").order,
+                    compare.exact,
+                    compare.kind,
                     compare.length,
                     compare.offset,
-                    compare.exact,
                     compare.score,
                     compare.recently_used,
-                    compare.kind,
+                    compare.sort_text,
                 },
             },
 
@@ -162,10 +157,9 @@ return {
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
-                -- source_candidates.path,
-                -- source_candidates.cmdline,
-                { name = "path", menu = "[Path]", group_index = 1 },
-                { name = "cmdline", menu = "[Cmd]", group_index = 2 },
+                -- 有path 的时候屏蔽cmd
+                vim.tbl_extend("force", source_candidates.path, { group_index = 1 }),
+                vim.tbl_extend("force", source_candidates.cmdline, { group_index = 2 }),
             },
         })
 
@@ -177,13 +171,8 @@ return {
 
         -- other settings
         -- autopairs is started before cmp
-        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-        cmp.event:on(
-            "confirm_done",
-            cmp_autopairs.on_confirm_done({
-                map_char = { tex = "" },
-            })
-        )
+        cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+
         vim.cmd([[
             " 文档window 隐藏链接
             autocmd FileType cmp_docs setlocal filetype=markdown

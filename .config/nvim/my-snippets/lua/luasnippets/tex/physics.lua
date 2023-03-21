@@ -25,11 +25,13 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 
-local math = make_condition(function()
-    return vim.fn.call("vimtex#syntax#in_mathzone", {}) == 1
-end)
+local in_mathzone = require("helper.math").in_mathzone
+local line_begin = require("helper.luasnip").line_begin
+local line_end = require("helper.luasnip").line_end
 
-local global_opts = { condition = math, show_condition = math, delimiters = "<>" }
+local global_opts = { condition = in_mathzone, show_condition = in_mathzone }
+
+parse("trig", "abc $1", { global_opts })
 
 local snippet_templates = {
     -- 2.1 Automatic bracing
@@ -48,25 +50,25 @@ local snippet_templates = {
     { trig = "dp", dscr = "dot product · ", body = [[ \dp <> ]] },
     { trig = "cp", dscr = "cross product ×", body = [[ \cp <> ]] },
     -- gradient
-    { trig = "grad", dscr = "∇", body = [[ \grad <> ]] },
-    { trig = "grad{", dscr = "∇{  }", body = [[ \grad{ <> } ]] },
-    { trig = "grad(", dscr = "∇(  )", body = [[ \grad( <> ) ]] },
-    { trig = "grad[", dscr = "∇[  ]", body = [[ \grad[ <> ] ]] },
+    { trig = "grad", dscr = "∇ ", body = [[ \grad <> ]] },
+    { trig = "grad{", dscr = "∇ {  }", body = [[ \grad{ <> } ]] },
+    { trig = "grad(", dscr = "∇ (  )", body = [[ \grad( <> ) ]] },
+    { trig = "grad[", dscr = "∇ [  ]", body = [[ \grad[ <> ] ]] },
     -- divergence
-    { trig = "div", dscr = "∇·", body = [[ \div <> ]] },
-    { trig = "div{", dscr = "∇·{  }", body = [[ \div{ <> } ]] },
-    { trig = "div(", dscr = "∇·(  )", body = [[ \div( <> ) ]] },
-    { trig = "div[", dscr = "∇·[  ]", body = [[ \div[ <> ] ]] },
+    { trig = "div", dscr = "∇ ·", body = [[ \div <> ]] },
+    { trig = "div{", dscr = "∇ ·{  }", body = [[ \div{ <> } ]] },
+    { trig = "div(", dscr = "∇ ·(  )", body = [[ \div( <> ) ]] },
+    { trig = "div[", dscr = "∇ ·[  ]", body = [[ \div[ <> ] ]] },
     -- curl
-    { trig = "curl", dscr = "∇×", body = [[ \curl <> ]] },
-    { trig = "curl{", dscr = "∇×{  }", body = [[ \curl{ <> } ]] },
-    { trig = "curl(", dscr = "∇×(  )", body = [[ \curl( <> ) ]] },
-    { trig = "curl[", dscr = "∇×[  ]", body = [[ \curl[ <> ] ]] },
+    { trig = "curl", dscr = "∇ ×", body = [[ \curl <> ]] },
+    { trig = "curl{", dscr = "∇ ×{  }", body = [[ \curl{ <> } ]] },
+    { trig = "curl(", dscr = "∇ ×(  )", body = [[ \curl( <> ) ]] },
+    { trig = "curl[", dscr = "∇ ×[  ]", body = [[ \curl[ <> ] ]] },
     -- laplacian
-    { trig = "lap", dscr = "∇2", body = [[ \laplacian <> ]] },
-    { trig = "lap{", dscr = "∇2 {  }", body = [[ \laplacian{ <> } ]] },
-    { trig = "lap(", dscr = "∇2 (  )", body = [[ \laplacian( <> ) ]] },
-    { trig = "lap[", dscr = "∇2 [  ]", body = [[ \laplacian[ <> ] ]] },
+    { trig = "lap", dscr = "∇ 2", body = [[ \laplacian <> ]] },
+    { trig = "lap{", dscr = "∇ 2 {  }", body = [[ \laplacian{ <> } ]] },
+    { trig = "lap(", dscr = "∇ 2 (  )", body = [[ \laplacian( <> ) ]] },
+    { trig = "lap[", dscr = "∇ 2 [  ]", body = [[ \laplacian[ <> ] ]] },
     ----------------------------------------------------------------------------
     -- 2.3 Operators
     { trig = "sin", dscr = "sin(x)", body = [[ \sin(<>) ]] },
@@ -82,7 +84,12 @@ local snippet_templates = {
     -- derivative 导数
     { trig = "dv", dscr = "d/dx", body = [[ \dv{ <> }]], nodes = { i(1, "x") } },
     { trig = "dvf", dscr = "df/dx", body = [[ \dv{<1>}{<2>}]], nodes = { i(1, "f"), i(2, "x") } },
-    { trig = "dvnf", dscr = "d^nf/dx^n", body = [[ \dv[<1>]{<2>}{<3>} ]], nodes = { i(1, "n"), i(2, "f"), i(3, "x") } },
+    {
+        trig = "dvnf",
+        dscr = "d^nf/dx^n",
+        body = [[ \dv[<1>]{<2>}{<3>} ]],
+        nodes = { i(1, "n"), i(2, "f"), i(3, "x") },
+    },
     { trig = "dvx(", dscr = "d/dx ( f )", body = [[\dv{<1>}(<2>)]], nodes = { i(1, "x"), i(2, "f") } },
     -- 2.6 Dirac bracket notation
     -- 2.7 Matrix macros
@@ -93,10 +100,11 @@ local function make_snippets()
     for _, tmp in ipairs(snippet_templates) do
         table.insert(
             snips,
-            s({ trig = tmp.trig, dscr = tmp.dscr }, fmt(tmp.body, tmp.nodes or { i(1, "") }, global_opts))
+            s({ trig = tmp.trig, dscr = tmp.dscr }, fmta(tmp.body, tmp.nodes or { i(1, "") }, global_opts))
         )
     end
     return snips
 end
 
-return make_snippets()
+-- return make_snippets()
+return parse("trig", "abc $1", {})

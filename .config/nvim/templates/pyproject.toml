@@ -1,3 +1,6 @@
+[tool.black]
+line-length = 100
+
 [tool.ruff]
 line-length = 100
 select = [
@@ -29,5 +32,7 @@ extend-ignore = [
     "ANN101",
 ]
 
-[tool.black]
-line-length = 100
+[tool.mypy]
+disable_error_code = [
+    "var-annotated"
+]

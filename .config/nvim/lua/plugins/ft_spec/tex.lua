@@ -10,6 +10,7 @@ _G.toolset["tex"] = {
         }),
     },
 }
+
 local function vimtex_setup()
     -- vimtex settings
     vim.g.tex_flavor = "latex"
@@ -87,22 +88,23 @@ local function vimtex_setup()
     vim.cmd([[
     augroup _VimTeX
         autocmd!
-        autocmd FileType tex setlocal conceallevel=2
-        autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
-        autocmd FileType tex nnoremap <buffer> == gg=G
-        autocmd FileType tex nnoremap <buffer> H g^
-        autocmd FileType tex nnoremap <buffer> L g$
-        autocmd FileType tex vnoremap <buffer> H g^
-        autocmd FileType tex vnoremap <buffer> L g$
-        autocmd FileType tex onoremap <buffer> H g^
-        autocmd FileType tex onoremap <buffer> L g$
-        autocmd FileType tex nnoremap <buffer> <Down> gj
-        autocmd FileType tex vnoremap <buffer> <Down> gj
-        autocmd FileType tex nnoremap <buffer> <Up> gk
-        autocmd FileType tex vnoremap <buffer> <Up> gk
+        autocmd BufWritePost *.tex call vimtex#toc#refresh()
     augroup END
-]])
+    ]])
+    vim.api.nvim_create_autocmd("FileType", {
+        callback = function(file)
+            local opts = { buffer = file.buf }
+            vim.bo.shiftwidth = 2
+            vim.bo.tabstop = 2
+            vim.bo.softtabstop = 2
+            vim.wo.conceallevel = 2
+
+            vim.keymap.set({ "n", "v", "o" }, "H", "g^", opts)
+            vim.keymap.set({ "n", "v", "o" }, "L", "g$", opts)
+            vim.keymap.set("n", "<leader>o", "<cmd>VimtexTocToggle<CR>", opts)
+            vim.keymap.set("n", "==", "gg=G", opts)
+        end,
+    })
 end
 
 return {
@@ -110,11 +112,5 @@ return {
     version = "*",
     cond = vim.fn.executable("latexmk") == 1,
     ft = "tex",
-    config = function()
-        vimtex_setup()
-        vim.cmd([[
-            autocmd BufWritePost *.tex call vimtex#toc#refresh()
-            autocmd FileType tex nnoremap <buffer> <leader>o <cmd>VimtexTocToggle<CR>
-        ]])
-    end,
+    config = vimtex_setup,
 }

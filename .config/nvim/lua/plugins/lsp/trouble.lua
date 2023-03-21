@@ -15,7 +15,7 @@ return {
             cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
             refresh = "r", -- manually refresh
             jump = { "<Tab>" }, -- jump to the diagnostic or open / close folds
-            open_split = { "<C-x>", "<C-s>" }, -- open buffer in new split
+            open_split = { "<C-x>" }, -- open buffer in new split
             open_vsplit = { "<C-v>" }, -- open buffer in new vsplit
             open_tab = { "<C-t>" }, -- open buffer in new tab
             jump_close = { "<CR>" }, -- jump to the diagnostic and close the list

@@ -2,11 +2,5 @@ Lua.runtime.version: "LuaJIT"
 Lua.workspace.checkThirdParty: false
 Lua.diagnostics.globals:
   - "vim"
-Lua.workspace.library:
-  - "$VIMRUNTIME"
-  - "$VIMRUNTIME/lua"
-  - "$VIMRUNTIME/lua/vim"
-  - "$HOME/.config/nvim/lua"
-  - "$HOME/.local/share/nvim/lazy"
 Lua.workspace.maxPreload: 10000
 Lua.workspace.preloadFileSize: 10000

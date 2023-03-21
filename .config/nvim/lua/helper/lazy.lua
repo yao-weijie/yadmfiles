@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function()
+M.setup = function(...)
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
         vim.fn.system(
@@ -9,12 +9,7 @@ M.setup = function()
     end
     vim.opt.rtp:prepend(lazypath)
 
-    require("lazy").setup("plugins", {
-        dev = {
-            path = "~/Projects/dev/",
-            fallback = true, -- 如果本地没有就用github 上的
-        },
-    })
+    require("lazy").setup(...)
 end
 
 ---@param relpath string 相对~/.config/nvim/lua/ 的相对路径,例如 "plugins/edit/"

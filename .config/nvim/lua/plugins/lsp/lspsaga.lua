@@ -1,6 +1,5 @@
 return {
     "glepnir/lspsaga.nvim",
-    commit = "4572ea5010a690e0bc5f132c1df27072df0ecdc1",
     keys = {
         { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "show document" },
         { "gh", "<cmd>Lspsaga lsp_finder<CR>", desc = "preview definition" },

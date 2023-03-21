@@ -29,27 +29,4 @@ M.lsp_flags = {
     debounce_text_changes = 150,
 }
 
-M.setup = function()
-    -- diagnostic signs defined in plugins/ui/signs
-
-    -- 通过yaml/json文件来设置lsp-server
-    -- nlspsettings必须放在server启动之前
-    require("nlspsettings").setup({
-        config_home = vim.fn.stdpath("config") .. "/lua/plugins/lsp/settings",
-        loader = "yaml",
-        nvim_notify = { enable = true },
-    })
-
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            require("lspconfig")[server_name].setup({
-                on_attach = M.on_attach,
-                capabilities = M.capabilities,
-                flags = M.lsp_flags,
-                -- root_dir = require("lspconfig").util.root_pattern(vim.g.ROOT_MARKERS),
-            })
-        end,
-    })
-end
-
 return M

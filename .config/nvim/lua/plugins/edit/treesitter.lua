@@ -1,5 +1,5 @@
 local opts = {
-    ensure_installed = { "help", "c", "cpp", "vim", "lua" },
+    ensure_installed = { "help", "c", "cpp", "vim", "lua", "markdown", "markdown_inline" },
     sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "foam" },
     highlight = {
@@ -20,6 +20,15 @@ local opts = {
             end
         end,
         additional_vim_regex_highlighting = false,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            scope_incremental = false,
+            node_decremental = "<BS>",
+        },
     },
 
     indent = { enable = false },

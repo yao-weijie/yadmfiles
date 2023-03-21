@@ -9,7 +9,7 @@ local function cal_offset_y(float_opts)
     local float_height = float_opts.height
 
     if float_height == nil and winline - 1 < pumheight then
-        return pumheight
+        return pumheight + 2
     end
 
     if winline - 1 < pumheight and winline < float_height then
@@ -24,7 +24,7 @@ local function cal_offset_y(float_opts)
     return 0
 end
 
-return { 
+return {
     "ray-x/lsp_signature.nvim",
     opts = {
         verbose = false,
@@ -62,6 +62,5 @@ return {
 
         select_signature_key = nil,
         move_cursor_key = nil,
-    }
+    },
 }
-

@@ -3,16 +3,9 @@
 -- 为了ft_spec 里不报错,null-ls 也放在这里
 return {
     { "folke/lazy.nvim" },
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-            require("null-ls").setup()
-            require("plugins.lsp.null-ls")
-        end,
-    },
+    { "jose-elias-alvarez/null-ls.nvim", config = require("helper.format") },
     {
         "williamboman/mason.nvim",
-        commit = "24846a00941ec020c8addc7f52040a1b2fc12174",
         dependencies = {
             { "williamboman/mason-lspconfig.nvim", config = true },
             { "jay-babu/mason-null-ls.nvim", config = true },

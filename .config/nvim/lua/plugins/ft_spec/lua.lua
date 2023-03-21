@@ -6,3 +6,9 @@ _G.toolset["lua"] = {
         builtins.formatting.stylua,
     },
 }
+
+-- return {
+--     "folke/neodev.nvim",
+--     version = "*",
+--     config = true,
+-- }

@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["json"] = {
+_G.toolset.json = {
     server = { "jsonls" },
     treesitter = { "json", "json5" },
     sources = {
@@ -10,3 +10,5 @@ _G.toolset["json"] = {
 vim.cmd([[
     autocmd FileType json setlocal shiftwidth=2 tabstop=2 softtabstop=2
 ]])
+
+return {}

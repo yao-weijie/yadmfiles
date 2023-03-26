@@ -1,4 +1,4 @@
-return require("helper.lazy").lazy_require("plugins/ui", {
+return {
     "nvim-tree/nvim-web-devicons",
     "nvim-lua/popup.nvim",
     "onsails/lspkind.nvim",
@@ -10,4 +10,4 @@ return require("helper.lazy").lazy_require("plugins/ui", {
             require("mini.cursorword").setup({ delay = 100 })
         end,
     },
-})
+}

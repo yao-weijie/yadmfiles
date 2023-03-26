@@ -28,6 +28,11 @@ return {
         local npairs = require("nvim-autopairs")
         npairs.setup(opts)
         local Rule = require("nvim-autopairs.rule")
+
+        -- other settings
+        -- autopairs is started before cmp
+        require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+
         -- add spaces between parentheses
         npairs.add_rules({
             Rule(" ", " "):with_pair(function(opts)
@@ -35,16 +40,28 @@ return {
                 return vim.tbl_contains({ "()", "[]", "{}" }, pair)
             end),
             Rule("( ", " )")
-                :with_pair(function() return false end)
-                :with_move(function(opts) return opts.prev_char:match(".%)") ~= nil end)
+                :with_pair(function()
+                    return false
+                end)
+                :with_move(function(opts)
+                    return opts.prev_char:match(".%)") ~= nil
+                end)
                 :use_key(")"),
             Rule("{ ", " }")
-                :with_pair(function() return false end)
-                :with_move(function(opts) return opts.prev_char:match(".%}") ~= nil end)
+                :with_pair(function()
+                    return false
+                end)
+                :with_move(function(opts)
+                    return opts.prev_char:match(".%}") ~= nil
+                end)
                 :use_key("}"),
             Rule("[ ", " ]")
-                :with_pair(function() return false end)
-                :with_move(function(opts) return opts.prev_char:match(".%]") ~= nil end)
+                :with_pair(function()
+                    return false
+                end)
+                :with_move(function(opts)
+                    return opts.prev_char:match(".%]") ~= nil
+                end)
                 :use_key("]"),
         })
     end,

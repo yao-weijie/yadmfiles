@@ -1,5 +1,7 @@
 return {
     "glepnir/lspsaga.nvim",
+    commit = "36542527c165dc5bf4f26376c0886a7d735596dc", -- Mar 22, 2023
+    event = { "BufRead" },
     keys = {
         { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "show document" },
         { "gh", "<cmd>Lspsaga lsp_finder<CR>", desc = "preview definition" },
@@ -30,7 +32,6 @@ return {
             vsplit = "<C-v>",
             tabe = "<C-t>",
             quit = "q",
-            close = "<Esc>",
         },
         -- 调用链
         callhierarchy = {
@@ -40,9 +41,9 @@ return {
                 split = "<C-x>",
                 vsplit = "<C-v>",
                 tabe = "<C-t>",
-                jump = "<C-p>",
+                jump = "o",
                 quit = "q",
-                expand_collapse = "o",
+                expand_collapse = "<Space>",
             },
         },
         lightbulb = {

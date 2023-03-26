@@ -1,0 +1,20 @@
+{
+  "version": "0.1",
+  "configurations": [
+    {
+      "type": "python",
+      "request": "launch",
+      "name": "Python: Launch file",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "codelldb",
+      "name": "LLDB: Launch",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

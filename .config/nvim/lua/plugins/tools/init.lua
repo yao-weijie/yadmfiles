@@ -1,4 +1,6 @@
-return require("helper.lazy").lazy_require("plugins/tools", {
+return {
+    { "folke/lazy.nvim" },
+    { "williamboman/mason.nvim", config = true },
     {
         "karb94/neoscroll.nvim",
         keys = { "<C-u>", "<C-d>" },
@@ -35,12 +37,5 @@ return require("helper.lazy").lazy_require("plugins/tools", {
             vim.g.translator_default_engines = { "bing", "haici" }
         end,
     },
-    {
-        dir = "~/Projects/dev/leetcode.nvim",
-        opts = {
-            leetcode_china = true,
-        },
-    },
-
     { "kevinhwang91/nvim-bqf", ft = "qf" },
-})
+}

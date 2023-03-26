@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["sh"] = {
+_G.toolset.sh = {
     server = { "bashls" },
     treesitter = { "bash" },
     sources = {
@@ -7,3 +7,5 @@ _G.toolset["sh"] = {
         builtins.formatting.shfmt,
     },
 }
+
+return {}

@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["rust"] = {
+_G.toolset.rust = {
     server = { "rust_analyzer" },
     adapters = { "codelldb" },
     treesitter = { "rust" },
@@ -7,3 +7,5 @@ _G.toolset["rust"] = {
         builtins.formatting.rustfmt,
     },
 }
+
+return {}

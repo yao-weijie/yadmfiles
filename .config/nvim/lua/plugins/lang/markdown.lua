@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["markdown"] = {
+_G.toolset.markdown = {
     server = { "markdown" },
     treesitter = { "markdown", "markdown_inline" },
     sources = {

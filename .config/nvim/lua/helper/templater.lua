@@ -1,14 +1,7 @@
 local M = {}
 
-local function is_empty(path)
+local function is_empty(path) end
 
-
-end
-
-M.init = function()
-    
-
-end
-
+M.init = function() end
 
 return M

@@ -29,7 +29,7 @@ if has('nvim')
 endif
 
 set mouse=nvi " nvi default
-set termguicolors
+" set termguicolors
 if !has('nvim')
     colorscheme desert
 endif

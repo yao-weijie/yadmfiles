@@ -1,10 +1,4 @@
 _G.toolset = _G.toolset or {}
-local plugins = require("helper.lazy").lazy_require("plugins/ft_spec", {})
-
-require("null-ls").reset_sources()
-for _, toolset in pairs(_G.toolset) do
-    require("null-ls").register(toolset.sources)
-end
 
 for _, cmd in ipairs({ "Install", "Uninstall" }) do
     vim.api.nvim_create_user_command("Toolset" .. cmd, function(opts)
@@ -35,4 +29,10 @@ for _, cmd in ipairs({ "Install", "Uninstall" }) do
     })
 end
 
-return plugins
+return {
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        dependencies = { "jay-babu/mason-null-ls.nvim", lazy = true, config = true },
+        config = true,
+    },
+}

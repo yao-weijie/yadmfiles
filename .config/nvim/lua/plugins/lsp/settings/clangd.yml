@@ -1,32 +1,29 @@
 clangd.arguments:
   # 在后台自动分析文件（基于complie_commands)
   - "--background-index"
+  # pch优化的位置disk/memory
+  - "--pch-storage=memory"
 
   # 标记compelie_commands.json文件的目录位置
   # 补全依赖这个json文件,否则不能补全
   - "--compile-commands-dir=build"
 
   # 同时开启的任务数量
-  - "-j=12"
+  - "-j 6"
 
-  # clang-tidy功能
+  # 开启clang-tidy
   - "--clang-tidy"
 
   # 跨文件重命名变量
   - "--cross-file-rename"
-
-  # 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
-  - "--header-insertion-decorators"
-
+  # 补充头文件的形式
+  - "--header-insertion=iwyu"
   # 全局补全（会自动补充头文件）
   - "--all-scopes-completion"
-
   # bundled: 打包(重载函数只会给出一个建议）
   # detailed: 更详细的补全内容
   - "--completion-style=detailed"
+  # 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
+  - "--header-insertion-decorators"
 
-  # 补充头文件的形式
-  - "--header-insertion=iwyu"
-
-  # pch优化的位置disk/memory
-  - "--pch-storage=memory"
+  # - "--offset-encoding=utf-8"

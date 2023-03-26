@@ -42,18 +42,12 @@ snippet fmtignore "stylua format ignore" b
 	-- stylua: ignore ${1:<nil>|start|end}
 	$0
 
-snippet wkregister "register which-key keymap" b
-	require("which-key").register({
-		["${1:key}"] = { "<cmd>${2:command}<CR>", "${3:description}" },
-		$0
-	}, {})
-
 snippet func "Anonymous functions" iw
 	function()
 		$0
 	end
 
-snippet lm "module template"
+snippet mod "module template"
 	local M = {}
 
 	M.setup = function()

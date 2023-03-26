@@ -1,5 +1,4 @@
 local opts = {
-    icons = { expanded = "▾", collapsed = "▸" },
     mappings = {
         expand = { "o", "<2-LeftMouse>", "<CR>" },
         open = "O",
@@ -8,7 +7,7 @@ local opts = {
         repl = "r",
         toggle = "t",
     },
-    expand_lines = vim.fn.has("nvim-0.7") == 1,
+    force_buffers = true,
     layouts = {
         {
             elements = {
@@ -41,15 +40,17 @@ local opts = {
             close = { "q", "<Esc>" },
         },
     },
-    windows = { indent = 2 },
     render = {
+        indent = 2,
         max_type_length = nil, -- Can be integer or nil.
         max_value_lines = 100, -- Can be integer or nil.
     },
 }
 
+local dap_ft = "python,c,cpp,rust"
 return {
     "rcarriga/nvim-dap-ui",
+    ft = vim.split(dap_ft, ",", {}),
     config = function()
         local dap, dapui = require("dap"), require("dapui")
         dapui.setup(opts)

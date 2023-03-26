@@ -1,5 +1,5 @@
 local function setlect_task()
-    local tasks = vim.call("asynctasks#list", "")
+    local tasks = vim.api.nvim_call_function("asynctasks#list", {})
 
     if vim.tbl_isempty(tasks) then
         vim.notify("No task found!")

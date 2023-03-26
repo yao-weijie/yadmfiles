@@ -59,7 +59,7 @@ return {
 
             keymap("n", "<leader>gD", '<cmd>lua require"gitsigns".diffthis("~")<CR>', opts)
 
-            keymap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", opts)
+            keymap({ "o", "x" }, "ih", "<cmd><C-U>Gitsigns select_hunk<CR>", opts)
         end,
     },
 }

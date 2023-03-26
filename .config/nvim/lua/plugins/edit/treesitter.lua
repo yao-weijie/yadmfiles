@@ -83,6 +83,7 @@ local opts = {
 
 return {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufRead" },
     dependencies = {
         "HiPhish/nvim-ts-rainbow2",
         "nvim-treesitter/nvim-treesitter-textobjects",

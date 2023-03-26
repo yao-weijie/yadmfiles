@@ -8,3 +8,5 @@ _G.toolset["c-cpp"] = {
         builtins.formatting.clang_format,
     },
 }
+
+return {}

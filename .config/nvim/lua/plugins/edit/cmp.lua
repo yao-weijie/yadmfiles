@@ -31,11 +31,11 @@ local source_candidates = {
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
+        -- cmp-nvim-lsp in lsp/init.lua
+        -- cmp-luasnip in edit/luasnip.lua
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        { "rcarriga/cmp-dap", ft = { "dap-repl", "dapui_watches", "dapui_hover" } },
         {
             "yao-weijie/cmp-rime",
             dev = true,
@@ -44,12 +44,22 @@ return {
                     comment = true,
                 },
                 preselect = true,
+                -- TODO
+                -- mapping = {
+                --     select_2 = { ";" },
+                --     select_3 = { "'" },
+                --     page_up = { ",", "-" },
+                --     page_down = { ".", "=" },
+                --     confirm = { "<CR>" },
+                --     space_commit = { "<Space>" },
+                --     select_next_item = { "<C-n>" },
+                --     select_prev_item = { "<C-p>" },
+                -- },
             },
             keys = {
                 { "<C-g>", "<cmd>lua require('cmp_rime').mapping.toggle()<CR>", mode = { "i", "n" } },
             },
         },
-        "saadparwaiz1/cmp_luasnip",
         -- "hrsh7th/cmp-nvim-lsp-signature-help",
 
         "onsails/lspkind.nvim",
@@ -90,8 +100,8 @@ return {
             sorting = {
                 comparators = {
                     require("cmp_rime.compare").order,
-                    compare.exact,
                     compare.kind,
+                    compare.exact,
                     compare.length,
                     compare.offset,
                     compare.score,
@@ -162,21 +172,5 @@ return {
                 vim.tbl_extend("force", source_candidates.cmdline, { group_index = 2 }),
             },
         })
-
-        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-            sources = {
-                source_candidates.dap,
-            },
-        })
-
-        -- other settings
-        -- autopairs is started before cmp
-        cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
-
-        vim.cmd([[
-            " 文档window 隐藏链接
-            autocmd FileType cmp_docs setlocal filetype=markdown
-            autocmd FileType markdown setlocal conceallevel=2
-        ]])
     end,
 }

@@ -1,9 +1,6 @@
 return {
     "numToStr/Comment.nvim",
-    -- keys = {
-    --     { "<leader>c", mode = { "n", "v" } },
-    --     { "<leader>C", mode = { "n", "v" } },
-    -- },
+    event = { "BufRead" },
     opts = {
         padding = true,
         sticky = true,

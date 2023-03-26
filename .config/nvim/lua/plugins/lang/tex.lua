@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["tex"] = {
+_G.toolset.tex = {
     server = { "texlab" }, -- vimtex很好用,texlab可有可无
     sources = {
         builtins.formatting.latexindent.with({
@@ -57,11 +57,10 @@ local function vimtex_setup()
     vim.g.vimtex_toc_config = {
         name = "TOC",
         layers = { "content" },
-        split_width = 25,
+        split_width = 40,
         todo_sorted = 0,
         show_help = 0,
-        show_numbers = 1,
-        split_pos = "vert rightbelow",
+        split_pos = "vert leftabove",
     }
 
     vim.g.vimtex_syntax_conceal = {
@@ -91,7 +90,9 @@ local function vimtex_setup()
         autocmd BufWritePost *.tex call vimtex#toc#refresh()
     augroup END
     ]])
+
     vim.api.nvim_create_autocmd("FileType", {
+        pattern = "tex",
         callback = function(file)
             local opts = { buffer = file.buf }
             vim.bo.shiftwidth = 2

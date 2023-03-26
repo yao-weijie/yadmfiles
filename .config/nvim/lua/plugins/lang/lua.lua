@@ -1,5 +1,5 @@
 local builtins = require("null-ls").builtins
-_G.toolset["lua"] = {
+_G.toolset.lua = {
     server = { "lua_ls" },
     treesitter = { "lua" },
     sources = {
@@ -7,8 +7,4 @@ _G.toolset["lua"] = {
     },
 }
 
--- return {
---     "folke/neodev.nvim",
---     version = "*",
---     config = true,
--- }
+return {}

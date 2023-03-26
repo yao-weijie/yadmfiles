@@ -40,4 +40,10 @@ M.lazy_require = function(relpath, plugins)
     return plugins
 end
 
+---@param dir string
+M.autoload = function(dir)
+    --
+    local luapath = vim.fn.stdpath("config") .. "/lua/"
+end
+
 return M

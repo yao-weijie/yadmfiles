@@ -17,9 +17,9 @@ return {
 
         math.randomseed(os.clock())
         if vim.o.background == "dark" then
-            vim.cmd.colorscheme(dark_themes[math.random(#dark_themes)])
+            vim.cmd.colorscheme("tokyonight-night")
         else
-            vim.cmd.colorscheme(light_themes[math.random(#light_themes)])
+            vim.cmd.colorscheme("tokyonight-day")
         end
 
         vim.cmd([[

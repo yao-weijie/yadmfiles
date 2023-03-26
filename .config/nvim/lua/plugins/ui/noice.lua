@@ -7,8 +7,8 @@ return {
             opts = {
                 background_colour = "Normal",
                 minimum_width = 20,
-                max_width = nil,
-                max_height = nil,
+                max_width = 80,
+                max_height = 20,
             },
         },
     },

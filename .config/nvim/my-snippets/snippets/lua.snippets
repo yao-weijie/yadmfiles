@@ -38,6 +38,10 @@ snippet snip "fmt luasnip" b
         i(1, "pos1")
     }), {}),
 
+snippet sniplsp "lsp format snippet"
+	parse({trig="${1:trigger}", dscr="${2:description}"}, "${3:body}", {})
+
+
 snippet fmtignore "stylua format ignore" b
 	-- stylua: ignore ${1:<nil>|start|end}
 	$0

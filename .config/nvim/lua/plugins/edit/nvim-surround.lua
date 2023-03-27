@@ -1,6 +1,7 @@
 return {
     "kylechui/nvim-surround",
     version = "*",
+    event = { "BufRead" },
     opts = {
         keymaps = {
             insert = false,

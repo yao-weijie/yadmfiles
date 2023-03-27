@@ -25,7 +25,7 @@ local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
 
-local in_mathzone = require("helper.math").in_mathzone
+local in_mathzone = require("helper.luasnip").in_mathzone
 local line_begin = require("helper.luasnip").line_begin
 local line_end = require("helper.luasnip").line_end
 

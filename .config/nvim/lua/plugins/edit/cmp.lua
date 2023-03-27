@@ -40,6 +40,7 @@ return {
             "yao-weijie/cmp-rime",
             dev = true,
             opts = {
+                libpath = "/home/yaowj/Projects/tools/librime/build/lib/librime.so",
                 enable = {
                     comment = true,
                 },

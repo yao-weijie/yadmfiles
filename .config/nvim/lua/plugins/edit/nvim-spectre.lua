@@ -1,13 +1,14 @@
 return {
     "nvim-pack/nvim-spectre",
+    dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
         { "<leader>R", "<cmd>Spectre<CR>", desc = "search and replace" },
     },
     opts = {
         highlight = {
             ui = "String",
-            search = "DiffDelete",
-            replace = "DiffAdd",
+            search = "GitSignsDelete",
+            replace = "GitSignsAddInLIne",
         },
         mapping = {
             -- 删除选中

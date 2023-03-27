@@ -1,6 +1,7 @@
 return {
     "glepnir/lspsaga.nvim",
-    commit = "36542527c165dc5bf4f26376c0886a7d735596dc", -- Mar 22, 2023
+    -- commit = "36542527c165dc5bf4f26376c0886a7d735596dc", -- Mar 22, 2023
+    commit = "3ae79a1bd03d3ab90f965f0276051d09791d34cf",
     event = { "BufRead" },
     keys = {
         { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "show document" },

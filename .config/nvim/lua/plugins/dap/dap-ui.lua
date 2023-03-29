@@ -56,11 +56,11 @@ return {
         dapui.setup(opts)
 
         local debug_open = function()
-            dapui.open({})
+            dapui.open()
         end
         local debug_close = function()
+            dapui.close()
             dap.repl.close()
-            dapui.close({})
         end
 
         dap.listeners.after.event_initialized["dapui_config"] = debug_open

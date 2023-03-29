@@ -1,4 +1,29 @@
 local dap_ft = "python,c,cpp,rust"
+local python_tasks = {
+    {
+        type = "python",
+        name = "Python: Launch file",
+        request = "launch",
+        program = "${file}",
+        console = "integratedTerminal",
+    },
+}
+-- by default support c,cpp,rust
+local lldb_tasks = {
+    {
+        type = "codelldb",
+        name = "LLDB: Launch",
+        request = "launch",
+        -- 编译输出目录在 cwd/build/,和asynctask中定义的一致
+        program = "${workspaceFolder}/build/${fileBasenameNoExtension}",
+        console = "integratedTerminal",
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = true,
+    },
+}
+
 return {
     {
         "rcarriga/cmp-dap",
@@ -37,10 +62,23 @@ return {
             { "<F8>", "<cmd>DapContinue<CR>", desc = "start debug" },
         },
         config = function()
-            -- dap signs defined in plugins/ui/signs
+            local dap = require("dap")
+            local builtin_adapters = require("mason-nvim-dap.mappings.adapters")
+            local builtin_conf = require("mason-nvim-dap.mappings.configurations")
+
             require("mason-nvim-dap").setup_handlers({
                 function(source_name)
                     require("mason-nvim-dap.automatic_setup")(source_name)
+                end,
+                python = function(source_name)
+                    dap.adapters[source_name] = builtin_adapters[source_name]
+                    dap.configurations.python = python_tasks
+                end,
+                codelldb = function(source_name)
+                    dap.adapters[source_name] = builtin_adapters[source_name]
+                    for _, ft in ipairs({ "c", "cpp", "rust" }) do
+                        dap.configurations[ft] = lldb_tasks
+                    end
                 end,
             })
         end,

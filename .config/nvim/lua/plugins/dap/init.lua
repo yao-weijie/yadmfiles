@@ -27,6 +27,7 @@ local lldb_tasks = {
 return {
     {
         "rcarriga/cmp-dap",
+        enabled = vim.g.loaded_cmp == true,
         ft = { "dap-repl", "dapui_watches", "dapui_hover" },
         config = function()
             require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {

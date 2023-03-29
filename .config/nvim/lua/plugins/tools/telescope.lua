@@ -2,9 +2,8 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        "nvim-telescope/telescope-project.nvim",
 
-        { "nvim-lua/plenary.nvim", lazy = true },
+        "nvim-lua/plenary.nvim",
     },
     priority = 100,
     event = { "VeryLazy" },
@@ -73,20 +72,9 @@ return {
                     override_file_sorter = true,
                     case_mode = "smart_case",
                 },
-                project = {
-                    base_dirs = {
-                        { "~/Projects", max_depth = 2 },
-                        { "~/Desktop/", max_depth = 2 },
-                    },
-                    hidden_files = false,
-                    theme = "dropdown",
-                    search_by = "title",
-                    sync_with_nvim_tree = false,
-                },
             },
         })
 
-        telescope.load_extension("project")
         telescope.load_extension("fzf")
     end,
     keys = {
@@ -101,7 +89,6 @@ return {
         { "<leader>fj", "<cmd>Telescope jumplist<CR>", desc = "jumplist" },
         { "<leader>fo", "<cmd>Telescope vim_options<CR>", desc = "vim options" },
         { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "keymaps" },
-        { "<leader>fp", "<cmd>Telescope project<CR>", desc = "projects" },
 
         { "<leader>fd", "<cmd>Telescope lsp_definitions<CR>", desc = "lsp_definition" },
         { "<leader>fr", "<cmd>Telescope lsp_references<CR>", desc = "lsp_references" },

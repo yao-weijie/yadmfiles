@@ -28,13 +28,11 @@ if has('nvim')
     set signcolumn=auto:1-2
 endif
 
-set mouse=nvi " nvi default
-" set termguicolors
+set mouse=nv " nvi default
+set termguicolors
 if !has('nvim')
     colorscheme desert
 endif
-
-filetype plugin indent on
 
 set autoindent
 set smarttab

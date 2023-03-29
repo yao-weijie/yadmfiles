@@ -43,6 +43,9 @@ return {
 
         " CursorLine
         highlight! CursorLine gui=underline
+
+        " Window separator
+        highlight! WinSeparator guifg=gray
         ]])
     end,
 }

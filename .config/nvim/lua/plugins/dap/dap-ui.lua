@@ -1,4 +1,9 @@
 local opts = {
+    controls = {
+        element = "scopes",
+        -- element = "console",
+        -- element = "repl",
+    },
     mappings = {
         expand = { "o", "<2-LeftMouse>", "<CR>" },
         open = "O",
@@ -12,44 +17,33 @@ local opts = {
         {
             elements = {
                 -- Can be float or integer > 1
-                { id = "stacks", size = 0.3 },
-                { id = "breakpoints", size = 0.3 },
+                -- 从下往上排列的
+                { id = "stacks", size = 0.4 },
                 { id = "watches", size = 0.3 },
+                { id = "breakpoints", size = 0.3 },
             },
             size = 40,
             position = "left",
         },
         {
             elements = {
-                { id = "scopes", size = 0.4 },
-                { id = "console", size = 0.4 },
-                { id = "repl", size = 0.2 },
+                { id = "scopes", size = 0.5 },
+                { id = "console", size = 0.5 },
+                -- { id = "repl", size = 0.2 },
             },
             size = 15,
             position = "bottom",
         },
     },
-    controls = {
-        element = "scopes",
-    },
-    floating = {
-        max_height = nil, -- These can be integers or a float between 0 and 1.
-        max_width = nil, -- Floats will be treated as percentage of your screen.
-        border = "single", -- Border style. Can be "single", "double" or "rounded"
-        mappings = {
-            close = { "q", "<Esc>" },
-        },
-    },
     render = {
         indent = 2,
-        max_type_length = nil, -- Can be integer or nil.
-        max_value_lines = 100, -- Can be integer or nil.
     },
 }
 
 local dap_ft = "python,c,cpp,rust"
 return {
     "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
     ft = vim.split(dap_ft, ",", {}),
     config = function()
         local dap, dapui = require("dap"), require("dapui")
@@ -60,7 +54,6 @@ return {
         end
         local debug_close = function()
             dapui.close()
-            dap.repl.close()
         end
 
         dap.listeners.after.event_initialized["dapui_config"] = debug_open

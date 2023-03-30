@@ -189,7 +189,7 @@ cnoremap <C-f> <Right>
 " ------------------------------------------------------------------------------
 augroup _general_settings
     autocmd!
-    autocmd FileType TelescopePrompt,qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q <cmd>close<CR>
+    autocmd FileType qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q <cmd>close<CR>
     if has('nvim')
         autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({ timeout = 500 })
     endif

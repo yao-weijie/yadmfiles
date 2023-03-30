@@ -17,20 +17,29 @@ return {
                 selection_caret = "->",
                 path_display = {
                     "smart_case",
-                    shorten = {
-                        len = 3,
-                        exclude = { 1, -1 },
-                    },
+                    -- vertical 就没必要开shorten 了
+                    -- shorten = {
+                    --     len = 3,
+                    --     exclude = { 1, -1 },
+                    -- },
                 },
                 sorting_strategy = "ascending", -- put best matching results on the top
                 -- horizontal, center, vertical, flex, cursor, bottom_pane
-                layout_strategy = "flex",
+                layout_strategy = "vertical",
+                -- layout_strategy = "flex",
                 layout_config = {
                     prompt_position = "top",
                     preview_cutoff = 30,
+                    width = 80,
                     flex = {
                         flip_columns = 120,
                     },
+                },
+                file_ignore_patterns = {
+                    "build/",
+                    "%.png",
+                    "%.jpg",
+                    "%.pdf",
                 },
                 -- themes: dropdown: float, ivy: on the bottom, cursor: follow cursor,
                 themes = "dropdown",
@@ -62,6 +71,12 @@ return {
                 },
                 lsp_implementations = {
                     initial_mode = "normal",
+                    layout_strategy = "vertical",
+                },
+                lsp_document_symbols = {
+                    layout_strategy = "vertical",
+                },
+                lsp_workspace_symbols = {
                     layout_strategy = "vertical",
                 },
             },

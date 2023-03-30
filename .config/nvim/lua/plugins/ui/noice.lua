@@ -1,5 +1,6 @@
 return {
     "folke/noice.nvim",
+    event = { "VeryLazy" },
     dependencies = {
         "MunifTanjim/nui.nvim",
         {
@@ -12,11 +13,7 @@ return {
             },
         },
     },
-    priority = 900,
     opts = {
-        popupmenu = {
-            backend = "cmp",
-        },
         lsp = {
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

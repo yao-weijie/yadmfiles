@@ -23,6 +23,7 @@ local function set_highlight()
 
         " Window separator
         highlight! WinSeparator guifg=gray
+        highlight! NvimTreeWinSeparator guifg=gray
     ]])
 end
 
@@ -56,10 +57,8 @@ return {
         }
         math.randomseed(os.clock())
         if vim.o.background == "dark" then
-            -- vim.cmd.colorscheme("tokyonight-night")
             vim.cmd.colorscheme(dark_themes[math.random(#dark_themes)])
         else
-            -- vim.cmd.colorscheme("tokyonight-day")
             vim.cmd.colorscheme(light_themes[math.random(#light_themes)])
         end
     end,

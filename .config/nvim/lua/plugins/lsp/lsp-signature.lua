@@ -38,7 +38,7 @@ return {
         wrap = true,
         doc_lines = 0,
 
-        floating_window = true,
+        floating_window = false,
         floating_window_above_cur_line = true,
         floating_window_off_x = 0,
         floating_window_off_y = cal_offset_y,
@@ -54,8 +54,8 @@ return {
 
         always_trigger = false,
         auto_close_after = nil,
-        extra_trigger_chars = nil,
-        -- extra_trigger_chars = { "(", "," },
+        -- extra_trigger_chars = nil,
+        extra_trigger_chars = { "(", "," },
 
         timer_interval = 200,
         toggle_key = "<M-p>",

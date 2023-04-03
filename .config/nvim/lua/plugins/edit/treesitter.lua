@@ -1,5 +1,5 @@
 local opts = {
-    ensure_installed = { "help", "c", "cpp", "vim", "lua", "markdown", "markdown_inline" },
+    ensure_installed = { "vimdoc", "c", "cpp", "vim", "lua", "markdown", "markdown_inline" },
     sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "foam" },
     highlight = {

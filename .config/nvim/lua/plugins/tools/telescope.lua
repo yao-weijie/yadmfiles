@@ -5,7 +5,6 @@ return {
 
         "nvim-lua/plenary.nvim",
     },
-    priority = 100,
     event = { "VeryLazy" },
     config = function()
         local telescope = require("telescope")

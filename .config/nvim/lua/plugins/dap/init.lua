@@ -61,6 +61,8 @@ return {
         ft = vim.split(dap_ft, ",", {}),
         keys = {
             { "<F8>", "<cmd>DapContinue<CR>", desc = "start debug" },
+            -- Shift-F8
+            { "<F20>", "<cmd>DapTerminate<CR>", desc = "terminate debug" },
         },
         config = function()
             local dap = require("dap")

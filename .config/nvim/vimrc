@@ -9,6 +9,7 @@ set autoread
 set autowriteall
 set history=200
 
+" 编码
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gbk,gb18030,latin1
 set fileformat=unix
@@ -18,7 +19,7 @@ set cursorline
 set colorcolumn=80
 set number
 set numberwidth=2
-set scrolloff=10
+set scrolloff=8
 set sidescrolloff=10
 set ruler
 set showcmd
@@ -34,6 +35,7 @@ if !has('nvim')
     colorscheme desert
 endif
 
+" 缩进与格式
 set autoindent
 set smarttab
 set cindent
@@ -46,6 +48,7 @@ set linebreak
 set textwidth=100
 set backspace=eol,start,indent
 
+" 搜索
 set hlsearch
 set incsearch
 set ignorecase
@@ -135,6 +138,32 @@ nnoremap <leader>= gg=G
 vnoremap > >gv
 vnoremap < <gv
 
+" user defined textobject
+onoremap <silent>ie :<C-u>normal! ggVG<CR>
+xnoremap <silent>ie :<C-u>normal! ggVG<CR>
+onoremap <silent>ae :<C-u>normal! ggVG<CR>
+xnoremap <silent>ae :<C-u>normal! ggVG<CR>
+
+onoremap <silent>i, i<
+onoremap <silent>a, a<
+xnoremap <silent>i, i<
+xnoremap <silent>a, a<
+
+onoremap <silent>i. i>
+onoremap <silent>a. a>
+xnoremap <silent>i. i>
+xnoremap <silent>a. a>
+
+onoremap <silent>i9 i(
+onoremap <silent>a9 a(
+xnoremap <silent>i9 i(
+xnoremap <silent>a9 a(
+
+onoremap <silent>i0 i)
+onoremap <silent>a0 a)
+xnoremap <silent>i0 i)
+xnoremap <silent>a0 a)
+
 " switch window
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -183,13 +212,14 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
+cnoremap <C-d> <Del>
 
 
 " autocmd
 " ------------------------------------------------------------------------------
 augroup _general_settings
     autocmd!
-    autocmd FileType qf,help,man,lspinfo,checkhealth,startuptime,null-ls-info,spectre_panel,lspsagaoutline nnoremap <silent><buffer> q <cmd>close<CR>
+    autocmd FileType qf,help,man,checkhealth,startuptime nnoremap <silent><buffer> q <cmd>close<CR>
     if has('nvim')
         autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({ timeout = 500 })
     endif

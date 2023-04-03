@@ -91,7 +91,7 @@ local function vimtex_setup()
     augroup END
     ]])
 
-    vim.api.nvim_create_autocmd("FileType", {
+    vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = "tex",
         callback = function(file)
             local opts = { buffer = file.buf }

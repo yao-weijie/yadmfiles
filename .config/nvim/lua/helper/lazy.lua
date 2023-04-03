@@ -1,5 +1,15 @@
 local M = {}
 
+local lazy_defaults = {
+    ui = {
+        border = "single",
+    },
+    change_detection = {
+        enabled = false,
+        notify = false,
+    },
+}
+
 M.setup = function(...)
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -9,41 +19,12 @@ M.setup = function(...)
     end
     vim.opt.rtp:prepend(lazypath)
 
-    require("lazy").setup(...)
-end
+    local opts = ... or {}
+    opts = vim.tbl_deep_extend("keep", opts, lazy_defaults)
 
----@param relpath string 相对~/.config/nvim/lua/ 的相对路径,例如 "plugins/edit/"
----@param plugins table
----@return table
-M.lazy_require = function(relpath, plugins)
-    relpath = vim.endswith(relpath, "/") and relpath or relpath .. "/"
-    plugins = plugins or {}
-    local luapath = vim.fn.stdpath("config") .. "/lua/"
-    local folder = vim.fn.expand(luapath .. relpath)
-    for _, fname in ipairs(vim.fn.readdir(folder)) do
-        if vim.endswith(fname, ".lua") and fname ~= "init.lua" then
-            local f = string.gsub(fname, ".lua", "")
-            local ok, plugs = pcall(require, relpath .. f)
-            if not ok then
-                vim.notify("load " .. relpath .. f .. " failed")
-            end
+    require("lazy").setup(opts)
 
-            if type(plugs) == "boolean" then
-                -- pass
-            elseif vim.tbl_islist(plugs) then
-                plugins = vim.list_extend(plugins, plugs)
-            else
-                table.insert(plugins, plugs)
-            end
-        end
-    end
-    return plugins
-end
-
----@param dir string
-M.autoload = function(dir)
-    --
-    local luapath = vim.fn.stdpath("config") .. "/lua/"
+    vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "lazy" })
 end
 
 return M

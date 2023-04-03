@@ -1,9 +1,9 @@
 local builtins = require("null-ls").builtins
 _G.toolset.any = {
-    treesitter = { "help" },
+    treesitter = { "vimdoc" },
     sources = {
         -- single file mode
-        builtins.diagnostics.todo_comments,
+        -- builtins.diagnostics.todo_comments,
 
         builtins.code_actions.gitsigns,
 

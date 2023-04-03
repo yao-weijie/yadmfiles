@@ -1,3 +1,8 @@
+vim.cmd([[
+    highlight! SpectreSearch guifg=white guibg=#db4b4b
+    highlight! SpectreReplace guifg=gray guibg=lightgreen
+]])
+
 return {
     "nvim-pack/nvim-spectre",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -7,8 +12,8 @@ return {
     opts = {
         highlight = {
             ui = "String",
-            search = "GitSignsDelete",
-            replace = "GitSignsAddInLIne",
+            search = "SpectreSearch",
+            replace = "SpectreReplace",
         },
         mapping = {
             -- 删除选中

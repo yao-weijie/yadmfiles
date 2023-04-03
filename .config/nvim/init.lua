@@ -6,8 +6,8 @@ require("helper.lazy").setup({
         { import = "plugins.ui" },
         { import = "plugins.edit" },
         { import = "plugins.lsp" },
-        { import = "plugins.tools" },
         { import = "plugins.dap" },
+        { import = "plugins.tools" },
         { import = "plugins.lang" },
         { import = "autoload" },
     },
@@ -15,10 +15,5 @@ require("helper.lazy").setup({
         -- path = "~/projects", -- default
         path = "~/Projects/dev/",
         fallback = true, -- 如果本地没有就用github 上的
-    },
-    git = {
-        log = {
-            { "-5" },
-        },
     },
 })

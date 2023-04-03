@@ -51,9 +51,22 @@ return {
 
         local debug_open = function()
             dapui.open()
+            vim.keymap.set("n", "<leader><Down>", "<cmd>DapContinue<CR>", {})
+            vim.keymap.set("n", "<Down>", "<cmd>DapStepOver<CR>", {})
+            vim.keymap.set("n", "<Right>", "<cmd>DapStepInto<CR>", {})
+            vim.keymap.set("n", "<Left>", "<cmd>DapStepOut<CR>", {})
+            vim.keymap.set("n", "<Up>", "<cmd>DapTerminate<CR>", {})
         end
         local debug_close = function()
-            dapui.close()
+            local windows = require("dapui.windows")
+            if windows.layouts[1] and windows.layouts[1]:is_open() then
+                dapui.close()
+                vim.keymap.del("n", "<leader><Down>", {})
+                vim.keymap.del("n", "<Down>", {})
+                vim.keymap.del("n", "<Right>", {})
+                vim.keymap.del("n", "<Left>", {})
+                vim.keymap.del("n", "<Up>", {})
+            end
         end
 
         dap.listeners.after.event_initialized["dapui_config"] = debug_open

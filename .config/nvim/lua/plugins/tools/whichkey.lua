@@ -42,7 +42,6 @@ local opts = {
 
 return {
     "folke/which-key.nvim",
-    -- priority = 800,
     event = { "VeryLazy" },
     opts = opts,
     config = function(_, opts)

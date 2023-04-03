@@ -21,7 +21,7 @@ return {
                 ["cmp.entry.get_documentation"] = true,
             },
             hover = { enabled = false },
-            signature = { enabled = false },
+            signature = { enabled = true },
         },
     },
 }

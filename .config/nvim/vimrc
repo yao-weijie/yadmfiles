@@ -7,7 +7,7 @@ set noswapfile
 set nowritebackup
 set autoread
 set autowriteall
-set history=200
+set history=1000
 
 " 编码
 set encoding=utf-8
@@ -95,6 +95,8 @@ let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
 
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
+
+" inoremap jj <Esc>
 
 " C-r用作搜索替换
 nnoremap U <C-r>

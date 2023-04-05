@@ -4,10 +4,7 @@ local function auto_format()
     end
 
     local async = false
-    local max_filesize = 100 * 1024 -- 100 KB
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(0))
-    -- 大于100KB 或者大于1k 行, 异步格式化
-    if ok and stats and (stats.size > max_filesize or vim.fn.line("$") > 1000) then
+    if require("helper.path").is_hugefile(0, "100k") or vim.fn.line("$") > 1000 then
         async = true
     end
 

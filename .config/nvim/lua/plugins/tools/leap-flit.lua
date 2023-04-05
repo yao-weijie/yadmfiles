@@ -15,7 +15,7 @@ return {
             equivalence_classes = { " \t\r\n" },
             substitute_chars = {},
             safe_labels = {},
-            labels = vim.split("jkluiomnfdswec", ""),
+            labels = vim.split("jkluiomnfdswec", "", {}),
             special_keys = {
                 repeat_search = "<Enter>",
                 next_phase_one_target = "<Enter>",

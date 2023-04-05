@@ -103,6 +103,7 @@ return {
         { "<leader>fj", "<cmd>Telescope jumplist<CR>", desc = "jumplist" },
         { "<leader>fo", "<cmd>Telescope vim_options<CR>", desc = "vim options" },
         { "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "keymaps" },
+        { "<leader>fq", "<cmd>Telescope quickfix<CR>", desc = "quickfix" },
 
         { "<leader>fd", "<cmd>Telescope lsp_definitions<CR>", desc = "lsp_definition" },
         { "<leader>fr", "<cmd>Telescope lsp_references<CR>", desc = "lsp_references" },

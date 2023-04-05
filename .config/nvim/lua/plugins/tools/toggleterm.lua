@@ -4,7 +4,7 @@ return {
     event = { "VeryLazy" },
     opts = {
         size = 20,
-        open_mapping = [[<c-\>]],
+        open_mapping = [[<C-\>]],
         hide_numbers = false,
         shade_filetypes = {},
         shade_terminals = false,
@@ -16,7 +16,7 @@ return {
         close_on_exit = true,
         shell = vim.o.shell,
         float_opts = {
-            border = "curved",
+            border = "single",
             winblend = 3,
             width = 90,
             height = 40,
@@ -47,6 +47,9 @@ return {
         end, {})
         local gitui = Terminal:new({ cmd = "gitui", hidden = false, float_opts = float_opts })
         create_cmd("GitUI", function()
+            if vim.fn.executable("gitui") ~= 1 then
+                vim.cmd([[MasonInstall gitui]])
+            end
             gitui:toggle()
         end, {})
         local btop = Terminal:new({ cmd = "btop", hidden = false, float_opts = float_opts })

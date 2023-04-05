@@ -1,5 +1,5 @@
 local opts = {
-    ensure_installed = { "vimdoc", "c", "cpp", "vim", "lua", "markdown", "markdown_inline" },
+    ensure_installed = { "vimdoc", "c", "cpp", "vim", "lua", "luadoc", "markdown", "markdown_inline" },
     sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "foam" },
     highlight = {
@@ -13,11 +13,7 @@ local opts = {
                 return true
             end
 
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-                return true
-            end
+            return require("helper.path").is_hugefile(buf, "100k")
         end,
         additional_vim_regex_highlighting = false,
     },

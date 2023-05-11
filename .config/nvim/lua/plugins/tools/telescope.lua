@@ -9,14 +9,16 @@ return {
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
+        local action_layout = require("telescope.actions.layout")
 
         telescope.setup({
             defaults = {
+                preview = {
+                    hide_on_startup = true,
+                },
                 prompt_prefix = "🔍 ",
-                selection_caret = "->",
                 path_display = {
                     "smart_case",
-                    -- vertical 就没必要开shorten 了
                     -- shorten = {
                     --     len = 3,
                     --     exclude = { 1, -1 },
@@ -28,11 +30,12 @@ return {
                 -- layout_strategy = "flex",
                 layout_config = {
                     prompt_position = "top",
-                    preview_cutoff = 30,
+                    preview_cutoff = 10,
                     width = 80,
-                    flex = {
-                        flip_columns = 120,
-                    },
+                    height = 25,
+                    -- flex = {
+                    --     flip_columns = 120,
+                    -- },
                 },
                 file_ignore_patterns = {
                     "build/",
@@ -47,11 +50,13 @@ return {
                         -- 和leaderf 相同的快捷键设置
                         ["<C-j>"] = actions.move_selection_next,
                         ["<C-k>"] = actions.move_selection_previous,
-                        ["<C-p>"] = actions.cycle_history_prev,
                         ["<C-n>"] = actions.cycle_history_next,
+                        ["<C-p>"] = actions.cycle_history_prev,
+                        ["<M-p>"] = action_layout.toggle_preview,
                     },
                     n = {
                         ["q"] = actions.close,
+                        ["<M-p>"] = action_layout.toggle_preview,
                     },
                 },
             },

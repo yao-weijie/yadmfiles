@@ -1,3 +1,4 @@
+# 好像没有生效的样子
 clangd.arguments:
   # 在后台自动分析文件（基于complie_commands)
   - "--background-index"

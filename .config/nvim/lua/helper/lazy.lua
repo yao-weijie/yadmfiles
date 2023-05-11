@@ -8,6 +8,9 @@ local lazy_defaults = {
         enabled = false,
         notify = false,
     },
+    dev = {
+        fallback = true, -- 如果本地没有就用github 上的
+    },
 }
 
 M.setup = function(...)

@@ -21,6 +21,14 @@ local function set_highlight()
         " CursorLine
         highlight! CursorLine gui=underline
 
+        " ColorColumn
+        highlight! ColorColumn guibg=gray
+
+        " PmenuSel
+        " highlight! MyCmpNormal ctermfg=187 ctermbg=239 guifg=#ebdbb2 guibg=#504945
+        highlight! link MyCmpNormal Normal
+        highlight! MyCmpSel guibg=#569CD6 guifg=black
+
         " Window separator
         highlight! WinSeparator guifg=gray
         highlight! NvimTreeWinSeparator guifg=gray
@@ -37,11 +45,11 @@ return {
         vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
         vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
             callback = function()
-                if vim.bo.filetype == "alpha" then
+                local ignore_list = { "alpha", "leaderf", "TelescopePrompt" }
+                if vim.tbl_contains(ignore_list, vim.bo.filetype) then
                     return
                 end
-
-                vim.cmd.setl("cursorline")
+                vim.cmd.setlocal("cursorline")
             end,
         })
         vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })

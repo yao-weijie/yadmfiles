@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -42,9 +44,18 @@ if [[ $SHELL == *zsh* ]]; then
 elif [[ $SHELL == *bash* ]]; then
 	alias reload="source ~/.bashrc; echo reloaded ~/.bashrc"
 fi
+
 alias nv="nvim"
+alias nvim-raw="nvim -u ~/.config/nvim/vimrc "
+alias vim="nvim -u ~/.config/nvim/vimrc "
+syncvim() {
+	local server=$1
+	rsync -a --delete ~/.config/nvim/ "$server:~/.config/nvim/"
+	rsync -a --delete ~/.local/share/nvim/lazy/ "$server:~/.local/share/nvim/lazy/"
+}
+
 alias cls="clear"
-alias bat="batcat"
+[[ -f /usr/bin/batcat ]] && alias cat="batcat"
 alias cda="conda activate "
 alias cdd="conda deactivate "
 alias dea="deactivate"
@@ -54,4 +65,5 @@ alias cp="cp -r"
 alias rm="rm -i" # 使用rm 删除的时候，会有一个确认的提示。
 alias psg="ps -A | grep"
 
-# vim:ft=sh:
+alias dst="yadm status"
+alias kwechat="pkill WeChatAppEx"

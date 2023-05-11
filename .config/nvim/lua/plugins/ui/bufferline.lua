@@ -23,6 +23,9 @@ return {
         },
     },
     keys = {
+        -- cover C-n C-p in vimrc
+        { "<C-n>", "<cmd>BufferLineCycleNext<CR>", desc = "next buffer" },
+        { "<C-p>", "<cmd>BufferLineCyclePrev<CR>", desc = "prev buffer" },
         { "<leader>1", "<cmd>lua require('bufferline').go_to_buffer(1, true)<CR>", desc = "buffer 1" },
         { "<leader>2", "<cmd>lua require('bufferline').go_to_buffer(2, true)<CR>", desc = "buffer 2" },
         { "<leader>3", "<cmd>lua require('bufferline').go_to_buffer(3, true)<CR>", desc = "buffer 3" },

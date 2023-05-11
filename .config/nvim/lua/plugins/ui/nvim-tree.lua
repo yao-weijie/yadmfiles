@@ -15,58 +15,6 @@ local opts = {
         number = false,
         relativenumber = false,
         signcolumn = "no",
-
-        mappings = {
-            custom_only = true,
-            list = {
-                -- open file
-                { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
-                { key = "<C-x>", action = "split" },
-                { key = "<C-v>", action = "vsplit" },
-                { key = "<C-t>", action = "tabnew" },
-                { key = "<C-p>", action = "preview" },
-
-                -- file
-                { key = "a", action = "create" },
-                { key = "c", action = "copy" },
-                { key = "x", action = "cut" },
-                { key = "v", action = "paste" },
-                { key = "d", action = "trash" },
-                { key = "D", action = "remove" },
-                { key = "r", action = "rename" },
-
-                -- filters
-                { key = "f", action = "live_filter" },
-                { key = "F", action = "clear_live_filter" },
-
-                -- copy path
-                { key = "y", action = "copy_path" },
-                { key = "Y", action = "copy_absolute_path" },
-
-                -- change dir
-                { key = "H", action = "dir_up" },
-                { key = "L", action = "cd" },
-                { key = "h", action = "parent_node" },
-                { key = "l", action = "last_sibling" },
-
-                -- show and ignore
-                { key = ".", action = "toggle_dotfiles" },
-                { key = "i", action = "toggle_git_ignored" },
-                { key = "b", action = "toggle_no_buffer" },
-                { key = "R", action = "refresh" },
-
-                -- git files
-                { key = "[g", action = "prev_git_item" },
-                { key = "]g", action = "next_git_item" },
-
-                -- exit
-                { key = "q", action = "close" },
-                { key = "<esc>", action = "close" },
-
-                -- help
-                { key = "g?", action = "toggle_help" },
-            },
-        },
     },
 
     renderer = {
@@ -161,6 +109,56 @@ return {
         { "<leader>E", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
     },
     config = function()
+        opts.on_attach = function(bufnr)
+            local api = require("nvim-tree.api")
+            local function keymap(lhs, rhs, desc)
+                if type(lhs) == "string" then
+                    vim.keymap.set("n", lhs, rhs, { desc = desc, buffer = bufnr, noremap = true })
+                elseif type(lhs) == "table" then
+                    for i = 1, #lhs do
+                        vim.keymap.set("n", lhs[i], rhs, { desc = desc, buffer = bufnr, noremap = true })
+                    end
+                end
+            end
+
+            -- open
+            keymap({ "o", "<CR>", "<2-LeftMouse>" }, api.node.open.edit, "Open")
+            keymap("<C-v>", api.node.open.vertical, "Open: Vertical Split")
+            keymap("<C-x>", api.node.open.horizontal, "Open: Horizontal Split")
+            keymap("<C-t>", api.node.open.tab, "Open: New Tab")
+            keymap("<Tab>", api.node.open.preview, "preview")
+
+            -- fs
+            keymap("a", api.fs.create, "create")
+            keymap("c", api.fs.copy.node, "copy")
+            keymap("x", api.fs.cut, "cut")
+            keymap("v", api.fs.paste, "paste")
+            keymap("d", api.fs.trash, "trash")
+            keymap("D", api.fs.remove, "remove")
+            keymap("r", api.fs.rename, "rename")
+            keymap("y", api.fs.copy.filename, "copy filename")
+            keymap("Y", api.fs.copy.relative_path, "copy relative path")
+            keymap("gy", api.fs.copy.absolute_path, "copy absolute path")
+
+            -- change node
+            keymap("H", api.tree.change_root_to_parent, "cd up")
+            keymap("L", api.tree.change_root_to_node, "cd")
+            keymap("h", api.node.navigate.parent, "parent node")
+            keymap("l", api.node.navigate.sibling.last, "last sibling")
+            keymap("K", api.node.show_info_popup, "info")
+            keymap("[g", api.node.navigate.git.prev, "prev git item")
+            keymap("]g", api.node.navigate.git.next, "next git item")
+
+            -- view
+            keymap("i", api.tree.toggle_gitignore_filter, "toggle git ignore")
+            keymap(".", api.tree.toggle_hidden_filter, "toggle dotfiles")
+            keymap("f", api.live_filter.start, "filter")
+            keymap("F", api.live_filter.clear, "clean filter")
+            keymap("R", api.tree.reload, "refresh")
+            keymap("b", api.tree.toggle_no_buffer_filter, "toggle no buffer")
+            keymap({ "q", "<Esc>" }, api.tree.close, "quit")
+            keymap("g?", api.tree.toggle_help, "help")
+        end
         require("nvim-tree").setup(opts)
 
         local api = require("nvim-tree.api")

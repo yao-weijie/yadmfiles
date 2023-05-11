@@ -12,7 +12,7 @@ local python_tasks = {
 local lldb_tasks = {
     {
         type = "codelldb",
-        name = "LLDB: Launch",
+        name = "LLDB: Launch file",
         request = "launch",
         -- 编译输出目录在 cwd/build/,和asynctask中定义的一致
         program = "${workspaceFolder}/build/${fileBasenameNoExtension}",
@@ -56,7 +56,7 @@ return {
     {
         "mfussenegger/nvim-dap",
         dependencies = {
-            { "jayp0521/mason-nvim-dap.nvim", opts = { automatic_setup = true } },
+            { "jayp0521/mason-nvim-dap.nvim" },
         },
         ft = vim.split(dap_ft, ",", {}),
         keys = {
@@ -65,24 +65,22 @@ return {
             { "<F20>", "<cmd>DapTerminate<CR>", desc = "terminate debug" },
         },
         config = function()
-            local dap = require("dap")
-            local builtin_adapters = require("mason-nvim-dap.mappings.adapters")
-            local builtin_conf = require("mason-nvim-dap.mappings.configurations")
-
-            require("mason-nvim-dap").setup_handlers({
-                function(source_name)
-                    require("mason-nvim-dap.automatic_setup")(source_name)
-                end,
-                python = function(source_name)
-                    dap.adapters[source_name] = builtin_adapters[source_name]
-                    dap.configurations.python = python_tasks
-                end,
-                codelldb = function(source_name)
-                    dap.adapters[source_name] = builtin_adapters[source_name]
-                    for _, ft in ipairs({ "c", "cpp", "rust" }) do
-                        dap.configurations[ft] = lldb_tasks
-                    end
-                end,
+            local mason_dap = require("mason-nvim-dap")
+            mason_dap.setup({
+                automatic_setup = true,
+                handlers = {
+                    function(config)
+                        mason_dap.default_setup(config)
+                    end,
+                    python = function(config)
+                        config.configurations = python_tasks
+                        mason_dap.default_setup(config)
+                    end,
+                    codelldb = function(config)
+                        config.configurations = lldb_tasks
+                        mason_dap.default_setup(config)
+                    end,
+                },
             })
         end,
     },

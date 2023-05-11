@@ -36,3 +36,4 @@ extend-ignore = [
 disable_error_code = [
     "var-annotated"
 ]
+warn_return_any = false

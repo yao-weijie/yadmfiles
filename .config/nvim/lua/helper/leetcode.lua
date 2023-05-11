@@ -115,7 +115,7 @@ end
 
 M.update_db = function()
     local function job_sed(a, b)
-        local s = string.format("s/%s/%s/g", a, b)
+        local s = ("s/%s/%s/g"):format(a, b)
         local fpath = fn.expand("~/.leetcode/leetcode.toml")
         Job:new({
             command = "sed",

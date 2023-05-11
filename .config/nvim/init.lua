@@ -14,6 +14,5 @@ require("helper.lazy").setup({
     dev = {
         -- path = "~/projects", -- default
         path = "~/Projects/dev/",
-        fallback = true, -- 如果本地没有就用github 上的
     },
 })

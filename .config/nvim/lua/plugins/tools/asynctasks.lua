@@ -8,7 +8,7 @@ local function setlect_task()
 
     vim.ui.select(tasks, {
         format_item = function(task)
-            return string.format("<%s> <%s>: %s", task.scope, task.name, task.command)
+            return ("<%s> <%s>: %s"):format(task.scope, task.name, task.command)
         end,
     }, function(task)
         if task == nil then

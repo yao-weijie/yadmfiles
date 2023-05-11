@@ -1,5 +1,5 @@
 local on_attach = function(client, bufnr)
-    --
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -19,7 +19,7 @@ local lsp_flags = {
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        { "folke/neodev.nvim", version = "*", config = true },
+        { "folke/neodev.nvim", version = "*", config = true, lazy = true },
         "hrsh7th/cmp-nvim-lsp",
         {
             -- 通过yaml/json文件来设置lsp-server
@@ -47,7 +47,7 @@ return {
         })
     end,
     keys = {
-        { "gr", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "reanme symbol" },
-        { "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", mode = { "n", "v" }, desc = "code_action" },
+        { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
+        { "ga", vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "code_action" },
     },
 }

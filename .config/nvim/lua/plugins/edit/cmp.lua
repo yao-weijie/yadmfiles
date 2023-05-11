@@ -6,7 +6,7 @@
 -- priority
 -- max_item_count
 -- group_index
-local source_candidates = {
+CMP_SOURCES = {
     luasnip = { name = "luasnip", menu = "[Snip]" },
     nvim_lsp = {
         name = "nvim_lsp",
@@ -41,6 +41,7 @@ return {
             dev = true,
             opts = {
                 libpath = "/home/yaowj/Projects/tools/librime/build/lib/librime.so",
+                -- libpath = "librime.so",
                 enable = {
                     comment = true,
                 },
@@ -72,8 +73,14 @@ return {
 
         cmp.setup({
             window = {
-                completion = cmp.config.window.bordered(),
-                documentation = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered({
+                    border = "single",
+                }),
+                completion = cmp.config.window.bordered({
+                    border = "single",
+                    -- winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel", -- 重点是CursorLine
+                    winhighlight = "Normal:MyCmpNormal,FloatBorder:MyCmpNormal,CursorLine:MyCmpSel", -- 重点是CursorLine
+                }),
             },
             formatting = {
                 fields = { "abbr", "kind", "menu" },
@@ -82,61 +89,37 @@ return {
                     maxwidth = 50,
 
                     before = function(entry, vim_item)
-                        vim_item.menu = source_candidates[entry.source.name].menu
+                        vim_item.menu = CMP_SOURCES[entry.source.name].menu
                         return vim_item
                     end,
                 }),
             },
 
             -- global setting and can be overwritten in sources
-            experimental = { ghost_text = true },
+            experimental = { ghost_text = false },
             sources = {
-                source_candidates.nvim_lsp,
-                source_candidates.luasnip,
-                source_candidates.buffer,
-                source_candidates.rime,
-                source_candidates.path,
+                CMP_SOURCES.nvim_lsp,
+                CMP_SOURCES.luasnip,
+                CMP_SOURCES.buffer,
+                CMP_SOURCES.rime,
+                CMP_SOURCES.path,
             },
 
             sorting = {
                 comparators = {
                     require("cmp_rime.compare").order,
+                    compare.score,
                     compare.kind,
                     compare.exact,
                     compare.length,
                     compare.offset,
-                    compare.score,
-                    compare.recently_used,
                     compare.sort_text,
                 },
             },
 
-            snippet = {
-                expand = function(args)
-                    require("luasnip").lsp_expand(args.body)
-                end,
-            },
+            -- snippet settting in luasnip
             mapping = cmp.mapping.preset.insert({
-                ["<C-j>"] = cmp.mapping(function(fallback)
-                    if require("luasnip").expand_or_jumpable() then
-                        require("luasnip").expand_or_jump()
-                    elseif cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-                ["<C-k>"] = cmp.mapping(function(fallback)
-                    -- TODO: check  in snippet
-                    if require("luasnip").jumpable(-1) then
-                        require("luasnip").jump(-1)
-                    elseif cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-
+                -- expand snippet setting in luasnip
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
 
@@ -160,7 +143,7 @@ return {
             cmp.setup.cmdline(cmd_type, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
-                    source_candidates.buffer,
+                    CMP_SOURCES.buffer,
                 },
             })
         end
@@ -169,8 +152,8 @@ return {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
                 -- 有path 的时候屏蔽cmd
-                vim.tbl_extend("force", source_candidates.path, { group_index = 1 }),
-                vim.tbl_extend("force", source_candidates.cmdline, { group_index = 2 }),
+                vim.tbl_extend("force", CMP_SOURCES.path, { group_index = 1 }),
+                vim.tbl_extend("force", CMP_SOURCES.cmdline, { group_index = 2 }),
             },
         })
     end,

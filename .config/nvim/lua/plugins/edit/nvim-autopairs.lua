@@ -26,12 +26,39 @@ return {
     },
     config = function(_, opts)
         local npairs = require("nvim-autopairs")
-        npairs.setup(opts)
         local Rule = require("nvim-autopairs.rule")
+        local cmp = require("cmp")
+        local handlers = require("nvim-autopairs.completion.handlers")
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-        -- other settings
-        -- autopairs is started before cmp
-        require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+        npairs.setup(opts)
+
+        cmp.event:on(
+            "confirm_done",
+            cmp_autopairs.on_confirm_done({
+                filetypes = {
+                    ["*"] = {
+                        ["("] = {
+                            kind = {
+                                cmp.lsp.CompletionItemKind.Function,
+                                cmp.lsp.CompletionItemKind.Method,
+                                cmp.lsp.CompletionItemKind.Class, -- 比默认配置多这个
+                            },
+                            handler = handlers["*"], -- 必须有
+                        },
+                    },
+                    -- with texlab
+                    tex = {
+                        ["{"] = {
+                            kind = {
+                                cmp.lsp.CompletionItemKind.Function,
+                            },
+                            handler = handlers["*"], -- 必须有
+                        },
+                    },
+                },
+            })
+        )
 
         -- add spaces between parentheses
         npairs.add_rules({

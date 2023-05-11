@@ -3,7 +3,10 @@
 
 set nocompatible
 set nobackup
-set noswapfile
+
+set swapfile
+set directory=~/.cache/vimswap/
+
 set nowritebackup
 set autoread
 set autowriteall
@@ -27,6 +30,8 @@ set noshowmode
 set wildmenu
 if has('nvim')
     set signcolumn=auto:1-2
+else
+    set signcolumn=no
 endif
 
 set mouse=nv " nvi default
@@ -43,10 +48,11 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 set softtabstop=4
-set linebreak
+set backspace=eol,start,indent
 
 set textwidth=100
-set backspace=eol,start,indent
+" set linebreak
+set wrap
 
 " 搜索
 set hlsearch
@@ -96,7 +102,7 @@ let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-" inoremap jj <Esc>
+" inoremap jj <Esc> " 有cmp-rime 的时候不适合开启
 
 " C-r用作搜索替换
 nnoremap U <C-r>
@@ -105,6 +111,12 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+
+if !has('nvim')
+    " mini.move
+    nnoremap <M-j> <cmd>m+1<CR>
+    nnoremap <M-k> <cmd>m-2<CR>
+endif
 
 " H, L jump to line home / end
 nnoremap H ^
@@ -132,6 +144,7 @@ nnoremap <leader>Q <cmd>copen<CR>
 
 " paste
 " TODO:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
+snoremap p i<BS>p
 vnoremap p P
 vnoremap P p
 
@@ -140,11 +153,16 @@ nnoremap <leader>= gg=G
 vnoremap > >gv
 vnoremap < <gv
 
-" user defined textobject
-onoremap <silent>ie :<C-u>normal! ggVG<CR>
-xnoremap <silent>ie :<C-u>normal! ggVG<CR>
-onoremap <silent>ae :<C-u>normal! ggVG<CR>
-xnoremap <silent>ae :<C-u>normal! ggVG<CR>
+" " user defined textobject
+" onoremap <silent>ie :<C-u>normal! ggVG<CR>
+" xnoremap <silent>ie :<C-u>normal! ggVG<CR>
+" onoremap <silent>ae :<C-u>normal! ggVG<CR>
+" xnoremap <silent>ae :<C-u>normal! ggVG<CR>
+
+onoremap w aw
+onoremap W aW
+onoremap p ap
+onoremap P aP
 
 onoremap <silent>i, i<
 onoremap <silent>a, a<
@@ -172,6 +190,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" split window
+nnoremap <leader><C-x> <cmd>split<CR>
+nnoremap <leader><C-v> <cmd>vsplit<CR>
+
 " resize window
 nnoremap <C-Up>    <cmd>resize +2<CR>
 nnoremap <C-Down>  <cmd>resize -2<CR>
@@ -195,6 +217,8 @@ inoremap <C-k>   <C-o>c$
 
 inoremap <M-w> <C-Right>
 inoremap <M-b> <C-Left>
+
+inoremap <C-v> <C-o>p
 
 " auto-pair
 if !has('nvim')

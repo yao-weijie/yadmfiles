@@ -56,7 +56,10 @@ local function vimtex_setup()
 
     vim.g.vimtex_toc_config = {
         name = "TOC",
-        layers = { "content" },
+        layers = {
+            "content",
+            "label",
+        },
         split_width = 40,
         todo_sorted = 0,
         show_help = 0,
@@ -91,6 +94,8 @@ local function vimtex_setup()
     augroup END
     ]])
 
+    -- \命令自动展开{}, 在nvim-autopairs 里设置
+
     vim.api.nvim_create_autocmd({ "FileType" }, {
         pattern = "tex",
         callback = function(file)
@@ -104,6 +109,16 @@ local function vimtex_setup()
             vim.keymap.set({ "n", "v", "o" }, "L", "g$", opts)
             vim.keymap.set("n", "<leader>o", "<cmd>VimtexTocToggle<CR>", opts)
             vim.keymap.set("n", "==", "gg=G", opts)
+            vim.keymap.set("i", "<M-k>", function()
+                if require("helper.luasnip").in_mathzone() then
+                    vim.api.nvim_input("^{}<Left>")
+                end
+            end, {})
+            vim.keymap.set("i", "<M-j>", function()
+                if require("helper.luasnip").in_mathzone() then
+                    vim.api.nvim_input("_{}<Left>")
+                end
+            end, {})
         end,
     })
 end

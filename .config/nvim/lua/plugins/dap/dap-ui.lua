@@ -49,7 +49,8 @@ return {
         local dap, dapui = require("dap"), require("dapui")
         dapui.setup(opts)
 
-        local debug_open = function()
+        ---@param session Session
+        local debug_open = function(session)
             dapui.open()
             vim.keymap.set("n", "<leader><Down>", "<cmd>DapContinue<CR>", {})
             vim.keymap.set("n", "<Down>", "<cmd>DapStepOver<CR>", {})
@@ -57,7 +58,7 @@ return {
             vim.keymap.set("n", "<Left>", "<cmd>DapStepOut<CR>", {})
             vim.keymap.set("n", "<Up>", "<cmd>DapTerminate<CR>", {})
         end
-        local debug_close = function()
+        local debug_close = function(session)
             local windows = require("dapui.windows")
             if windows.layouts[1] and windows.layouts[1]:is_open() then
                 dapui.close()

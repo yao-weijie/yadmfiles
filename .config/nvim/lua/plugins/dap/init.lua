@@ -1,5 +1,13 @@
 local dap_ft = "python,c,cpp,rust"
-local python_tasks = {
+local debugpy_adapter = {
+    type = "executable",
+    command = "python3",
+    args = {
+        "-m",
+        "debugpy.adapter",
+    },
+}
+local debugpy_tasks = {
     {
         type = "python",
         name = "Python: Launch file",
@@ -8,6 +16,7 @@ local python_tasks = {
         console = "integratedTerminal",
     },
 }
+
 -- by default support c,cpp,rust
 local lldb_tasks = {
     {
@@ -19,24 +28,11 @@ local lldb_tasks = {
         console = "integratedTerminal",
         cwd = "${workspaceFolder}",
         stopOnEntry = false,
-        args = {},
         runInTerminal = true,
     },
 }
 
 return {
-    {
-        "rcarriga/cmp-dap",
-        cond = vim.g.loaded_cmp,
-        ft = { "dap-repl", "dapui_watches", "dapui_hover" },
-        config = function()
-            require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-                sources = {
-                    { name = "dap", menu = "[Dap]" },
-                },
-            })
-        end,
-    },
     { "theHamsta/nvim-dap-virtual-text", ft = vim.split(dap_ft, ",", {}), config = true },
     {
         "Weissle/persistent-breakpoints.nvim",
@@ -73,10 +69,14 @@ return {
                         mason_dap.default_setup(config)
                     end,
                     python = function(config)
-                        config.configurations = python_tasks
+                        -- 需要通过DapInstall python
+                        -- 但实际上并不用mason 安装的debugpy, 而是各个环境安装的debugpy
+                        config.adapters = debugpy_adapter
+                        config.configurations = debugpy_tasks
                         mason_dap.default_setup(config)
                     end,
                     codelldb = function(config)
+                        -- config.adapters = lldb_adapter
                         config.configurations = lldb_tasks
                         mason_dap.default_setup(config)
                     end,

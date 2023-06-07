@@ -49,3 +49,4 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
+[[ -f ~/.shell_local ]] && source ~/.shell_local

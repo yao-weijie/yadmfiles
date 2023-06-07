@@ -1,5 +1,5 @@
 return {
-    { "folke/lazy.nvim" },
+    { "folke/lazy.nvim", version = "*" },
     { "williamboman/mason.nvim", config = true },
     {
         "karb94/neoscroll.nvim",
@@ -18,7 +18,7 @@ return {
     },
     {
         "aserowy/tmux.nvim",
-        keys = { "<C-h>", "<C-j>", "<-C-k>", "<C-l>" },
+        keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
         opts = {
             resize = {
                 -- enables default keybindings (A-hjkl) for normal mode

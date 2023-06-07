@@ -5,7 +5,9 @@ _G.toolset["c-cpp"] = {
     treesitter = { "c", "cpp", "cmake" },
     sources = {
         -- C, C++, Java, JavaScript, JSON, C#
-        builtins.formatting.clang_format,
+        builtins.formatting.clang_format.with({
+            -- extra_filetypes = { "foam" },
+        }),
     },
 }
 

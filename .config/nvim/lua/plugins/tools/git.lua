@@ -1,5 +1,5 @@
 return {
-    { "akinsho/git-conflict.nvim", lazy = true },
-    { "rbong/vim-flog", lazy = true },
-    { "tpope/vim-fugitive", lazy = true },
+    { "akinsho/git-conflict.nvim", event = { "VeryLazy" } },
+    { "rbong/vim-flog", event = { "VeryLazy" } },
+    { "tpope/vim-fugitive", event = { "VeryLazy" } },
 }

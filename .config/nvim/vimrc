@@ -106,6 +106,8 @@ let maplocalleader = "\<Space>"
 
 " C-r用作搜索替换
 nnoremap U <C-r>
+nnoremap <C-z> u
+vnoremap <C-z> u
 
 nnoremap j gj
 nnoremap k gk

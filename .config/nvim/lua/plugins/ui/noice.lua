@@ -16,9 +16,7 @@ return {
     opts = {
         cmdline = {
             opts = {
-                position = {
-                    row = "10%",
-                },
+                position = { row = "10%" },
             },
         },
         lsp = {

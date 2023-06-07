@@ -9,12 +9,16 @@ local opts = {
 
     view = {
         width = 30,
-        hide_root_folder = false,
-        side = "left",
         preserve_window_proportions = false,
-        number = false,
-        relativenumber = false,
         signcolumn = "no",
+
+        float = {
+            enable = true,
+            open_win_config = {
+                border = "none",
+                col = 0,
+            },
+        },
     },
 
     renderer = {
@@ -61,6 +65,7 @@ local opts = {
         },
         exclude = {
             ".gitignore",
+            ".vscode",
         },
     },
     git = {
@@ -106,7 +111,7 @@ return {
     },
     lazy = true,
     keys = {
-        { "<leader>E", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
+        { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
     },
     config = function()
         opts.on_attach = function(bufnr)

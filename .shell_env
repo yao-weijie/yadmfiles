@@ -1,3 +1,5 @@
+#!/bin/bash
+
 add_to_path() {
 	local p=$1
 	if [[ ! $p ]]; then
@@ -27,15 +29,14 @@ if [[ -d /opt/java/jdk-11 ]]; then
 	add_to_path "$JRE_HOME/bin"
 	export JAVA_HOME JRE_HOME CLASS_PATH
 fi
+
+[[ -f "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile"
+
 # 去除重复内容, 且不排序
 export PATH=$(echo $PATH | sed "s/:/\n/g" | uniq | tr -s "\n" ":" | sed "s/:$//g")
 
 # 禁用python输出缓存，实时输出结果到屏幕和文件, 或者在执行的时候加上 -u 参数
 export PYTHONUNBUFFERED=1
-
-if [[ ! ($TERM == "xterm-256color" || $TERM == "tmux-256color") ]]; then
-	export TERM="xterm-256color"
-fi
 
 # default editor
 export EDITOR=nvim
@@ -70,7 +71,6 @@ function setproxy() {
 	echo "set http(s)_proxy=${http_proxy}"
 	echo "set all_proxy=${all_proxy}"
 }
-# alias unproxy="unset http_proxy;unset https_proxy;unset all_proxy;echo 'unset http(s)_proxy';echo 'unset all_proxy'"
 function unproxy() {
 	unset http_proxy
 	unset https_proxy
@@ -83,6 +83,3 @@ function proxyenv() {
 	echo "https_proxy=$https_proxy"
 	echo "all_proxy=$all_proxy"
 }
-setproxy >/dev/null
-
-# vim:ft=sh:

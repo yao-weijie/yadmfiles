@@ -59,11 +59,11 @@ alias cls="clear"
 alias cda="conda activate "
 alias cdd="conda deactivate "
 alias dea="deactivate"
-alias autoenv="touch .autoenv.zsh .autoenv_leave.zsh && chmod +x .autoenv.zsh .autoenv_leave.zsh && echo 'touched .autoenv.zsh and .autoenv_leave.zsh'"
+alias autoenv="touch .autoenv.zsh .autoenv_leave.zsh \
+&& chmod +x .autoenv.zsh .autoenv_leave.zsh"
 alias rmautoenv='trash .autoenv.zsh .autoenv_leave.zsh'
 alias cp="cp -r"
 alias rm="rm -i" # 使用rm 删除的时候，会有一个确认的提示。
 alias psg="ps -A | grep"
 
 alias dst="yadm status"
-alias kwechat="pkill WeChatAppEx"

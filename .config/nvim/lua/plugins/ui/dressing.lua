@@ -4,7 +4,7 @@ return {
     opts = {
         input = {
             prefer_width = 40,
-            max_width = { 140, 0.9 },
+            max_width = { 80, 0.9 },
             min_width = { 20, 0.2 },
             mappings = {
                 n = {
@@ -22,7 +22,7 @@ return {
             },
         },
         select = {
-            backend = { "telescope" },
+            backend = { "telescope", "fzf_lua", "nui" },
         },
     },
 }

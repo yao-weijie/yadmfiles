@@ -1,13 +1,13 @@
-$pdf_mode = 1;
+# 默认使用pdflatex
+# pdflatex 1
+# xelatex 5
+$pdf_mode = 5;
 
 $pdflatex = "pdflatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1 %O %S";
-$xelatex =   "xelatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1 %O %S";
-$xdvipdfmx = "xdvipdfmx -E -o %D %O %S";
-
+$xelatex = "xelatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1 %O %S";
 $bibtex_use = 1.5;
 
-$out_dir = "build";
-
-$preview_mode = 1;
+$out_dir = "build/release";
+$aux_dir = "build";
 
 $clean_ext = "hd nav snm synctex.gz xdv";

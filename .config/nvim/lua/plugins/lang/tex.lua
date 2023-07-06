@@ -27,9 +27,10 @@ local function vimtex_setup()
     vim.g.vimtex_compiler_latexmk = {
         executable = "latexmk",
         continus = 1,
-        build_dir = "build",
+        out_dir = "build/release",
+        aux_dir = "build",
         options = {
-            "-verbose",
+            "-quiet",
             "-file-line-error",
             "-shell-escape",
             "-synctex=1",

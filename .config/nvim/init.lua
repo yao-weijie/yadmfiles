@@ -12,7 +12,6 @@ require("helper.lazy").setup({
         { import = "autoload" },
     },
     dev = {
-        -- path = "~/projects", -- default
-        path = "~/Projects/dev/",
+        path = "~/Projects/neovim/",
     },
 })

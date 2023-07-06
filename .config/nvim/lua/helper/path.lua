@@ -1,7 +1,15 @@
 local M = {}
 
-M.join_path = function()
-    --
+---@param path string
+M.file_exist = function(path)
+    return vim.fn.filereadable(path) == 1
+end
+
+---@param paths table [string]
+M.join_path = function(paths)
+    local r = table.concat(paths, "/")
+
+    return vim.fn.expand(r)
 end
 
 local UNIT = {

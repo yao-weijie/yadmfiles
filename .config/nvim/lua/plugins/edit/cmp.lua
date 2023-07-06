@@ -40,8 +40,8 @@ return {
             "yao-weijie/cmp-rime",
             dev = true,
             opts = {
-                libpath = "/home/yaowj/Projects/tools/librime/build/lib/librime.so",
-                -- libpath = "librime.so",
+                -- libpath = vim.fn.expand("~/Projects/neovim/librime/build/lib/librime.so"),
+                libpath = "librime.so.1",
                 enable = {
                     comment = true,
                 },

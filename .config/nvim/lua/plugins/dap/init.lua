@@ -1,36 +1,4 @@
 local dap_ft = "python,c,cpp,rust"
-local debugpy_adapter = {
-    type = "executable",
-    command = "python3",
-    args = {
-        "-m",
-        "debugpy.adapter",
-    },
-}
-local debugpy_tasks = {
-    {
-        type = "python",
-        name = "Python: Launch file",
-        request = "launch",
-        program = "${file}",
-        console = "integratedTerminal",
-    },
-}
-
--- by default support c,cpp,rust
-local lldb_tasks = {
-    {
-        type = "codelldb",
-        name = "LLDB: Launch file",
-        request = "launch",
-        -- 编译输出目录在 cwd/build/,和asynctask中定义的一致
-        program = "${workspaceFolder}/build/${fileBasenameNoExtension}",
-        console = "integratedTerminal",
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-        runInTerminal = true,
-    },
-}
 
 return {
     { "theHamsta/nvim-dap-virtual-text", ft = vim.split(dap_ft, ",", {}), config = true },
@@ -69,19 +37,17 @@ return {
                         mason_dap.default_setup(config)
                     end,
                     python = function(config)
-                        -- 需要通过DapInstall python
-                        -- 但实际上并不用mason 安装的debugpy, 而是各个环境安装的debugpy
-                        config.adapters = debugpy_adapter
-                        config.configurations = debugpy_tasks
+                        config.adapters = require("plugins.dap.adapters.python").adapters
+                        config.configurations = require("plugins.dap.adapters.python").configurations
                         mason_dap.default_setup(config)
                     end,
                     codelldb = function(config)
-                        -- config.adapters = lldb_adapter
-                        config.configurations = lldb_tasks
+                        config.configurations = require("plugins.dap.adapters.codelldb").configurations
                         mason_dap.default_setup(config)
                     end,
                 },
             })
+            vim.api.nvim_create_user_command("DapRunToCursor", require("dap").run_to_cursor, {})
         end,
     },
 }

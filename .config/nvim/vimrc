@@ -3,6 +3,8 @@
 
 set nocompatible
 set nobackup
+".nvim.lua .nvimrc .exrc
+set exrc
 
 set swapfile
 set directory=~/.cache/vimswap/
@@ -127,6 +129,8 @@ vnoremap H ^
 vnoremap L $
 onoremap H ^
 onoremap L $
+
+nnoremap J <Nop>
 
 " search
 nnoremap n nzz<cmd>set hlsearch<CR>

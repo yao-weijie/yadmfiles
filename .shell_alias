@@ -47,7 +47,7 @@ fi
 
 alias nv="nvim"
 alias nvim-raw="nvim -u ~/.config/nvim/vimrc "
-alias vim="nvim -u ~/.config/nvim/vimrc "
+# alias vim="nvim -u ~/.config/nvim/vimrc "
 syncvim() {
 	local server=$1
 	rsync -a --delete ~/.config/nvim/ "$server:~/.config/nvim/"

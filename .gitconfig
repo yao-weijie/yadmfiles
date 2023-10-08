@@ -5,3 +5,10 @@
     email = yaowj.it@outlook.com
 [core]
 	quotepath = false
+[cola]
+	startupmode = folder
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

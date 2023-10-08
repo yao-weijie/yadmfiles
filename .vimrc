@@ -1,0 +1,1 @@
+/home/yaowj/.config/nvim/vimrc

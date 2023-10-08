@@ -30,7 +30,7 @@ zinit snippet OMZP::tmux
 ENABLE_CORRECTION="true"
 zinit snippet OMZL::completion.zsh
 zinit snippet OMZL::clipboard.zsh
-zinit snippet OMZL::termsupport.zsh
+# zinit snippet OMZL::termsupport.zsh
 zinit snippet OMZL::history.zsh
 zinit snippet OMZL::grep.zsh
 
@@ -50,3 +50,9 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 [[ -f ~/.shell_local ]] && source ~/.shell_local
+# >>> xmake >>>
+test -f "${HOME}/.xmake/profile" && source "${HOME}/.xmake/profile"
+# <<< xmake <<<
+
+# fzf
+[[ -f ~/.fzfrc ]] && source ~/.fzfrc

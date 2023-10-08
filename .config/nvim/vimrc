@@ -6,8 +6,10 @@ set nobackup
 ".nvim.lua .nvimrc .exrc
 set exrc
 
-set swapfile
-set directory=~/.cache/vimswap/
+if has('nvim')
+    set swapfile
+    set directory=~/.cache/vimswap/
+endif
 
 set nowritebackup
 set autoread
@@ -238,6 +240,7 @@ if !has('nvim')
 endif
 
 inoremap <C-l> <C-o>zz
+nnoremap G Gzz
 
 cnoremap <expr> ;; getcmdtype() == ':' ? expand('%:p:h') .'/' : ';p'
 cnoremap <C-a> <Home>
@@ -273,5 +276,5 @@ else
     set clipboard=unnamedplus
 endif
 
-nnoremap x <Nop>
-nnoremap X <Nop>
+nnoremap x "9x
+nnoremap X "9X

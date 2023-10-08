@@ -1,0 +1,19 @@
+# fzf
+if [[ -d /usr/share/doc/fzf/ ]]; then
+	. /usr/share/doc/fzf/examples/completion.zsh
+	. /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+
+# fzf settigns
+export FZF_DEFAULT_COMMAND="
+    fdfind
+    --hidden
+    --follow
+    --exclude={.git,node_modules,build}
+    . /etc /home
+    "
+export FZF_DEFAULT_OPTS="
+    --height 50%
+    --layout=reverse
+    --border
+    "

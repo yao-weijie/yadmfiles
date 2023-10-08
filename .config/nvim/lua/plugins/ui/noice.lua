@@ -15,8 +15,9 @@ return {
     },
     opts = {
         cmdline = {
+            view = "cmdline",
             opts = {
-                position = { row = "10%" },
+                position = { row = -1 },
             },
         },
         lsp = {

@@ -245,6 +245,8 @@ cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-d> <Del>
+cnoremap <M-b> <C-Left>
+cnoremap <M-f> <C-Right>
 
 
 " autocmd
@@ -270,3 +272,6 @@ if has('wsl')
 else
     set clipboard=unnamedplus
 endif
+
+nnoremap x <Nop>
+nnoremap X <Nop>

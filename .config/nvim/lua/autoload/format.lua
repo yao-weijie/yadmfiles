@@ -1,6 +1,12 @@
+vim.g.autoformat_enabled = true
+
 local function auto_format()
     if vim.fn.filewritable(vim.fn.expand("%")) == 0 then
         return vim.notify("File not writable!")
+    end
+
+    if not vim.g.autoformat_enabled then
+        return
     end
 
     local async = false
@@ -16,6 +22,16 @@ local function auto_format()
     })
 end
 
+local function toggle_autoformat()
+    if vim.g.autoformat_enabled then
+        vim.g.autoformat_enabled = false
+        vim.notify("Autoformat disabled!")
+    else
+        vim.g.autoformat_enabled = true
+        vim.notify("Autoformat enabled!")
+    end
+end
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function()
         -- 大于1w 行禁用自动格式化
@@ -27,6 +43,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 vim.api.nvim_create_user_command("LspFormat", auto_format, {})
+vim.api.nvim_create_user_command("ToggleAutoFormat", toggle_autoformat, {})
 vim.keymap.set("n", "<leader>=", auto_format, { desc = "format file" })
 
 return {}

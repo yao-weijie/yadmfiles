@@ -25,9 +25,10 @@ local function set_highlight()
         highlight! ColorColumn guibg=gray
 
         " PmenuSel
-        " highlight! MyCmpNormal ctermfg=187 ctermbg=239 guifg=#ebdbb2 guibg=#504945
-        highlight! link MyCmpNormal Normal
+        highlight! MyCmpNormal guifg=white guibg=black
+        " highlight! link MyCmpNormal Normal
         highlight! MyCmpSel guibg=#569CD6 guifg=black
+
 
         " Window separator
         highlight! WinSeparator guifg=gray

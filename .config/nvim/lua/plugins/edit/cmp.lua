@@ -74,14 +74,15 @@ return {
         cmp.setup({
             window = {
                 documentation = cmp.config.window.bordered({
-                    border = "single",
+                    border = "none",
                 }),
                 completion = cmp.config.window.bordered({
-                    border = "single",
+                    border = "none",
                     -- winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel", -- 重点是CursorLine
                     winhighlight = "Normal:MyCmpNormal,FloatBorder:MyCmpNormal,CursorLine:MyCmpSel", -- 重点是CursorLine
                 }),
             },
+
             formatting = {
                 fields = { "abbr", "kind", "menu" },
                 format = require("lspkind").cmp_format({

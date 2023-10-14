@@ -62,8 +62,12 @@ alias dea="deactivate"
 alias autoenv="touch .autoenv.zsh .autoenv_leave.zsh \
 && chmod +x .autoenv.zsh .autoenv_leave.zsh"
 alias rmautoenv='trash .autoenv.zsh .autoenv_leave.zsh'
-alias cp="cp -r"
-alias rm="rm -i" # 使用rm 删除的时候，会有一个确认的提示。
-alias psg="ps -A | grep"
+alias cp="cp -r "
+# alias rm="rm -i " # 使用rm 删除的时候，会有一个确认的提示。
+alias rm="trash"
+alias psg="ps -A | grep "
 
-alias dst="yadm status"
+# git
+alias dst="yadm status "
+alias gst="git status "
+alias ga="git add "

@@ -25,10 +25,7 @@ local function set_highlight()
         highlight! ColorColumn guibg=gray
 
         " PmenuSel
-        highlight! MyCmpNormal guifg=white guibg=black
-        " highlight! link MyCmpNormal Normal
         highlight! MyCmpSel guibg=#569CD6 guifg=black
-
 
         " Window separator
         highlight! WinSeparator guifg=gray
@@ -55,20 +52,6 @@ return {
         })
         vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })
 
-        local dark_themes = {
-            "tokyonight",
-            "tokyonight-moon",
-            "tokyonight-night",
-            "tokyonight-storm",
-        }
-        local light_themes = {
-            "tokyonight-day",
-        }
-        math.randomseed(os.clock())
-        if vim.o.background == "dark" then
-            vim.cmd.colorscheme(dark_themes[math.random(#dark_themes)])
-        else
-            vim.cmd.colorscheme(light_themes[math.random(#light_themes)])
-        end
+        vim.cmd.colorscheme("tokyonight")
     end,
 }

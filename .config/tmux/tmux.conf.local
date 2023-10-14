@@ -366,6 +366,8 @@ set -g prefix C-s
 # unbind C-a #!important
 # bind C-a send-prefix
 
+bind -r C new-session
+
 # split-window
 bind -r - split-window -v -c '#{pane_current_path}' # hsplit
 unbind _

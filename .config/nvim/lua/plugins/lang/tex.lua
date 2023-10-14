@@ -28,7 +28,7 @@ local function vimtex_setup()
         executable = "latexmk",
         continus = 1,
         out_dir = "build/release",
-        aux_dir = "build",
+        aux_dir = "build/aux",
         options = {
             "-quiet",
             "-file-line-error",

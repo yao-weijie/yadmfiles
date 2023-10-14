@@ -8,6 +8,6 @@ $xelatex = "xelatex -file-line-error -halt-on-error -interaction=nonstopmode -sy
 $bibtex_use = 1.5;
 
 $out_dir = "build/release";
-$aux_dir = "build";
+$aux_dir = "build/aux";
 
-$clean_ext = "hd nav snm synctex.gz xdv";
+$clean_ext = "hd nav snm synctex.gz xdv thm";

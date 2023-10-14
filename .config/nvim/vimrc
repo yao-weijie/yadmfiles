@@ -9,6 +9,8 @@ set exrc
 if has('nvim')
     set swapfile
     set directory=~/.cache/vimswap/
+else
+    set noswapfile
 endif
 
 set nowritebackup
@@ -40,9 +42,8 @@ endif
 
 set mouse=nv " nvi default
 set termguicolors
-if !has('nvim')
-    colorscheme desert
-endif
+" colorscheme default
+colorscheme desert
 
 " 缩进与格式
 set autoindent
@@ -67,7 +68,7 @@ set smartcase
 set splitright
 set diffopt=vertical,filler,internal,context:4
 
-set pumheight=8
+" set pumheight=8
 
 " set spell
 " set spelllang=en_us
@@ -161,16 +162,16 @@ nnoremap <leader>= gg=G
 vnoremap > >gv
 vnoremap < <gv
 
-" " user defined textobject
-" onoremap <silent>ie :<C-u>normal! ggVG<CR>
-" xnoremap <silent>ie :<C-u>normal! ggVG<CR>
-" onoremap <silent>ae :<C-u>normal! ggVG<CR>
-" xnoremap <silent>ae :<C-u>normal! ggVG<CR>
+" user defined textobject
+onoremap <silent>ie :<C-u>normal! ggVG<CR>
+xnoremap <silent>ie :<C-u>normal! ggVG<CR>
+onoremap <silent>ae :<C-u>normal! ggVG<CR>
+xnoremap <silent>ae :<C-u>normal! ggVG<CR>
 
 onoremap w aw
+xnoremap w aw
 onoremap W aW
-onoremap p ap
-onoremap P aP
+xnoremap W aW
 
 onoremap <silent>i, i<
 onoremap <silent>a, a<

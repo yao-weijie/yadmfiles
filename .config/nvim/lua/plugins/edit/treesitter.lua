@@ -69,19 +69,16 @@ local opts = {
         lsp_interop = { enable = false },
     },
 
-    -- https://github.com/p00f/nvim-ts-rainbow2
-    rainbow = {
-        enable = true,
-        extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-        max_file_lines = nil,
-    },
+    -- https://github.com/HiPhish/nvim-ts-rainbow2
+    rainbow = { enable = true },
 }
 
 return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufRead" },
     dependencies = {
-        "HiPhish/nvim-ts-rainbow2",
+        -- "HiPhish/nvim-ts-rainbow2",
+        "p00f/nvim-ts-rainbow",
         "nvim-treesitter/nvim-treesitter-textobjects",
         "RRethy/nvim-treesitter-endwise",
     },

@@ -15,7 +15,10 @@ local opts = {
         float = {
             enable = true,
             open_win_config = {
-                border = "none",
+                border = { "", "", "", "│", "┘", "─", "", "" },
+                width = 35,
+                height = 40,
+                row = 2,
                 col = 0,
             },
         },
@@ -132,6 +135,7 @@ return {
             keymap("<C-x>", api.node.open.horizontal, "Open: Horizontal Split")
             keymap("<C-t>", api.node.open.tab, "Open: New Tab")
             keymap("<Tab>", api.node.open.preview, "preview")
+            keymap("O", api.node.run.system, "System Open")
 
             -- fs
             keymap("a", api.fs.create, "create")

@@ -23,7 +23,7 @@ zinit light skywind3000/z.lua
 zinit light Tarrasch/zsh-autoenv
 
 # load sub plugins from oh-my-zsh
-zinit snippet OMZP::git
+# zinit snippet OMZP::git
 zinit snippet OMZP::extract
 zinit snippet OMZP::tmux
 
@@ -50,9 +50,3 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 [[ -f ~/.shell_local ]] && source ~/.shell_local
-# >>> xmake >>>
-test -f "${HOME}/.xmake/profile" && source "${HOME}/.xmake/profile"
-# <<< xmake <<<
-
-# fzf
-[[ -f ~/.fzfrc ]] && source ~/.fzfrc

@@ -78,8 +78,7 @@ return {
                 }),
                 completion = cmp.config.window.bordered({
                     border = "none",
-                    -- winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel", -- 重点是CursorLine
-                    winhighlight = "Normal:MyCmpNormal,FloatBorder:MyCmpNormal,CursorLine:MyCmpSel", -- 重点是CursorLine
+                    winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:MyCmpSel", -- 重点是CursorLine
                 }),
             },
 

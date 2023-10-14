@@ -31,7 +31,7 @@ end
 
 return {
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         dependencies = { "jay-babu/mason-null-ls.nvim", lazy = true, config = true },
         config = true,
     },

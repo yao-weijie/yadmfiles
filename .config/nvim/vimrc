@@ -1,6 +1,11 @@
 " options
 " ------------------------------------------------------------------------------
 
+if !has('nvim')
+  syntax on
+  filetype on
+endif
+
 set nocompatible
 set nobackup
 ".nvim.lua .nvimrc .exrc
@@ -279,3 +284,10 @@ endif
 
 nnoremap x "9x
 nnoremap X "9X
+
+
+" gvim
+if has('gui')
+    set guioptions-=m
+    set guioptions-=T
+endif

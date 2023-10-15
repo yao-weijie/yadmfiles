@@ -156,8 +156,10 @@ nnoremap <leader>q <cmd>bd<CR>
 nnoremap <leader>w <cmd>w<CR>
 nnoremap <leader>Q <cmd>copen<CR>
 
-" paste
+" cut and paste
 " TODO:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
+nnoremap x "9x
+nnoremap X "9X
 snoremap p i<BS>p
 vnoremap p P
 vnoremap P p
@@ -282,11 +284,8 @@ else
     set clipboard=unnamedplus
 endif
 
-nnoremap x "9x
-nnoremap X "9X
-
-
 " gvim
+" ------------------------------------------------------------------------------
 if has('gui')
     set guioptions-=m
     set guioptions-=T

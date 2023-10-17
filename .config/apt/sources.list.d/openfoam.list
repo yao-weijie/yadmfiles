@@ -1,3 +1,4 @@
 # 适用于ubuntu 18.04
+# sudo sh -c "wget -O - https://dl.openfoam.org/gpg.key | apt-key add -"
 deb http://dl.cfdem.cn/ubuntu bionic main
 # deb-src http://dl.cfdem.cn/ubuntu bionic main

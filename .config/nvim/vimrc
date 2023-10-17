@@ -1,27 +1,31 @@
 " options
 " ------------------------------------------------------------------------------
 
-if !has('nvim')
-  syntax on
-  filetype on
-endif
-
 set nocompatible
 set nobackup
 ".nvim.lua .nvimrc .exrc
 set exrc
 
-if has('nvim')
-    set swapfile
-    set directory=~/.cache/vimswap/
-else
-    set noswapfile
+set termguicolors
+let &t_ut=''
+set t_Co=256
+colorscheme slate
+
+if !has('nvim')
+  syntax on
+  filetype on
 endif
 
 set nowritebackup
 set autoread
 set autowriteall
 set history=1000
+" set swapfile " default on
+if has('nvim')
+    set directory=~/.cache/nvim/swap
+else
+    set directory=~/.cache/vimswap
+endif
 
 " 编码
 set encoding=utf-8
@@ -44,11 +48,6 @@ if has('nvim')
 else
     set signcolumn=no
 endif
-
-set mouse=nv " nvi default
-set termguicolors
-" colorscheme default
-colorscheme desert
 
 " 缩进与格式
 set autoindent
@@ -73,7 +72,7 @@ set smartcase
 set splitright
 set diffopt=vertical,filler,internal,context:4
 
-" set pumheight=8
+set pumheight=20
 
 " set spell
 " set spelllang=en_us
@@ -108,6 +107,8 @@ let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
 " -- visual_block_mode = "x",
 " -- term_mode = "t",
 " -- command_mode = "c",
+
+set mouse=nv " nvi default
 
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
@@ -207,8 +208,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " split window
-nnoremap <leader><C-x> <cmd>split<CR>
-nnoremap <leader><C-v> <cmd>vsplit<CR>
+nnoremap <C-w>-  <cmd>split<CR>
+nnoremap <C-w>\| <cmd>vsplit<CR>
 
 " resize window
 nnoremap <C-Up>    <cmd>resize +2<CR>
@@ -289,4 +290,5 @@ endif
 if has('gui')
     set guioptions-=m
     set guioptions-=T
+    set guifont=consolas
 endif

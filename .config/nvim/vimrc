@@ -6,15 +6,12 @@ set nobackup
 ".nvim.lua .nvimrc .exrc
 set exrc
 
+filetype on
+syntax on
 set termguicolors
 let &t_ut=''
 set t_Co=256
 colorscheme slate
-
-if !has('nvim')
-  syntax on
-  filetype on
-endif
 
 set nowritebackup
 set autoread
@@ -50,6 +47,7 @@ else
 endif
 
 " 缩进与格式
+filetype indent on
 set autoindent
 set smarttab
 set cindent

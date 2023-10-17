@@ -10,7 +10,7 @@ filetype on
 syntax on
 set termguicolors
 let &t_ut=''
-set t_Co=256
+" set t_Co=256
 colorscheme slate
 
 set nowritebackup
@@ -285,8 +285,11 @@ endif
 
 " gvim
 " ------------------------------------------------------------------------------
-if has('gui')
-    set guioptions-=m
+if has('gui_running')
     set guioptions-=T
-    set guifont=consolas
+    if has('win32') || has('mac')
+        set guifont=JetBrainsMono\ Nerd\ Font:12,Consolas:12
+    else
+        set guifont=JetBrainsMono\ Nerd\ Font\ 12,Consolas\ 12,DejaVu\ Sans\ Mono\ 12
+    endif
 endif

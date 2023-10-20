@@ -26,16 +26,16 @@ return {
                 },
                 sorting_strategy = "ascending", -- put best matching results on the top
                 -- horizontal, center, vertical, flex, cursor, bottom_pane
-                layout_strategy = "vertical",
-                -- layout_strategy = "flex",
+                -- layout_strategy = "vertical",
+                layout_strategy = "flex",
                 layout_config = {
                     prompt_position = "top",
                     preview_cutoff = 10,
                     width = 80,
                     height = 25,
-                    -- flex = {
-                    --     flip_columns = 120,
-                    -- },
+                    flex = {
+                        flip_columns = 120,
+                    },
                 },
                 file_ignore_patterns = {
                     "build/",

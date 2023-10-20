@@ -47,8 +47,7 @@ return {
 
             keymap("n", "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", opts)
             keymap("n", "<leader>gk", "<cmd>Gitsigns prev_hunk<CR>", opts)
-            keymap("n", "<leader>hj", "<cmd>Gitsigns next_hunk<CR>", opts)
-            keymap("n", "<leader>hk", "<cmd>Gitsigns preview_hunk<CR>", opts)
+            keymap("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", opts)
 
             keymap("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", opts)
             keymap("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", opts)

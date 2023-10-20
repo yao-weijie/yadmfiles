@@ -40,9 +40,9 @@ return {
     -- { "kevinhwang91/nvim-bqf", ft = "qf" },
     {
         "lilydjwg/fcitx.vim",
-        enabled = vim.fn.executable("fcitx5") == 1,
+        enabled = vim.fn.executable("fcitx5-remote") == 1,
         event = { "VeryLazy" },
-        config = function()
+        init = function()
             vim.g.fcitx5_rime = 1
         end,
     },

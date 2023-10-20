@@ -31,6 +31,11 @@ return {
         create_cmd("NeotestFailedNext",    function() neotest.jump.next({ status = "failed" }) end, {})
         create_cmd("NeotestFailedPrev",    function() neotest.jump.prev({ status = "failed" }) end, {})
         -- stylua: ignore end
+        -- vim.cmd("autocmd FileType neotest-summary,neotest-output nnoremap <buffer> q:q<CR> ")
+        vim.api.nvim_create_autocmd({ "FileType" }, {
+            pattern = { "neotest-summary", "neotest-output" },
+            command = "nnoremap <buffer> q :q<CR>",
+        })
 
         -- neotest-python in lua/plugins/lang/python.lua
     end,

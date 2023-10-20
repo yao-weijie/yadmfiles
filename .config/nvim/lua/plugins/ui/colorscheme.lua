@@ -19,7 +19,7 @@ local function set_highlight()
         highlight! link CmpItemKindUnit CmpItemKindKeyword
 
         " CursorLine
-        highlight! CursorLine gui=underline
+        highlight! CursorLine gui=underline cterm=underline
 
         " ColorColumn
         highlight! ColorColumn guibg=gray
@@ -40,16 +40,12 @@ return {
     },
     priority = 1000, -- load first
     config = function()
-        vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
-        vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
-            callback = function()
-                local ignore_list = { "alpha", "leaderf", "TelescopePrompt" }
-                if vim.tbl_contains(ignore_list, vim.bo.filetype) then
-                    return
-                end
-                vim.cmd.setlocal("cursorline")
-            end,
-        })
+        -- vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
+        -- vim.api.nvim_create_autocmd({ "WinEnter" }, { command = "setlocal cursorline" })
+        -- vim.api.nvim_create_autocmd({ "FileType" }, {
+        --     pattern = { "alpha", "leaderf", "TelescopePrompt" },
+        --     command = "setlocal nocursorline",
+        -- })
         vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })
 
         vim.cmd.colorscheme("tokyonight")

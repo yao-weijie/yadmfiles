@@ -11,7 +11,7 @@ return {
 
         luasnip.setup()
         -- load snippet folders in runtimeapth
-        vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/my-snippets")
+        -- vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/my-snippets") -- put in vimrc
         -- snippets/<ft>.snippets and snippets/<ft>/*.snippets
         require("luasnip.loaders.from_snipmate").lazy_load()
         -- luasnippets/<ft>.lua and luasnippets/<ft>/*.lua

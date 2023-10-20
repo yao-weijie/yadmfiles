@@ -1,28 +1,25 @@
-" options
-" ------------------------------------------------------------------------------
+" vim:foldmethod=marker:
+" options {{{
+setlocal foldmethod=marker
 
 set nocompatible
-set nobackup
 ".nvim.lua .nvimrc .exrc
 set exrc
 
 filetype on
 syntax on
 set termguicolors
-let &t_ut=''
-" set t_Co=256
-colorscheme slate
+if !has('nvim')
+    colorscheme slate
+endif
+highlight! CursorLine gui=underline cterm=underline
 
 set nowritebackup
+set nobackup
 set autoread
 set autowriteall
 set history=1000
-" set swapfile " default on
-if has('nvim')
-    set directory=~/.cache/nvim/swap
-else
-    set directory=~/.cache/vimswap
-endif
+set noswapfile
 
 " 编码
 set encoding=utf-8
@@ -41,9 +38,8 @@ set showcmd
 set noshowmode
 set wildmenu
 if has('nvim')
+    " vim default: auto
     set signcolumn=auto:1-2
-else
-    set signcolumn=no
 endif
 
 " 缩进与格式
@@ -68,7 +64,7 @@ set ignorecase
 set smartcase
 
 set splitright
-set diffopt=vertical,filler,internal,context:4
+set diffopt=vertical,filler,context:4
 
 set pumheight=20
 
@@ -81,9 +77,12 @@ set updatetime=300
 
 let g:python3_prog_host = '/usr/bin/python3'
 let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
+" append runtimepath
+set rtp+=~/.config/nvim/my-snippets/
 
+" }}}
 
-" keymaps
+" keymaps {{{
 " ------------------------------------------------------------------------------
 " -- Mode           | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
 " -- Command        +------+-----+-----+-----+-----+-----+------+------+ ~
@@ -238,12 +237,23 @@ inoremap <C-v> <C-o>p
 " auto-pair
 if !has('nvim')
     inoremap ( ()<Left>
+    inoremap <expr> ) getline(line('.'))[col('.')-1]==')' ? '<Right>' : ')'
+
     inoremap [ []<Left>
+    inoremap <expr> ] getline(line('.'))[col('.')-1]==']' ? '<Right>' : ']'
+
     inoremap { {}<Left>
+    inoremap <expr> } getline(line('.'))[col('.')-1]=='}' ? '<Right>' : '}'
+
     inoremap < <><Left>
-    inoremap ' ''<Left>
-    inoremap " ""<Left>
-    inoremap ` ``<Left>
+    inoremap <expr> > getline(line('.'))[col('.')-1]=='>' ? '<Right>' : '>'
+
+    " inoremap ' ''<Left>
+    " inoremap <expr> ' getline(line('.'))[col('.')-1]=="'" ? '<Right>' : "'"
+    " inoremap " ""<Left>
+    " inoremap <expr> " getline(line('.'))[col('.')-1]=='"' ? '<Right>' : '"'
+    " inoremap ` ``<Left>
+    " inoremap <expr> ` getline(line('.'))[col('.')-1]=='`' ? '<Right>' : '`'
 endif
 
 inoremap <C-l> <C-o>zz
@@ -257,10 +267,9 @@ cnoremap <C-f> <Right>
 cnoremap <C-d> <Del>
 cnoremap <M-b> <C-Left>
 cnoremap <M-f> <C-Right>
+" }}}
 
-
-" autocmd
-" ------------------------------------------------------------------------------
+" autocmd {{{
 augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,checkhealth,startuptime nnoremap <silent><buffer> q <cmd>close<CR>
@@ -282,14 +291,80 @@ if has('wsl')
 else
     set clipboard=unnamedplus
 endif
+" }}}
 
-" gvim
-" ------------------------------------------------------------------------------
+" gvim config {{{
 if has('gui_running')
     set guioptions-=T
     if has('win32') || has('mac')
-        set guifont=JetBrainsMono\ Nerd\ Font:12,Consolas:12
+        set guifont=JetBrainsMono\ Nerd\ Font:10,Consolas:10
     else
-        set guifont=JetBrainsMono\ Nerd\ Font\ 12,Consolas\ 12,DejaVu\ Sans\ Mono\ 12
+        set guifont=JetBrainsMono\ Nerd\ Font\ 10,Consolas\ 10,DejaVu\ Sans\ Mono\ 10
     endif
 endif
+" }}}
+
+" vim only config, plugins from apt source {{{
+if !has('nvim')
+    function! VimInstall()
+        terminal sudo apt install -y
+                    \ vim-airline
+                    \ vim-fugitive
+                    \ vim-gitgutter
+                    \ vim-snipmate
+                    \ vim-snippets
+                    \ vim-syntastic
+    endfunction
+
+    set completeopt=menu,preview,noselect
+    set omnifunc=syntaxcomplete#Complete
+    " vim-airline
+    let g:airline_section_z = airline#section#create(["%{line('.')}/%{line('$')}"])
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+    " vim-ale
+
+    " vim-fugitive
+
+    function! s:PlugKeymap()
+        " vim-airline
+        if g:loaded_airline
+            nnoremap <leader>1 <Plug>AirlineSelectTab1
+            nnoremap <leader>2 <Plug>AirlineSelectTab2
+            nnoremap <leader>3 <Plug>AirlineSelectTab3
+            nnoremap <leader>4 <Plug>AirlineSelectTab4
+            nnoremap <leader>5 <Plug>AirlineSelectTab5
+            nnoremap <leader>6 <Plug>AirlineSelectTab6
+            nnoremap <leader>7 <Plug>AirlineSelectTab7
+            nnoremap <leader>8 <Plug>AirlineSelectTab8
+            nnoremap <leader>9 <Plug>AirlineSelectTab9
+            nnoremap <C-p>     <Plug>AirlineSelectPrevTab
+            nnoremap <C-n>     <Plug>AirlineSelectNextTab
+        endif
+
+        " vim-gitgutter
+        if g:loaded_gitgutter
+            nnoremap <leader>gj <Plug>(GitGutterNextHunk)
+            nnoremap <leader>gk <Plug>(GitGutterPrevHunk)
+            nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+            nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
+            nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
+            nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
+            omap ih <Plug>(GitGutterTextObjectInnerPending)
+            omap ah <Plug>(GitGutterTextObjectOuterPending)
+            xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+            xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+        endif
+
+        " vim-snipmate + vim-snippets
+        if g:loaded_snips
+            inoremap <C-j> <Plug>snipMateNextOrTrigger
+            snoremap <C-j> <Plug>snipMateNextOrTrigger
+        endif
+    endfunction
+
+    autocmd VimEnter * :call s:PlugKeymap()
+endif
+
+" }}}

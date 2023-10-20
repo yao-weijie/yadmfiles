@@ -234,7 +234,11 @@ inoremap <M-b> <C-Left>
 
 inoremap <C-v> <C-o>p
 
-" auto-pair
+" fold
+nnoremap zi zc
+nnoremap z<CR> za
+
+" simple auto-pair
 if !has('nvim')
     inoremap ( ()<Left>
     inoremap <expr> ) getline(line('.'))[col('.')-1]==')' ? '<Right>' : ')'
@@ -304,67 +308,71 @@ if has('gui_running')
 endif
 " }}}
 
-" vim only config, plugins from apt source {{{
-if !has('nvim')
-    function! VimInstall()
-        terminal sudo apt install -y
-                    \ vim-airline
-                    \ vim-fugitive
-                    \ vim-gitgutter
-                    \ vim-snipmate
-                    \ vim-snippets
-                    \ vim-syntastic
-    endfunction
-
-    set completeopt=menu,preview,noselect
-    set omnifunc=syntaxcomplete#Complete
-    " vim-airline
-    let g:airline_section_z = airline#section#create(["%{line('.')}/%{line('$')}"])
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-    " vim-ale
-
-    " vim-fugitive
-
-    function! s:PlugKeymap()
-        " vim-airline
-        if g:loaded_airline
-            nnoremap <leader>1 <Plug>AirlineSelectTab1
-            nnoremap <leader>2 <Plug>AirlineSelectTab2
-            nnoremap <leader>3 <Plug>AirlineSelectTab3
-            nnoremap <leader>4 <Plug>AirlineSelectTab4
-            nnoremap <leader>5 <Plug>AirlineSelectTab5
-            nnoremap <leader>6 <Plug>AirlineSelectTab6
-            nnoremap <leader>7 <Plug>AirlineSelectTab7
-            nnoremap <leader>8 <Plug>AirlineSelectTab8
-            nnoremap <leader>9 <Plug>AirlineSelectTab9
-            nnoremap <C-p>     <Plug>AirlineSelectPrevTab
-            nnoremap <C-n>     <Plug>AirlineSelectNextTab
-        endif
-
-        " vim-gitgutter
-        if g:loaded_gitgutter
-            nnoremap <leader>gj <Plug>(GitGutterNextHunk)
-            nnoremap <leader>gk <Plug>(GitGutterPrevHunk)
-            nnoremap <leader>gs <Plug>(GitGutterStageHunk)
-            nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
-            nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
-            nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
-            omap ih <Plug>(GitGutterTextObjectInnerPending)
-            omap ah <Plug>(GitGutterTextObjectOuterPending)
-            xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-            xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-        endif
-
-        " vim-snipmate + vim-snippets
-        if g:loaded_snips
-            inoremap <C-j> <Plug>snipMateNextOrTrigger
-            snoremap <C-j> <Plug>snipMateNextOrTrigger
-        endif
-    endfunction
-
-    autocmd VimEnter * :call s:PlugKeymap()
+" vim only config {{{
+if has('nvim')
+    finish
 endif
 
-" }}}
+" builtin plugin: netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
+set fillchars=vert:\⎜
+nnoremap <leader>e :Lexplore<CR>
+autocmd FileType netrw nnoremap <buffer><nowait> q <cmd>close<CR>
+
+" complete menu
+set completeopt=menu,preview
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+set omnifunc=syntaxcomplete#Complete
+
+" plugins from apt
+func! PlugInstall()
+    terminal sudo apt install -y
+                \ vim-airline
+                \ vim-fugitive
+                \ vim-gitgutter
+                \ vim-snipmate
+                \ vim-snippets
+                \ vim-syntastic
+endfunc
+" vim-airline
+let g:airline_section_z = airline#section#create(["%{line('.')}/%{line('$')}"])
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" vim-ale
+
+" vim-fugitive
+
+" vim-airline
+nnoremap <leader>1 <Plug>AirlineSelectTab1
+nnoremap <leader>2 <Plug>AirlineSelectTab2
+nnoremap <leader>3 <Plug>AirlineSelectTab3
+nnoremap <leader>4 <Plug>AirlineSelectTab4
+nnoremap <leader>5 <Plug>AirlineSelectTab5
+nnoremap <leader>6 <Plug>AirlineSelectTab6
+nnoremap <leader>7 <Plug>AirlineSelectTab7
+nnoremap <leader>8 <Plug>AirlineSelectTab8
+nnoremap <leader>9 <Plug>AirlineSelectTab9
+nnoremap <C-p>     <Plug>AirlineSelectPrevTab
+nnoremap <C-n>     <Plug>AirlineSelectNextTab
+
+" vim-gitgutter
+nnoremap <leader>gj <Plug>(GitGutterNextHunk)
+nnoremap <leader>gk <Plug>(GitGutterPrevHunk)
+nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
+nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
+nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+
+" vim-snipmate + vim-snippets
+inoremap <C-j> <Plug>snipMateNextOrTrigger
+snoremap <C-j> <Plug>snipMateNextOrTrigger
+"}}}

@@ -40,12 +40,12 @@ return {
     },
     priority = 1000, -- load first
     config = function()
-        -- vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
-        -- vim.api.nvim_create_autocmd({ "WinEnter" }, { command = "setlocal cursorline" })
-        -- vim.api.nvim_create_autocmd({ "FileType" }, {
-        --     pattern = { "alpha", "leaderf", "TelescopePrompt" },
-        --     command = "setlocal nocursorline",
-        -- })
+        vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
+        vim.api.nvim_create_autocmd({ "WinEnter" }, { command = "setlocal cursorline" })
+        vim.api.nvim_create_autocmd({ "FileType" }, {
+            pattern = { "alpha", "leaderf", "TelescopePrompt" },
+            command = "setlocal nocursorline",
+        })
         vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })
 
         vim.cmd.colorscheme("tokyonight")

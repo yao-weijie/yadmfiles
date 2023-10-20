@@ -1,0 +1,134 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.012  000.012: --- VIM STARTING ---
+000.100  000.088: Allocated generic buffers
+000.130  000.030: locale set
+000.141  000.011: GUI prepared
+000.147  000.006: clipboard setup
+000.151  000.004: window checked
+000.449  000.298: inits 1
+000.469  000.020: parsing arguments
+000.471  000.002: expanding arguments
+000.485  000.014: shell init
+000.765  000.280: xsmp init
+001.000  000.235: Termcap init
+001.018  000.018: inits 2
+001.079  000.061: init highlight
+001.567  000.179  000.179: sourcing /usr/share/vim/vim90/debian.vim
+001.599  000.499  000.320: sourcing /etc/vim/vimrc
+006.730  005.029  005.029: sourcing /usr/share/vim/vim90/filetype.vim
+007.612  000.652  000.652: sourcing /usr/share/vim/vim90/colors/lists/default.vim
+007.688  000.823  000.171: sourcing /usr/share/vim/vim90/syntax/syncolor.vim
+007.749  000.940  000.117: sourcing /usr/share/vim/vim90/syntax/synload.vim
+007.812  001.046  000.106: sourcing /usr/share/vim/vim90/syntax/syntax.vim
+008.381  000.477  000.477: sourcing /usr/share/vim/vim90/colors/lists/default.vim
+008.607  000.096  000.096: sourcing /usr/share/vim/vim90/syntax/syncolor.vim
+008.844  000.091  000.091: sourcing /usr/share/vim/vim90/syntax/syncolor.vim
+009.284  000.851  000.664: sourcing /usr/share/vim/vim90/colors/slate.vim
+009.370  000.009  000.009: sourcing /usr/share/vim/vim90/filetype.vim
+009.431  000.025  000.025: sourcing /usr/share/vim/vim90/indent.vim
+010.153  000.056  000.056: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline/autoload/airline/init.vim
+010.514  000.054  000.054: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline/autoload/airline/parts.vim
+011.023  001.052  000.942: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline/autoload/airline/section.vim
+011.214  009.595  001.106: sourcing $HOME/.vimrc
+011.240  000.067: sourcing vimrc file(s)
+011.979  000.043  000.043: sourcing /usr/share/vim/vim90/plugin/getscriptPlugin.vim
+012.136  000.142  000.142: sourcing /usr/share/vim/vim90/plugin/gzip.vim
+012.286  000.134  000.134: sourcing /usr/share/vim/vim90/plugin/logiPat.vim
+012.324  000.022  000.022: sourcing /usr/share/vim/vim90/plugin/manpager.vim
+012.472  000.132  000.132: sourcing /usr/share/vim/vim90/plugin/matchparen.vim
+012.838  000.348  000.348: sourcing /usr/share/vim/vim90/plugin/netrwPlugin.vim
+012.895  000.027  000.027: sourcing /usr/share/vim/vim90/plugin/rrhelper.vim
+012.933  000.021  000.021: sourcing /usr/share/vim/vim90/plugin/spellfile.vim
+013.065  000.114  000.114: sourcing /usr/share/vim/vim90/plugin/tarPlugin.vim
+013.520  000.417  000.417: sourcing /usr/share/vim/vim90/plugin/tohtml.vim
+013.665  000.125  000.125: sourcing /usr/share/vim/vim90/plugin/vimballPlugin.vim
+013.837  000.143  000.143: sourcing /usr/share/vim/vim90/plugin/zipPlugin.vim
+013.856  000.948: loading plugins
+014.130  000.031  000.031: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline/plugin/airline-themes.vim
+014.579  000.084  000.084: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/util.vim
+014.602  000.451  000.367: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline/plugin/airline.vim
+014.742  000.022  000.022: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/plugin/airline-themes.vim
+014.775  000.011  000.011: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/plugin/airline.vim
+015.809  000.956  000.956: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/fugitive/plugin/fugitive.vim
+015.888  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/fugitive/ftdetect/fugitive.vim
+016.312  000.108  000.108: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/gitgutter/autoload/gitgutter/utility.vim
+016.661  000.079  000.079: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/gitgutter/autoload/gitgutter/highlight.vim
+017.192  001.227  001.040: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/gitgutter/plugin/gitgutter.vim
+017.476  000.033  000.033: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/vim-addon-mw-utils/autoload/funcref.vim
+017.614  000.244  000.211: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/snipmate/plugin/snipMate.vim
+017.661  000.009  000.009: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/snipmate/plugin/snipMateInterface.vim
+017.797  000.016  000.016: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/snippets/plugin/vimsnippets.vim
+018.187  000.011  000.011: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/autoloclist.vim
+018.218  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/balloons.vim
+018.247  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/checker.vim
+018.277  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/cursor.vim
+018.306  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/highlighting.vim
+018.335  000.007  000.007: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/loclist.vim
+018.363  000.006  000.006: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/modemap.vim
+018.393  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/notifiers.vim
+018.426  000.007  000.007: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/registry.vim
+018.456  000.008  000.008: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/signs.vim
+018.879  000.276  000.276: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/autoload/syntastic/util.vim
+024.565  000.041  000.041: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/autoloclist.vim
+024.634  000.035  000.035: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/balloons.vim
+024.773  000.115  000.115: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/checker.vim
+024.859  000.056  000.056: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/cursor.vim
+024.943  000.048  000.048: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/highlighting.vim
+025.152  000.183  000.183: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/loclist.vim
+025.255  000.050  000.050: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/modemap.vim
+025.332  000.044  000.044: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/notifiers.vim
+025.559  000.200  000.200: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/registry.vim
+025.656  000.057  000.057: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic/signs.vim
+026.466  007.989  006.884: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/plugin/syntastic.vim
+026.700  000.110  000.110: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/tlib/plugin/02tlib.vim
+026.781  001.772: loading packages
+027.004  000.159  000.159: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/snipmate/after/plugin/snipMate.vim
+027.039  000.099: loading after plugins
+027.826  000.787: inits 3
+028.283  000.457: reading viminfo
+029.825  001.542: setup clipboard
+029.838  000.013: setting raw mode
+029.843  000.005: start termcap
+029.881  000.038: clearing screen
+030.479  000.249  000.249: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions.vim
+030.683  000.039  000.039: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/quickfix.vim
+030.882  000.109  000.109: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline.vim
+031.036  000.023  000.023: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/netrw.vim
+031.492  000.132  000.132: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/highlighter.vim
+031.619  000.458  000.326: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/term.vim
+031.831  000.052  000.052: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/hunks.vim
+031.972  000.013  000.013: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/vista.vim
+032.259  000.133  000.133: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/branch.vim
+032.467  000.034  000.034: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/fugitiveline.vim
+032.646  000.032  000.032: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/syntastic.vim
+032.864  000.081  000.081: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/whitespace.vim
+033.232  000.037  000.037: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/po.vim
+033.419  000.059  000.059: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/wordcount.vim
+033.653  000.117  000.117: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline.vim
+033.805  000.032  000.032: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/autoshow.vim
+034.029  000.055  000.055: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/tabs.vim
+034.299  000.109  000.109: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/buffers.vim
+034.539  000.017  000.017: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/keymap.vim
+050.227  000.033  000.033: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/themes.vim
+050.485  000.400  000.367: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/themes/dark.vim
+065.574  000.109  000.109: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/builder.vim
+065.937  000.060  000.060: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/default.vim
+075.058  000.130  000.130: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/syntastic/autoload/syntastic/log.vim
+075.093  042.864: opening buffers
+075.259  000.078  000.078: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/gitgutter/autoload/gitgutter.vim
+075.608  000.437: BufEnter autocommands
+075.611  000.003: editing files in windows
+075.767  000.156: VimEnter autocommands
+075.780  000.013: before starting main loop
+076.216  000.086  000.086: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/ctrlspace.vim
+076.409  000.069  000.069: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/tabws.vim
+076.769  000.092  000.092: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/builder.vim
+076.962  000.037  000.037: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/buflist.vim
+079.064  000.037  000.037: sourcing /usr/share/vim/vimfiles/pack/dist-bundle/start/airline-themes/autoload/airline/extensions/tabline/formatters/default.vim
+091.166  015.065: first screen update
+091.168  000.002: --- VIM STARTED ---

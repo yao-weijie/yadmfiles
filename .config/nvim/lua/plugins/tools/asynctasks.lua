@@ -1,5 +1,5 @@
 local function setlect_task()
-    local tasks = vim.api.nvim_call_function("asynctasks#list", {})
+    local tasks = vim.api.nvim_call_function("asynctasks#list", { "" })
 
     if vim.tbl_isempty(tasks) then
         vim.notify("No task found!")
@@ -48,9 +48,8 @@ return {
         { "<F17>", "<cmd>AsyncTask project-run<CR>", desc = "project-run" },
         { "<F18>", "<cmd>AsyncTask project-build<CR>", desc = "project-build" },
     },
+    cmd = { "AsyncTask", "AsyncTaskUI" },
     config = function()
-        vim.api.nvim_create_user_command("AsyncTaskUI", function()
-            setlect_task()
-        end, {})
+        vim.api.nvim_create_user_command("AsyncTaskUI", setlect_task, {})
     end,
 }

@@ -1,4 +1,4 @@
--- 得要有个:才行, 比如(大写) todo:
+-- 得要有个:才行, 比如 TODO:
 return {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },

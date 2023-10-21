@@ -330,13 +330,37 @@ set omnifunc=syntaxcomplete#Complete
 
 " plugins from apt
 func! PlugInstall()
-    terminal sudo apt install -y
-                \ vim-airline
-                \ vim-fugitive
-                \ vim-gitgutter
-                \ vim-snipmate
-                \ vim-snippets
-                \ vim-syntastic
+    let plugins = [
+                \ "vim-airline",
+                \ "vim-fugitive",
+                \ "vim-gitgutter",
+                \ "vim-snipmate",
+                \ "vim-snippets",
+                \ "vim-syntastic",
+                \ ]
+    let cmd = 'apt install ' . join(plugins, ' ')
+    if $USER != 'root'
+        let cmd = 'sudo ' . cmd
+    endif
+
+    if $USER == 'root'
+        terminal apt install -y
+                    \ vim-airline
+                    \ vim-fugitive
+                    \ vim-gitgutter
+                    \ vim-snipmate
+                    \ vim-snippets
+                    \ vim-syntastic
+    else
+        terminal sudo apt install -y
+                    \ vim-airline
+                    \ vim-fugitive
+                    \ vim-gitgutter
+                    \ vim-snipmate
+                    \ vim-snippets
+                    \ vim-syntastic
+    endif
+
 endfunc
 " vim-airline
 let g:airline_section_z = airline#section#create(["%{line('.')}/%{line('$')}"])

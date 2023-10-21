@@ -101,9 +101,7 @@ local function vimtex_setup()
         pattern = "tex",
         callback = function(file)
             local opts = { buffer = file.buf }
-            vim.bo.shiftwidth = 2
-            vim.bo.tabstop = 2
-            vim.bo.softtabstop = 2
+            vim.cmd("setlocal shiftwidth=2 tabstop=2 softtabstop=2")
             vim.wo.conceallevel = 2
 
             vim.keymap.set({ "n", "v", "o" }, "H", "g^", opts)

@@ -25,9 +25,9 @@ M.setup = function(...)
     local opts = ... or {}
     opts = vim.tbl_deep_extend("keep", opts, lazy_defaults)
 
-    require("lazy").setup(opts)
-
     vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "lazy" })
+
+    require("lazy").setup(opts)
 end
 
 return M

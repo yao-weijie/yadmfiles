@@ -122,11 +122,15 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-if !has('nvim')
-    " mini.move
-    nnoremap <M-j> <cmd>m+1<CR>
-    nnoremap <M-k> <cmd>m-2<CR>
-endif
+" mini.move
+nnoremap <M-j> :m +1<CR>==
+vnoremap <M-j> :m '>+1<CR>gv=gv
+nnoremap <M-k> :m -2<CR>==
+vnoremap <M-k> :m '<-2<CR>gv=gv
+nnoremap <M-h> <<
+vnoremap <M-h> <gv
+nnoremap <M-l> >>
+vnoremap <M-l> >gv
 
 " H, L jump to line home / end
 nnoremap H ^
@@ -299,6 +303,7 @@ endif
 
 " gvim config {{{
 if has('gui_running')
+    set guioptions-=m
     set guioptions-=T
     if has('win32') || has('mac')
         set guifont=JetBrainsMono\ Nerd\ Font:10,Consolas:10

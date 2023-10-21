@@ -1,7 +1,7 @@
 local builtins = require("null-ls").builtins
 _G.toolset.json = {
     server = { "jsonls" },
-    treesitter = { "json", "json5" },
+    treesitter = { "json", "jsonc", "json5" },
     sources = {
         builtins.formatting.prettierd,
     },

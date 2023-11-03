@@ -3,22 +3,12 @@ return {
     event = { "InsertEnter" },
     opts = {
         check_ts = true,
-        disable_filetype = {
-            "TelescopePrompt",
-            "spectre_panel",
-            "dap-repl",
-            "guihua",
-            "guihua_rust",
-            "clap_input",
-        },
         fast_wrap = {
-            map = "<M-e>",
+            map = "<M-e>", -- default
             chars = { "{", "[", "(", '"', "'" },
+            -- pattern = [=[[%'%"%>%]%)%}%,]]=], -- default
             pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-            offset = 1, -- Offset from pattern match
             end_key = ";",
-            keys = "qwertyuiopzxcvbnmasdfghjkl",
-            check_comma = true,
             highlight = "PmenuSel",
             highlight_grey = "LineNr",
         },
@@ -62,34 +52,24 @@ return {
 
         -- add spaces between parentheses
         npairs.add_rules({
-            Rule(" ", " "):with_pair(function(opts)
-                local pair = opts.line:sub(opts.col - 1, opts.col)
+            Rule(" ", " "):with_pair(function(opt)
+                local pair = opt.line:sub(opt.col - 1, opt.col)
                 return vim.tbl_contains({ "()", "[]", "{}" }, pair)
             end),
+            -- stylua: ignore start
             Rule("( ", " )")
-                :with_pair(function()
-                    return false
-                end)
-                :with_move(function(opts)
-                    return opts.prev_char:match(".%)") ~= nil
-                end)
+                :with_pair(function() return false end)
+                :with_move(function(opt) return opt.prev_char:match(".%)") ~= nil end)
                 :use_key(")"),
-            Rule("{ ", " }")
-                :with_pair(function()
-                    return false
-                end)
-                :with_move(function(opts)
-                    return opts.prev_char:match(".%}") ~= nil
-                end)
-                :use_key("}"),
             Rule("[ ", " ]")
-                :with_pair(function()
-                    return false
-                end)
-                :with_move(function(opts)
-                    return opts.prev_char:match(".%]") ~= nil
-                end)
+                :with_pair(function() return false end)
+                :with_move(function(opt) return opt.prev_char:match(".%]") ~= nil end)
                 :use_key("]"),
+            Rule("{ ", " }")
+                :with_pair(function() return false end)
+                :with_move(function(opt) return opt.prev_char:match(".%}") ~= nil end)
+                :use_key("}"),
+            -- stylua: ignore start
         })
     end,
 }

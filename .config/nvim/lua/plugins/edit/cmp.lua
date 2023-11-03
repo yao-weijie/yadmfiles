@@ -36,32 +36,33 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        {
-            "yao-weijie/cmp-rime",
-            dev = true,
-            opts = {
-                -- libpath = vim.fn.expand("~/Projects/neovim/librime/build/lib/librime.so"),
-                libpath = "librime.so.1",
-                enable = {
-                    comment = true,
-                },
-                preselect = true,
-                -- TODO
-                -- mapping = {
-                --     select_2 = { ";" },
-                --     select_3 = { "'" },
-                --     page_up = { ",", "-" },
-                --     page_down = { ".", "=" },
-                --     confirm = { "<CR>" },
-                --     space_commit = { "<Space>" },
-                --     select_next_item = { "<C-n>" },
-                --     select_prev_item = { "<C-p>" },
-                -- },
-            },
-            keys = {
-                { "<C-g>", "<cmd>lua require('cmp_rime').mapping.toggle()<CR>", mode = { "i", "n" } },
-            },
-        },
+        -- {
+        --     "yao-weijie/cmp-rime",
+        --     dev = true,
+        --     opts = {
+        --         -- libpath = vim.fn.expand("~/Projects/neovim/librime/build/lib/librime.so"),
+        --         libpath = "librime.so.1",
+        --         enable = {
+        --             comment = true,
+        --         },
+        --         preselect = true,
+        --         number_select = 9,
+        --         -- TODO
+        --         -- mapping = {
+        --         --     select_2 = { ";" },
+        --         --     select_3 = { "'" },
+        --         --     page_up = { ",", "-" },
+        --         --     page_down = { ".", "=" },
+        --         --     confirm = { "<CR>" },
+        --         --     space_commit = { "<Space>" },
+        --         --     select_next_item = { "<C-n>" },
+        --         --     select_prev_item = { "<C-p>" },
+        --         -- },
+        --     },
+        --     keys = {
+        --         { "<C-g>", "<cmd>lua require('cmp_rime').mapping.toggle()<CR>", mode = { "i", "n" } },
+        --     },
+        -- },
         -- "hrsh7th/cmp-nvim-lsp-signature-help",
 
         "onsails/lspkind.nvim",
@@ -101,13 +102,13 @@ return {
                 CMP_SOURCES.nvim_lsp,
                 CMP_SOURCES.luasnip,
                 CMP_SOURCES.buffer,
-                CMP_SOURCES.rime,
+                -- CMP_SOURCES.rime,
                 CMP_SOURCES.path,
             },
 
             sorting = {
                 comparators = {
-                    require("cmp_rime.compare").order,
+                    -- require("cmp_rime.compare").order,
                     compare.score,
                     compare.kind,
                     compare.exact,
@@ -123,18 +124,27 @@ return {
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
 
-                ["<C-n>"] = require("cmp_rime").mapping.select_next_item,
-                ["<C-p>"] = require("cmp_rime").mapping.select_prev_item,
+                -- ["<C-n>"] = require("cmp_rime").mapping.select_next_item,
+                -- ["<C-p>"] = require("cmp_rime").mapping.select_prev_item,
 
-                ["<C-Space>"] = require("cmp_rime").mapping.toggle_menu,
-                ["<Space>"] = require("cmp_rime").mapping.space_commit,
-                ["<CR>"] = require("cmp_rime").mapping.confirm,
+                ["<C-Space>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.abort()
+                    else
+                        cmp.complete()
+                    end
+                end),
+                ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 
-                ["."] = require("cmp_rime").mapping.page_down,
-                [","] = require("cmp_rime").mapping.page_up,
+                -- ["<C-Space>"] = require("cmp_rime").mapping.toggle_menu,
+                -- ["<Space>"]   = require("cmp_rime").mapping.space_commit,
+                -- ["<CR>"]      = require("cmp_rime").mapping.confirm,
 
-                [";"] = require("cmp_rime").mapping["2"],
-                ["'"] = require("cmp_rime").mapping["3"],
+                -- ["."] = require("cmp_rime").mapping.page_down,
+                -- [","] = require("cmp_rime").mapping.page_up,
+
+                -- [";"] = require("cmp_rime").mapping["2"],
+                -- ["'"] = require("cmp_rime").mapping["3"],
             }),
         })
 

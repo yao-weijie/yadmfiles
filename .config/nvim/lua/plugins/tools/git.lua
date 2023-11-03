@@ -19,6 +19,8 @@ return {
                 -- <leader>gl LazyGit
                 -- <leader>gg GitUI
 
+                keymap("n", "gj", "<cmd>Gitsigns next_hunk<CR>", opts)
+                keymap("n", "gk", "<cmd>Gitsigns prev_hunk<CR>", opts)
                 keymap("n", "<leader>gj", "<cmd>Gitsigns next_hunk<CR>", opts)
                 keymap("n", "<leader>gk", "<cmd>Gitsigns prev_hunk<CR>", opts)
                 keymap("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", opts)
@@ -30,9 +32,10 @@ return {
                 keymap("n", "<leader>gS", "<cmd>Gitsigns stage_buffer<CR>", opts)
                 keymap("n", "<leader>gR", "<cmd>Gitsigns reset_buffer<CR>", opts)
 
-                keymap("n", "<leader>gD", '<cmd>lua require"gitsigns".diffthis("~")<CR>', opts)
+                keymap("n", "<leader>gD", "<cmd>lua require'gitsigns'.diffthis('~')<CR>", opts)
 
-                keymap({ "o", "x" }, "ih", "<cmd><C-U>Gitsigns select_hunk<CR>", opts)
+                keymap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", opts)
+                keymap({ "o", "x" }, "ah", ":<C-U>Gitsigns select_hunk<CR>", opts)
             end,
         },
     },

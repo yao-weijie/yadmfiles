@@ -27,6 +27,7 @@ return {
             { "<F8>", "<cmd>DapContinue<CR>", desc = "start debug" },
             -- Shift-F8
             { "<F20>", "<cmd>DapTerminate<CR>", desc = "terminate debug" },
+            { "<S-F8>", "<cmd>DapTerminate<CR>", desc = "terminate debug" },
         },
         config = function()
             local mason_dap = require("mason-nvim-dap")

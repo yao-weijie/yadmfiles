@@ -1,8 +1,6 @@
-mkdir -p /tmp/inst-nvim && cd /tmp/inst-nvim
-
 # neovim
-wget https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb
-sudo apt install ./nvim-linux64.deb
+wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod +x nvim.appimage && sudo mv nvim.appimage /usr/local/bin/nvim
 
 # trash-cli ( by nvim-tree )
 sudo apt install trash-cli

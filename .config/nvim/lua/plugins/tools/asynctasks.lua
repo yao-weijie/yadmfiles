@@ -44,9 +44,12 @@ return {
     keys = {
         { "<F5>", "<cmd>AsyncTask file-run<CR>", desc = "file-run" },
         { "<F6>", "<cmd>AsyncTask file-build<CR>", desc = "file-build" },
-        -- <S-F5> && <S-F6>
+        -- <S-F5> && <S-F6> in terminal
         { "<F17>", "<cmd>AsyncTask project-run<CR>", desc = "project-run" },
         { "<F18>", "<cmd>AsyncTask project-build<CR>", desc = "project-build" },
+        -- if has gui_running
+        { "<S-F5>", "<cmd>AsyncTask project-run<CR>", desc = "project-run" },
+        { "<S-F6>", "<cmd>AsyncTask project-build<CR>", desc = "project-build" },
     },
     cmd = { "AsyncTask", "AsyncTaskUI" },
     config = function()

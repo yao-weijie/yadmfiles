@@ -46,7 +46,7 @@ elif [[ $SHELL == *bash* ]]; then
 fi
 
 alias nv="nvim"
-alias nvim-raw="nvim -u ~/.config/nvim/vimrc "
+alias nvim-tiny="nvim -u ~/.config/nvim/vimrc "
 # alias vim="nvim -u ~/.config/nvim/vimrc "
 syncvim() {
 	local server=$1
@@ -71,3 +71,23 @@ alias psg="ps -A | grep "
 alias dst="yadm status "
 alias gst="git status "
 alias ga="git add "
+
+# dd
+alias dd="dd status=progress "
+
+# rsync
+alias rsync="rsync -r --progress "
+
+# if has command
+function executable() {
+	local cmd=$1
+	if command -v $cmd >/dev/null 2>&1; then
+		return $(true)
+	else
+		return $(false)
+	fi
+}
+# example
+# if $(executable "git") ; then
+#     echo 'has git'
+# fi

@@ -76,6 +76,9 @@ set hidden
 set updatetime=300
 
 let g:python3_prog_host = '/usr/bin/python3'
+let g:loaded_node_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
 let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
 " append runtimepath
 set rtp+=~/.config/nvim/my-snippets/
@@ -165,9 +168,11 @@ nnoremap X "9X
 snoremap p i<BS>p
 vnoremap p P
 vnoremap P p
+inoremap <C-v> <C-o>p
 
 " format
 nnoremap <leader>= gg=G
+nnoremap == gg=G
 vnoremap > >gv
 vnoremap < <gv
 
@@ -236,7 +241,6 @@ inoremap <C-k>   <C-o>c$
 inoremap <M-w> <C-Right>
 inoremap <M-b> <C-Left>
 
-inoremap <C-v> <C-o>p
 
 " fold
 nnoremap zi zc
@@ -299,13 +303,37 @@ if has('wsl')
 else
     set clipboard=unnamedplus
 endif
+
+if executable('fcitx5-remote')
+    function! FcitxInsEnter()
+        " im_status: 1 inactive
+        " im_status: 2 active
+        if !exists('b:im_status')
+            let b:im_status = system('fcitx5-remote')
+        endif
+        if system('fcitx5-remote') != b:im_status
+            call system('fcitx5-remote -t')
+        endif
+    endfunction
+
+    function! FcitxInsLeave()
+        let b:im_status = system('fcitx5-remote')
+        call system('fcitx5-remote -c')
+    endfunction
+
+    augroup Fcitx5
+        autocmd!
+        autocmd InsertEnter * :call FcitxInsEnter()
+        autocmd InsertLeave * :call FcitxInsLeave()
+    augroup end
+endif
 " }}}
 
-" gvim config {{{
+" gui config {{{
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    if has('win32') || has('mac')
+    if has('win32') || has('mac') || has('nvim')
         set guifont=JetBrainsMono\ Nerd\ Font:10,Consolas:10
     else
         set guifont=JetBrainsMono\ Nerd\ Font\ 10,Consolas\ 10,DejaVu\ Sans\ Mono\ 10

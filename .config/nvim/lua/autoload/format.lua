@@ -1,10 +1,6 @@
 vim.g.autoformat_enabled = true
 
 local function auto_format()
-    if vim.fn.filewritable(vim.fn.expand("%")) == 0 then
-        return vim.notify("File not writable!")
-    end
-
     if not vim.g.autoformat_enabled then
         return
     end

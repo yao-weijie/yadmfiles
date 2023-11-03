@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # fzf
-if [[ $SHELL =~ .*zsh ]]; then
+if [[ $SHELL == *zsh* ]]; then
 	source /usr/share/doc/fzf/examples/completion.zsh
-    source /usr/share/doc/fzf/examples/key-bindings.zsh
-elif [[ $SHELL =~ .*bash ]]; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
+	source /usr/share/doc/fzf/examples/key-bindings.zsh
+elif [[ $SHELL == *bash* ]]; then
+	source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 # fzf settigns

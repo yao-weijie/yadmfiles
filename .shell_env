@@ -30,12 +30,6 @@ if [[ -d /opt/java/jdk-11 ]]; then
 	export JAVA_HOME JRE_HOME CLASS_PATH
 fi
 
-# xmake
-[[ -f "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile"
-
-# fzf
-[[ -f ~/.fzfrc ]] && source ~/.fzfrc
-
 # 去除重复内容, 且不排序
 export PATH=$(echo $PATH | sed "s/:/\n/g" | uniq | tr -s "\n" ":" | sed "s/:$//g")
 

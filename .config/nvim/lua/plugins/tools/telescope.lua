@@ -117,5 +117,6 @@ return {
         { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "lsp_workspace_symbols" },
 
         { "<C-f>", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "lines" },
+        { "<leader>F", "<cmd>Telescope live_grep<CR>", desc = "live grep" },
     },
 }

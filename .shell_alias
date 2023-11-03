@@ -75,6 +75,10 @@ alias ga="git add "
 # dd
 alias dd="dd status=progress "
 
+# ssh
+alias ssh-keygen="ssh-keygen -t ed25519 " # ed25519 不需要指定长度
+alias ssh-keygen-rsa="ssh-keygen -t rsa -b 4096 "
+
 # rsync
 alias rsync="rsync -r --progress "
 

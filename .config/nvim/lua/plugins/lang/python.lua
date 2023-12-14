@@ -7,28 +7,23 @@ _G.toolset.python = {
         -- configure with pyproject.toml in project root
         builtins.formatting.black,
         builtins.formatting.isort,
-        -- builtins.diagnostics.mypy,
     },
 }
 
-require("helper.leetcode").setup({
-    leetcode_china = true,
+local loaded_python_plugins
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "python" },
+    callback = function()
+        if loaded_python_plugins then
+            return
+        end
+        loaded_python_plugins = true
+
+        require("helper.leetcode").setup({
+            leetcode_china = true,
+        })
+        require("helper.conda").setup()
+    end,
 })
 
-return {
-    "nvim-neotest/neotest-python",
-    ft = { "python" },
-    dependencies = { "nvim-neotest/neotest" },
-    config = function()
-        require("neotest").setup({
-            adapters = {
-                require("neotest-python")({
-                    dap = { justMyCode = false },
-                    args = { "--log-level", "DEBUG" },
-                    runner = "pytest",
-                    python = "python",
-                }),
-            },
-        })
-    end,
-}
+return {}

@@ -18,7 +18,7 @@ local opts = {
                 border = { "", "", "", "│", "┘", "─", "", "" },
                 width = 35,
                 height = 40,
-                row = 2,
+                row = 1,
                 col = 0,
             },
         },
@@ -112,7 +112,6 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    lazy = true,
     keys = {
         { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
     },

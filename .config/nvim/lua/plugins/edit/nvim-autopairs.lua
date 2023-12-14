@@ -9,8 +9,6 @@ return {
             -- pattern = [=[[%'%"%>%]%)%}%,]]=], -- default
             pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
             end_key = ";",
-            highlight = "PmenuSel",
-            highlight_grey = "LineNr",
         },
         map_c_h = true,
     },
@@ -34,7 +32,7 @@ return {
                                 cmp.lsp.CompletionItemKind.Method,
                                 cmp.lsp.CompletionItemKind.Class, -- 比默认配置多这个
                             },
-                            handler = handlers["*"], -- 必须有
+                            handler = handlers["*"],
                         },
                     },
                     -- with texlab
@@ -43,7 +41,7 @@ return {
                             kind = {
                                 cmp.lsp.CompletionItemKind.Function,
                             },
-                            handler = handlers["*"], -- 必须有
+                            handler = handlers["*"],
                         },
                     },
                 },

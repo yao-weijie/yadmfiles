@@ -1,19 +1,14 @@
 local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    -- 禁用lsp 语义高亮
+    -- client.server_capabilities.semanticTokensProvider = nil
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- clangd
-capabilities.offsetEncoding = { "utf-16" }
 capabilities.textDocument.completion.completionItem = {
     documentationFormat = { "markdown", "plaintext" },
     -- snippet禁用无效,要在cmp里设置
     snippetSupport = false,
-}
-
-local lsp_flags = {
-    -- This is the default in Nvim 0.7+
-    debounce_text_changes = 150,
 }
 
 return {
@@ -21,33 +16,25 @@ return {
     dependencies = {
         { "folke/neodev.nvim", version = "*", config = true, lazy = true },
         "hrsh7th/cmp-nvim-lsp",
-        {
-            -- 通过yaml/json文件来设置lsp-server
-            -- nlspsettings必须放在server启动之前
-            "tamago324/nlsp-settings.nvim",
-            opts = {
-                config_home = vim.fn.stdpath("config") .. "/lua/plugins/lsp/settings",
-                loader = "yaml",
-                nvim_notify = { enable = true },
-            },
-        },
-        { "williamboman/mason-lspconfig.nvim", config = true },
+        { "williamboman/mason-lspconfig.nvim", version = "*", config = true },
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
         require("mason-lspconfig").setup_handlers({
             function(server_name)
-                require("lspconfig")[server_name].setup({
+                local configs = {
                     on_attach = on_attach,
                     capabilities = capabilities,
-                    flags = lsp_flags,
-                    -- root_dir = require("lspconfig").util.root_pattern(vim.g.ROOT_MARKERS),
-                })
+                    root_dir = require("lspconfig").util.root_pattern(vim.g.ROOT_MARKERS),
+                }
+
+                if vim.pathlib.file_exist(("~/.config/nvim/lua/plugins/lsp/settings/%s.lua"):format(server_name)) then
+                    local spec_configs = require(("plugins.lsp.settings.%s"):format(server_name))
+                    configs = vim.tbl_deep_extend("force", configs, spec_configs)
+                end
+
+                require("lspconfig")[server_name].setup(configs)
             end,
         })
     end,
-    keys = {
-        { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
-        { "ga", vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "code_action" },
-    },
 }

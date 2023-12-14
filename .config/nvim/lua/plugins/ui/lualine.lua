@@ -1,11 +1,3 @@
-local diagnostics = {
-    "diagnostics",
-    sources = { "nvim_diagnostic" },
-    sections = { "error", "warn", "info", "hint" },
-    symbols = { error = " ", warn = " ", info = " " },
-    always_visible = false,
-}
-
 local rime_status = function()
     if vim.g.rime_available then
         return "ㄓ"
@@ -21,9 +13,9 @@ end
 local buffers = {
     "buffers",
     mode = 2,
-    symbols = {
-        alternate_file = "",
-    },
+    max_length = function()
+        return vim.o.columns
+    end,
 }
 
 return {
@@ -33,7 +25,6 @@ return {
         options = {
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
-            always_divide_middle = true,
             globalstatus = true,
             disabled_filetypes = {
                 tabline = {
@@ -47,7 +38,7 @@ return {
 
         sections = {
             lualine_a = { "mode" },
-            lualine_b = { "branch", diagnostics },
+            lualine_b = { "branch", "diagnostics" },
             lualine_c = {
                 rime_status,
             },

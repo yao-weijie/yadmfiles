@@ -1,5 +1,6 @@
 return {
     "stevearc/aerial.nvim",
+    version = "*",
     keys = {
         { "<leader>o", "<cmd>AerialToggle<CR>", desc = "aerial outline" },
     },

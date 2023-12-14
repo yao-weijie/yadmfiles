@@ -1,15 +1,34 @@
 local M = {}
 
 ---@param path string
+M.trim = function(path)
+    return vim.trim(path):gsub("\\+", "/"):gsub("/+", "/")
+end
+
+---@param path string
 M.file_exist = function(path)
-    return vim.fn.filereadable(path) == 1
+    path = vim.fn.expand(path)
+    return vim.fn.filereadable(path) == 1 and true or false
+end
+
+---@param path string
+M.dir_exist = function(path)
+    return vim.fn.isdirectory(path) == 1 and true or false
+end
+
+---@param path string
+M.executable = function(path)
+    return vim.fn.executable(path) == 1 and true or false
+end
+
+---@param path string
+M.filewritable = function(path)
+    return vim.fn.filewritable(path) == 1 and true or false
 end
 
 ---@param paths table [string]
-M.join_path = function(paths)
-    local r = table.concat(paths, "/")
-
-    return vim.fn.expand(r)
+M.join = function(paths)
+    return M.trim(table.concat(paths, "/"))
 end
 
 local UNIT = {
@@ -33,5 +52,7 @@ M.is_hugefile = function(buf, size)
         return false
     end
 end
+
+vim.pathlib = M
 
 return M

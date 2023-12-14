@@ -17,15 +17,15 @@ CMP_SOURCES = {
     },
     path = { name = "path", menu = "[Path]" },
     buffer = { name = "buffer", menu = "[Buf]" },
-    rime = { name = "rime", menu = "[Rime]" },
     cmdline = { name = "cmdline", menu = "[Cmd]" },
-    dap = { name = "dap", menu = "[Dap]" },
 
     -- unused
+    rime = { name = "rime", menu = "[Rime]" },
     treesitter = { name = "treesitter", menu = "[TS]" },
     cmdline_history = { name = "cmdline_history", menu = "[Cmd History]" },
     nvim_lsp_signature_help = { name = "nvim_lsp_signature_help", menu = "[Param]" },
     spell = { name = "spell", menu = "[Spell]" },
+    dap = { name = "dap", menu = "[Dap]" },
 }
 
 return {
@@ -63,37 +63,30 @@ return {
         --         { "<C-g>", "<cmd>lua require('cmp_rime').mapping.toggle()<CR>", mode = { "i", "n" } },
         --     },
         -- },
-        -- "hrsh7th/cmp-nvim-lsp-signature-help",
-
-        "onsails/lspkind.nvim",
     },
-    event = { "VeryLazy" },
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
         local cmp = require("cmp")
         local compare = require("cmp.config.compare")
 
         cmp.setup({
             window = {
-                documentation = cmp.config.window.bordered({
-                    border = "none",
-                }),
                 completion = cmp.config.window.bordered({
                     border = "none",
                     winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:MyCmpSel", -- 重点是CursorLine
+                }),
+                documentation = cmp.config.window.bordered({
+                    border = "none",
                 }),
             },
 
             formatting = {
                 fields = { "abbr", "kind", "menu" },
-                format = require("lspkind").cmp_format({
-                    mode = "text",
-                    maxwidth = 50,
-
-                    before = function(entry, vim_item)
-                        vim_item.menu = CMP_SOURCES[entry.source.name].menu
-                        return vim_item
-                    end,
-                }),
+                expandable_indicator = false,
+                format = function(entry, vim_item)
+                    vim_item.menu = CMP_SOURCES[entry.source.name].menu
+                    return vim_item
+                end,
             },
 
             -- global setting and can be overwritten in sources
@@ -107,6 +100,7 @@ return {
             },
 
             sorting = {
+                priority_weight = 1,
                 comparators = {
                     -- require("cmp_rime.compare").order,
                     compare.score,

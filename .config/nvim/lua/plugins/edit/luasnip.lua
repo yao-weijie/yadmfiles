@@ -1,5 +1,6 @@
 return {
     "L3MON4D3/LuaSnip",
+    version = "*",
     dependencies = {
         "honza/vim-snippets",
         "saadparwaiz1/cmp_luasnip",

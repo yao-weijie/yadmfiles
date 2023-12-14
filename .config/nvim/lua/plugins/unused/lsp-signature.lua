@@ -1,29 +1,3 @@
-vim.cmd([[
-    autocmd WinEnter,InsertEnter * lua vim.w.winline = vim.fn.winline() vim.w.winheight = vim.fn.winheight(0)
-]])
-
-local function cal_offset_y(float_opts)
-    local pumheight = vim.o.pumheight
-    local winline = vim.w.winline
-    local winheight = vim.w.winheight
-    local float_height = float_opts.height
-
-    if float_height == nil and winline - 1 < pumheight then
-        return pumheight + 2
-    end
-
-    if winline - 1 < pumheight and winline < float_height then
-        return pumheight
-    end
-
-    -- window bottom
-    if winheight - winline < pumheight then
-        return -pumheight
-    end
-
-    return 0
-end
-
 return {
     "ray-x/lsp_signature.nvim",
     opts = {
@@ -31,7 +5,7 @@ return {
 
         bind = false,
         handler_opts = {
-            border = "single",
+            border = "none",
         },
         max_height = 10,
         max_width = 80,
@@ -41,7 +15,7 @@ return {
         floating_window = false,
         floating_window_above_cur_line = true,
         floating_window_off_x = 0,
-        floating_window_off_y = cal_offset_y,
+        -- floating_window_off_y = cal_offset_y,
         close_timeout = 4000,
         fix_pos = true,
         zindex = 50,

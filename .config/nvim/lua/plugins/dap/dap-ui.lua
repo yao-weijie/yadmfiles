@@ -43,6 +43,7 @@ local opts = {
 local dap_ft = "python,c,cpp,rust"
 return {
     "rcarriga/nvim-dap-ui",
+    version = "*",
     dependencies = { "mfussenegger/nvim-dap" },
     ft = vim.split(dap_ft, ",", {}),
     config = function()

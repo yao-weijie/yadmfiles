@@ -1,9 +1,6 @@
 local M = {}
 
 local lazy_defaults = {
-    ui = {
-        border = "single",
-    },
     change_detection = {
         enabled = false,
         notify = false,

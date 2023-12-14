@@ -1,6 +1,6 @@
 return {
     { "folke/lazy.nvim", version = "*" },
-    { "williamboman/mason.nvim", config = true },
+    { "williamboman/mason.nvim", version = "*", config = true },
     {
         "karb94/neoscroll.nvim",
         keys = { "<C-u>", "<C-d>" },

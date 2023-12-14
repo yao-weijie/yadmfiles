@@ -1,5 +1,5 @@
 local opts = {
-    ensure_installed = { "vimdoc", "c", "cpp", "vim", "lua", "luadoc", "markdown", "markdown_inline" },
+    ensure_installed = { "vim", "vimdoc", "lua", "luadoc", "markdown", "markdown_inline", "c", "cpp", "python" },
     sync_install = true, -- install languages synchronously (only applied to `ensure_installed`)
     ignore_install = { "foam" },
     highlight = {
@@ -13,9 +13,8 @@ local opts = {
                 return true
             end
 
-            return require("helper.path").is_hugefile(buf, "100k")
+            return vim.pathlib.is_hugefile(buf, "500k")
         end,
-        additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
         enable = true,
@@ -68,17 +67,12 @@ local opts = {
         },
         lsp_interop = { enable = false },
     },
-
-    -- https://github.com/HiPhish/nvim-ts-rainbow2
-    rainbow = { enable = true },
 }
 
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufRead" },
+    version = "*",
     dependencies = {
-        -- "HiPhish/nvim-ts-rainbow2",
-        "p00f/nvim-ts-rainbow",
         "nvim-treesitter/nvim-treesitter-textobjects",
         "RRethy/nvim-treesitter-endwise",
     },

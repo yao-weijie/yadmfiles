@@ -32,7 +32,7 @@ end
 return {
     {
         "nvimtools/none-ls.nvim",
-        dependencies = { "jay-babu/mason-null-ls.nvim", lazy = true, config = true },
+        dependencies = { "jay-babu/mason-null-ls.nvim", version = "*", lazy = true, config = true },
         config = true,
     },
 }

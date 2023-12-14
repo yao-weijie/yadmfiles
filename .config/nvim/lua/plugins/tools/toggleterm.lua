@@ -6,14 +6,18 @@ return {
         open_mapping = [[<C-\>]],
         direction = "float",
         float_opts = {
-            border = "single",
-            winblend = 3,
-            width = 90,
-            height = 40,
-            highlights = {
-                border = "Normal",
-                background = "Normal",
-            },
+            -- width = 80,
+            -- height = 40,
+            width = function(_term)
+                local width = math.ceil(vim.o.columns / 2)
+                _term.float_opts.col = vim.o.columns - width
+                return width
+            end,
+            height = function(_term)
+                local height = math.ceil(vim.o.lines / 2)
+                _term.float_opts.row = 0
+                return height
+            end,
         },
     },
     config = function(_, opts)
@@ -22,24 +26,29 @@ return {
         local Terminal = require("toggleterm.terminal").Terminal
         local float_opts = {
             border = "none",
-            winblend = 3,
-            width = vim.o.columns,
-            height = vim.o.lines,
+            width = function()
+                return vim.o.columns
+            end,
+            height = function()
+                return vim.o.lines
+            end,
         }
 
         local lazygit = Terminal:new({ cmd = "lazygit", hidden = false, float_opts = float_opts })
         create_cmd("LazyGit", function()
             lazygit:toggle()
         end, {})
-        vim.keymap.set("n", "<leader>gl", "<cmd>LazyGit<CR>", {})
 
         local gitui = Terminal:new({ cmd = "gitui", hidden = false, float_opts = float_opts })
         create_cmd("GitUI", function()
-            if vim.fn.executable("gitui") ~= 1 then
+            if not vim.pathlib.executable("gitui") then
                 vim.cmd([[MasonInstall gitui]])
             end
             gitui:toggle()
         end, {})
-        vim.keymap.set("n", "<leader>gg", "<cmd>GitUI<CR>", {})
     end,
+    keys = {
+        { "<leader>gl", "<cmd>LazyGit<CR>" },
+        { "<leader>gg", "<cmd>GitUI<CR>" },
+    },
 }

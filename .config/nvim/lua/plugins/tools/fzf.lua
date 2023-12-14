@@ -8,19 +8,27 @@ return {
     opts = {
         "default",
         -- "telescope",
+        -- "max-perf",
+        -- "fzf-native",
         winopts = {
             preview = {
-                vertical = "up:50%", -- up|down:size
-                horizontal = "right:50%", -- right|left:size
-                delay = 50, -- delay(ms) displaying the preview
+                border = "noborder",
+                vertical = "up:50%",
+                horizontal = "right:50%",
+                delay = 50,
             },
         },
         files = {
             path_shorten = 3,
         },
+        previewers = {
+            bat = {
+                cmd = vim.pathlib.executable("batcat") and "batcat" or "bat",
+            },
+        },
     },
     keys = {
-        { "<leader>f/", "<cmd>FzfLua<CR>", desc = "FzfLua self" },
+        { "<leader>f/", "<cmd>FzfLua <CR>", desc = "FzfLua self" },
         { "<leader>ff", "<cmd>FzfLua files<CR>", desc = "files" },
         { "<leader>fb", "<cmd>FzfLua buffers<CR>", desc = "buffers" },
         { "<leader>fl", "<cmd>FzfLua live_grep<CR>", desc = "live grep" },

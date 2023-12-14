@@ -1,6 +1,0 @@
-Lua.runtime.version: "LuaJIT"
-Lua.workspace.checkThirdParty: false
-# Lua.diagnostics.globals:
-#   - "vim"
-Lua.workspace.maxPreload: 10000
-Lua.workspace.preloadFileSize: 10000

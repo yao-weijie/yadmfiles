@@ -37,7 +37,7 @@ return {
             command = "nnoremap <buffer> q :q<CR>",
         })
 
-        -- neotest-python in lua/plugins/lang/python.lua
+        -- neotest-python in ~/.config/nvim/lua/plugins/lang/python.lua
     end,
     keys = {
         { "<F7>", "<cmd>NeotestCurrentFile<CR>", desc = "test current file" },

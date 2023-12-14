@@ -30,24 +30,28 @@ local function set_highlight()
         " Window separator
         highlight! WinSeparator guifg=gray
         highlight! NvimTreeWinSeparator guifg=gray
+
+        " Spectre
+        highlight! SpectreSearch guifg=white guibg=#db4b4b
+        highlight! SpectreReplace guifg=gray guibg=lightgreen
     ]])
 end
+vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = {
+        "dashboard",
+        "alpha",
+        "leaderf",
+        "TelescopePrompt",
+    },
+    command = "setlocal nocursorline",
+})
 
 return {
-    "folke/tokyonight.nvim",
-    dependencies = { -- other themes
-        -- "olimorris/onedarkpro.nvim",
-    },
+    "olimorris/onedarkpro.nvim",
     priority = 1000, -- load first
     config = function()
-        vim.api.nvim_create_autocmd({ "WinLeave" }, { command = "setlocal nocursorline" })
-        vim.api.nvim_create_autocmd({ "WinEnter" }, { command = "setlocal cursorline" })
-        vim.api.nvim_create_autocmd({ "FileType" }, {
-            pattern = { "alpha", "leaderf", "TelescopePrompt" },
-            command = "setlocal nocursorline",
-        })
-        vim.api.nvim_create_autocmd({ "ColorScheme" }, { callback = set_highlight })
-
-        vim.cmd.colorscheme("tokyonight")
+        vim.cmd.colorscheme("onedark")
     end,
 }

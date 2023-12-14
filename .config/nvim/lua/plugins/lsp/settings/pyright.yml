@@ -1,4 +1,0 @@
-pyright.disableOrganizeImports: true
-python.analysis.diagnosticMode: openFilesOnly
-python.analysis.useLibraryCodeForTypes: true
-python.analysis.autoSearchPaths: true

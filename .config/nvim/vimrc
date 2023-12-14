@@ -1,7 +1,7 @@
-" vim:foldmethod=marker:
+" vim:ft=vim:foldmethod=marker:
 " options {{{
 setlocal foldmethod=marker
-
+set listchars=tab:→\ ,trail:␣,extends:…,eol:⏎
 set nocompatible
 ".nvim.lua .nvimrc .exrc
 set exrc
@@ -163,8 +163,8 @@ nnoremap <leader>Q <cmd>copen<CR>
 
 " cut and paste
 " TODO:在展开snippet的时候会进入v模式,如果要输入p开头的单词会触发粘贴
-nnoremap x "9x
-nnoremap X "9X
+nnoremap x "_x
+nnoremap X "_X
 snoremap p i<BS>p
 vnoremap p P
 vnoremap P p

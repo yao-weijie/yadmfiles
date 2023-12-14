@@ -10,9 +10,10 @@ return {
         vim.g.Lf_ShowDevIcons = 1
         vim.g.Lf_WindowPosition = "popup"
         vim.g.Lf_PreviewInPopup = 1
-        vim.g.Lf_ShowRelativePath = 0
+        vim.g.Lf_ShowRelativePath = 1
         vim.g.Lf_RootMarkers = vim.g.ROOT_MARKERS
         vim.g.Lf_StlSeparator = { left = "", right = "" }
+        vim.g.Lf_StlColorscheme = "powerline"
 
         vim.g.Lf_GtagsAutoGenerate = 1
         vim.g.Lf_Gtagslabel = "native-pygments"

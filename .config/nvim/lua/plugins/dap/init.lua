@@ -18,8 +18,9 @@ return {
     },
     {
         "mfussenegger/nvim-dap",
+        version = "*",
         dependencies = {
-            { "jayp0521/mason-nvim-dap.nvim" },
+            { "jayp0521/mason-nvim-dap.nvim", version = "*" },
             { "thehamsta/nvim-dap-virtual-text", config = true },
         },
         ft = vim.split(dap_ft, ",", {}),

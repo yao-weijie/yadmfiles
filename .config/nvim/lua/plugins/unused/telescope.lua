@@ -14,15 +14,15 @@ return {
         telescope.setup({
             defaults = {
                 preview = {
-                    hide_on_startup = true,
+                    -- hide_on_startup = true,
                 },
                 prompt_prefix = "🔍 ",
                 path_display = {
                     "smart_case",
-                    -- shorten = {
-                    --     len = 3,
-                    --     exclude = { 1, -1 },
-                    -- },
+                    shorten = {
+                        len = 3,
+                        exclude = { 1, -1 },
+                    },
                 },
                 sorting_strategy = "ascending", -- put best matching results on the top
                 -- horizontal, center, vertical, flex, cursor, bottom_pane
@@ -31,11 +31,11 @@ return {
                 layout_config = {
                     prompt_position = "top",
                     preview_cutoff = 10,
-                    width = 80,
-                    height = 25,
-                    flex = {
-                        flip_columns = 120,
-                    },
+                    -- width = 80,
+                    -- height = 25,
+                    -- flex = {
+                    --     flip_columns = 120,
+                    -- },
                 },
                 file_ignore_patterns = {
                     "build/",
@@ -63,7 +63,7 @@ return {
             pickers = {
                 find_files = {
                     find_command = {
-                        vim.fn.executable("fdfind") == 1 and "fdfind" or "fd",
+                        vim.pathlib.executable("fdfind") and "fdfind" or "fd",
                         "--type",
                         "f",
                         "--strip-cwd-prefix",
@@ -117,6 +117,5 @@ return {
         { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "lsp_workspace_symbols" },
 
         { "<C-f>", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "lines" },
-        { "<leader>F", "<cmd>Telescope live_grep<CR>", desc = "live grep" },
     },
 }

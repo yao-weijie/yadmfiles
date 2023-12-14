@@ -1,14 +1,14 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
-        event = { "BufRead", "BUfNewFile" },
+        event = { "BufRead", "BufNewFile" },
         opts = {
             current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
             yadm = { enable = true },
             worktrees = {
                 {
                     toplevel = vim.env.HOME,
-                    gitdir = vim.env.HOME .. "/.local/share/yadm/repo.git",
+                    gitdir = vim.fn.expand("~/.local/share/yadm/repo.git"),
                 },
             },
             -- keymapping

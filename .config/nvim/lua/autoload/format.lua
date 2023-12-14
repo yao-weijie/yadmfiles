@@ -6,7 +6,7 @@ local function auto_format()
     end
 
     local async = false
-    if require("helper.path").is_hugefile(0, "100k") or vim.fn.line("$") > 1000 then
+    if vim.pathlib.is_hugefile(0, "100k") or vim.fn.line("$") > 1000 then
         async = true
     end
 
@@ -29,6 +29,7 @@ local function toggle_autoformat()
 end
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = "*",
     callback = function()
         -- 大于1w 行禁用自动格式化
         if vim.fn.line("$") > 10000 then

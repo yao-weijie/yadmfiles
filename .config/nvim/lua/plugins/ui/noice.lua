@@ -1,17 +1,9 @@
 return {
     "folke/noice.nvim",
+    version = "*",
     event = { "VeryLazy" },
     dependencies = {
         "MunifTanjim/nui.nvim",
-        {
-            "rcarriga/nvim-notify",
-            opts = {
-                background_colour = "Normal",
-                minimum_width = 20,
-                max_width = 80,
-                max_height = 20,
-            },
-        },
     },
     opts = {
         cmdline = {

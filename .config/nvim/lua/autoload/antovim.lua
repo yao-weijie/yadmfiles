@@ -2,6 +2,7 @@
 
 local fn = vim.fn
 
+-- True False TRUE FALSE true false
 local antovim_definitions = {
     { "true", "false" },
     { "yes", "no" },
@@ -47,7 +48,7 @@ local function antovim_swap()
         if idx > 0 then
             local subs
             -- 最后一个
-            if idx == fn.len(d) then
+            if idx == #d then
                 subs = d[1]
             else
                 subs = d[idx + 1]
@@ -56,9 +57,8 @@ local function antovim_swap()
             if s_type == 2 then
                 subs = subs:upper()
             elseif s_type == 1 then
-                subs = subs:sub(1, 1):upper() .. subs:sub(2, subs:len())
+                subs = subs:sub(1, 1):upper() .. subs:sub(2, #subs)
             end
-            -- True False TRUE FALSE true false
 
             vim.cmd("normal! ciw" .. subs)
             break

@@ -4,12 +4,9 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     event = { "VeryLazy" },
-    enabled = vim.fn.executable("fzf") == 1,
+    enabled = vim.pathlib.executable("fzf"),
     opts = {
         "default",
-        -- "telescope",
-        -- "max-perf",
-        -- "fzf-native",
         winopts = {
             preview = {
                 border = "noborder",
@@ -20,6 +17,9 @@ return {
         },
         files = {
             path_shorten = 3,
+        },
+        diagnostics = {
+            split = "belowright new",
         },
         previewers = {
             bat = {
@@ -40,7 +40,9 @@ return {
         { "<leader>fk", "<cmd>FzfLua keymaps<CR>", desc = "keymaps" },
         { "<leader>fq", "<cmd>FzfLua quickfix<CR>", desc = "quickfix" },
         { "<leader>fw", "<cmd>FzfLua grep_cword<CR>", desc = "cword" },
+        { "<leader>fa", "<cmd>lua require('helper.asynctask').fzf_select()<CR>", desc = "asynctask" },
 
+        { "<leader>d", "<cmd>FzfLua lsp_document_diagnostics<CR>", desc = "lsp_document_diagnostics" },
         { "<leader>fd", "<cmd>FzfLua lsp_definitions<CR>", desc = "lsp_definition" },
         { "<leader>fr", "<cmd>FzfLua lsp_references<CR>", desc = "lsp_references" },
         { "<leader>fi", "<cmd>FzfLua lsp_implementations<CR>", desc = "lsp_implementations" },

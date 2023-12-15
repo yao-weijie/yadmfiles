@@ -1,16 +1,3 @@
-local builtins = require("null-ls").builtins
-_G.toolset.tex = {
-    server = { "texlab" }, -- vimtex很好用,texlab可有可无
-    sources = {
-        builtins.formatting.latexindent.with({
-            extra_args = {
-                "-g", -- 禁用log 文件输出
-                "/dev/null",
-            },
-        }),
-    },
-}
-
 local function vimtex_setup()
     -- vimtex settings
     vim.g.tex_flavor = "latex"
@@ -125,7 +112,7 @@ end
 return {
     "lervag/vimtex",
     version = "*",
-    cond = vim.fn.executable("latexmk") == 1,
+    cond = vim.pathlib.executable("pdflatex"),
     ft = "tex",
     config = vimtex_setup,
 }

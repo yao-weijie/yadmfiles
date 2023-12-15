@@ -43,4 +43,19 @@ vim.api.nvim_create_user_command("LspFormat", auto_format, {})
 vim.api.nvim_create_user_command("ToggleAutoFormat", toggle_autoformat, {})
 vim.keymap.set("n", "<leader>=", auto_format, { desc = "format file" })
 
-return {}
+return {
+    { "nvimtools/none-ls.nvim", config = true },
+    {
+        "jay-babu/mason-null-ls.nvim",
+        version = "*",
+        config = function()
+            require("mason-null-ls").setup({
+                handlers = {
+                    function(source_name, methods)
+                        require("mason-null-ls").default_setup(source_name, methods) -- to maintain default behavior
+                    end,
+                },
+            })
+        end,
+    },
+}

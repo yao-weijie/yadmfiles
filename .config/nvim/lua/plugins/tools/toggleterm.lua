@@ -10,7 +10,7 @@ return {
             -- height = 40,
             width = function(_term)
                 local width = math.ceil(vim.o.columns / 2)
-                _term.float_opts.col = vim.o.columns - width
+                _term.float_opts.col = width
                 return width
             end,
             height = function(_term)

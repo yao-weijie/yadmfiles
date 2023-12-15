@@ -1,15 +1,3 @@
-local builtins = require("null-ls").builtins
-_G.toolset.python = {
-    server = { "jedi_language_server", "ruff_lsp" },
-    treesitter = { "python" },
-    adapters = { "python" },
-    sources = {
-        -- configure with pyproject.toml in project root
-        builtins.formatting.black,
-        builtins.formatting.isort,
-    },
-}
-
 local loaded_python_plugins
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "python" },

@@ -24,6 +24,12 @@ return {
         },
         select = {
             backend = { "telescope", "fzf_lua", "nui" },
+            fzf_lua = {
+                winopts = {
+                    height = 0.5,
+                    width = 0.5,
+                },
+            },
         },
     },
 }

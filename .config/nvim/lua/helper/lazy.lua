@@ -6,9 +6,12 @@ local lazy_defaults = {
         notify = false,
     },
     dev = {
+        path = "~/workspace/neovim/",
         fallback = true, -- 如果本地没有就用github 上的
     },
 }
+
+_G.pathlib = require("helper.path")
 
 M.setup = function(...)
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,7 +23,7 @@ M.setup = function(...)
     vim.opt.rtp:prepend(lazypath)
 
     local opts = ... or {}
-    opts = vim.tbl_deep_extend("keep", opts, lazy_defaults)
+    opts = vim.tbl_deep_extend("force", lazy_defaults, opts)
 
     vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>", { desc = "lazy" })
 

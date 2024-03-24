@@ -1,0 +1,20 @@
+snippet root "dts root node"
+	/dts-v1/;
+	#include <dt-bindings/pwm/pwm.h>
+	#include <dt-bindings/input/input.h>
+	#include <dt-bindings/usb/pd.h>
+	#include "rk3399.dtsi"
+	#include "rk3399-opp.dtsi"
+	/ {
+	    model = "ZYSJ RK3399";
+	    compatible = "rockchip,rk3399";
+	    aliases {
+	        mmc0 = &sdio0;
+	        mmc1 = &sdmmc;
+	        mmc2 = &sdhci;
+	    };
+	    chosen {
+	        stdout-path = "serial2:1500000n8";
+	    };
+	    $0
+	};

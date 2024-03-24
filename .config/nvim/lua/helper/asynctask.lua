@@ -94,6 +94,9 @@ M.asyncrun_runner = function(opts)
                 vim.cmd("stopinsert!")
             end
         end,
+        on_exit = function()
+            vim.notify("AsyncTask Done!")
+        end,
     })
     if not opts.silent then
         M.asyncrun_toggle()

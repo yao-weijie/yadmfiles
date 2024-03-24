@@ -1,7 +1,8 @@
 " vim:ft=vim:foldmethod=marker:
 " options {{{
 setlocal foldmethod=marker
-set listchars=tab:→\ ,trail:␣,extends:…,eol:⏎
+set list
+set listchars=tab:→\ ,eol:⏎
 set nocompatible
 ".nvim.lua .nvimrc .exrc
 set exrc
@@ -14,12 +15,16 @@ if !has('nvim')
 endif
 highlight! CursorLine gui=underline cterm=underline
 
-set nowritebackup
-set nobackup
+set backup
+set backupdir=~/.cache/nvim/backup
+set undofile
+set undodir=~/.cache/nvim/undo
+set swapfile
+set directory=~/.cache/nvim/swap
+
 set autoread
 set autowriteall
 set history=1000
-set noswapfile
 
 " 编码
 set encoding=utf-8
@@ -75,7 +80,7 @@ set pumheight=20
 set hidden
 set updatetime=300
 
-let g:python3_prog_host = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
 let g:loaded_node_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
@@ -224,8 +229,6 @@ nnoremap <C-Left>  <cmd>vertical resize +2<CR>
 nnoremap <C-Right> <cmd>vertical resize -2<CR>
 
 " previous and next buffer
-nnoremap [b    <cmd>bprevious<CR>
-nnoremap ]b    <cmd>bnext<CR>
 nnoremap <C-n> <cmd>bnext<CR>
 nnoremap <C-p> <cmd>bprevious<CR>
 
@@ -285,6 +288,9 @@ cnoremap <M-f> <C-Right>
 augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,checkhealth,startuptime nnoremap <silent><buffer> q <cmd>close<CR>
+    autocmd FileType json,json5,yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType json,json5,yaml,help setlocal cursorcolumn
+    autocmd FileType help setlocal nowrap
     if has('nvim')
         autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({ timeout = 500 })
     endif
@@ -361,50 +367,10 @@ set completeopt=menu,preview
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 set omnifunc=syntaxcomplete#Complete
 
-" plugins from apt
-func! PlugInstall()
-    let plugins = [
-                \ "vim-airline",
-                \ "vim-fugitive",
-                \ "vim-gitgutter",
-                \ "vim-snipmate",
-                \ "vim-snippets",
-                \ "vim-syntastic",
-                \ ]
-    let cmd = 'apt install ' . join(plugins, ' ')
-    if $USER != 'root'
-        let cmd = 'sudo ' . cmd
-    endif
-
-    if $USER == 'root'
-        terminal apt install -y
-                    \ vim-airline
-                    \ vim-fugitive
-                    \ vim-gitgutter
-                    \ vim-snipmate
-                    \ vim-snippets
-                    \ vim-syntastic
-    else
-        terminal sudo apt install -y
-                    \ vim-airline
-                    \ vim-fugitive
-                    \ vim-gitgutter
-                    \ vim-snipmate
-                    \ vim-snippets
-                    \ vim-syntastic
-    endif
-
-endfunc
 " vim-airline
 let g:airline_section_z = airline#section#create(["%{line('.')}/%{line('$')}"])
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-" vim-ale
-
-" vim-fugitive
-
-" vim-airline
 nnoremap <leader>1 <Plug>AirlineSelectTab1
 nnoremap <leader>2 <Plug>AirlineSelectTab2
 nnoremap <leader>3 <Plug>AirlineSelectTab3
@@ -417,19 +383,4 @@ nnoremap <leader>9 <Plug>AirlineSelectTab9
 nnoremap <C-p>     <Plug>AirlineSelectPrevTab
 nnoremap <C-n>     <Plug>AirlineSelectNextTab
 
-" vim-gitgutter
-nnoremap <leader>gj <Plug>(GitGutterNextHunk)
-nnoremap <leader>gk <Plug>(GitGutterPrevHunk)
-nnoremap <leader>gs <Plug>(GitGutterStageHunk)
-nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
-nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
-nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-
-" vim-snipmate + vim-snippets
-inoremap <C-j> <Plug>snipMateNextOrTrigger
-snoremap <C-j> <Plug>snipMateNextOrTrigger
 "}}}

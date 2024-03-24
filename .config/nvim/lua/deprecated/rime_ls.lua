@@ -1,0 +1,79 @@
+-- -- local util = require("lspconfig.util")
+
+-- -- local function toggle_rime()
+-- --     local client = util.get_active_client_by_name(0, "rime_ls")
+-- --     if client == nil then
+-- --         return
+-- --     end
+
+-- --     client.request("workspace/executeCommand", {
+-- --         command = "rime-ls.toggle-rime",
+-- --     }, function(err, result)
+-- --         vim.bo.rime_enabled = result
+-- --     end, 0)
+-- -- end
+
+-- vim.lsp.start_client({
+--     name = "rime_ls",
+--     cmd = { "rime_ls" },
+--     init_options = {
+--         enabled = true,
+--         shared_data_dir = "/usr/share/rime-data",
+--         user_data_dir = "~/.local/share/rime-ls",
+--         log_dir = "~/.local/share/rime-ls/log",
+--         schema_trigger_character = "&",
+--     },
+--     -- settings = {},
+--     -- on_attach = function(client, bufnr)
+--     --     vim.bo.rime_enabled = true
+--     -- end,
+--     -- Commands = {
+--     --     ToggleRime = {
+--     --         toggle_rime,
+--     --         description = "Toggle rime status",
+--     --     },
+--     -- },
+-- })
+
+-- return {}
+--local start_rime = function()
+--    local client_id = vim.lsp.start_client({
+--        name = "rime-ls",
+--        cmd = { "/home/wlh/coding/rime-ls/target/release/rime_ls" },
+--        init_options = {
+--            enabled = true, -- 初始关闭, 手动开启
+--            shared_data_dir = "/usr/share/rime-data", -- rime 公共目录
+--            user_data_dir = "~/.local/share/rime-ls", -- 指定用户目录, 最好新建一个
+--            log_dir = "~/.local/share/rime-ls", -- 日志目录
+--            max_candidates = 10, -- [v0.2.0 后不再有用] 与 rime 的候选数量配置最好保持一致
+--            paging_characters = { ",", ".", "-", "=" }, -- [since v0.2.4] 这些字符会强制触发一次补全，可用于翻页 见 issue #13
+--            trigger_characters = {}, -- 为空表示全局开启
+--            schema_trigger_character = "&", -- [since v0.2.0] 当输入此字符串时请求补全会触发 “方案选单”
+--            always_incomplete = false, -- [since v0.2.3] true 强制补全永远刷新整个列表，而不是使用过滤
+--            max_tokens = 0, -- [since v0.2.3] 大于 0 表示会在删除到这个字符个数的时候，重建所有候选词，而不使用删除字符操作
+--            preselect_first = false, -- [since v0.2.3] 是否默认第一个候选项是选中状态，default false
+--        },
+--    })
+--    vim.lsp.buf_attach_client(0, client_id)
+--    if client_id then
+--        vim.lsp.buf_attach_client(0, client_id)
+--        -- 快捷键手动开启
+--        -- before v0.1.2
+--        -- vim.keymap.set('n', '<leader><space>', function() vim.lsp.buf.execute_command({ command = "toggle-rime" }) end)
+--        -- since v0.1.2
+--        vim.keymap.set("n", "<leader><space>", function()
+--            vim.lsp.buf.execute_command({ command = "rime-ls.toggle-rime" })
+--        end)
+--        vim.keymap.set("n", "<leader>rs", function()
+--            vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
+--        end)
+--    end
+--end
+---- 对每个文件都默认开启
+--vim.api.nvim_create_autocmd("BufReadPost", {
+--    callback = function()
+--        start_rime()
+--    end,
+--    pattern = "*",
+--})
+return {}

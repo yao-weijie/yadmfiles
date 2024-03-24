@@ -1,4 +1,5 @@
 test/
+.xmake/
 debug.lua
 mininal.lua
 time.log

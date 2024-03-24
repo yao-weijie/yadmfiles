@@ -2,7 +2,7 @@
   "version": "0.1",
   "configurations": [
     {
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "name": "Python: Launch file",
       "program": "${file}",

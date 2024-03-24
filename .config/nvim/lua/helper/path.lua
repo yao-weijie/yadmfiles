@@ -1,27 +1,37 @@
 local M = {}
 
 ---@param path string
+---@return string
 M.trim = function(path)
-    return vim.trim(path):gsub("\\+", "/"):gsub("/+", "/")
+    return vim.trim(path:gsub("\\+", "/"):gsub("/+", "/"))
 end
 
 ---@param path string
+M.expand = function(path)
+    return M.trim(vim.fn.expand(path))
+end
+
+---@param path string
+---@return boolean
 M.file_exist = function(path)
     path = vim.fn.expand(path)
     return vim.fn.filereadable(path) == 1 and true or false
 end
 
 ---@param path string
+---@return boolean
 M.dir_exist = function(path)
     return vim.fn.isdirectory(path) == 1 and true or false
 end
 
 ---@param path string
+---@return boolean
 M.executable = function(path)
     return vim.fn.executable(path) == 1 and true or false
 end
 
 ---@param path string
+---@return boolean
 M.filewritable = function(path)
     return vim.fn.filewritable(path) == 1 and true or false
 end
@@ -53,6 +63,16 @@ M.is_hugefile = function(buf, size)
     end
 end
 
-vim.pathlib = M
+---@param fname string
+---@param type? string
+---@param max? string
+---@return any[]
+M.readfile = function(fname, type, max)
+    type = type or ""
+    max = max or nil
+    return vim.fn.readfile(M.expand(fname), type)
+end
+
+_G.pathlib = M
 
 return M

@@ -1,6 +1,6 @@
 local M = {}
 local Job = require("plenary.job")
-local Path = vim.pathlib
+local Path = _G.pathlib
 local cwd = vim.loop.cwd()
 
 -- CONDA_SHLVL 环境变量标志是否有conda环境激活
@@ -28,11 +28,12 @@ local opts = {
 }
 
 local PYTHON_ENVS = {}
+local curr_env
 
 M.setup = function()
     for _, root in ipairs(opts.conda_root) do
         local conda_bin = root .. "/bin/conda"
-        if vim.pathlib.executable(conda_bin) then
+        if _G.pathlib.executable(conda_bin) then
             local envs_tbl
             Job:new({
                 command = conda_bin,
@@ -87,6 +88,24 @@ M.setup = function()
             })
         end
     end
+end
+
+M.set_env = function(env)
+    --
+    curr_env = env
+end
+
+M.select_env = function()
+    vim.ui.select(PYTHON_ENVS, {
+        prompt = "Python Env ❯ ",
+        format_item = function(choice)
+            return table.concat(choice, "\t")
+        end,
+    }, M.set_env)
+end
+
+M.get_curr_env = function()
+    --
 end
 
 return M

@@ -48,6 +48,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     command = "setlocal nocursorline",
 })
 
+---@type LazySpec
 return {
     "olimorris/onedarkpro.nvim",
     priority = 1000, -- load first

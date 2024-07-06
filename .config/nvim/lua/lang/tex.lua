@@ -40,11 +40,13 @@ local function vimtex_setup()
         hooks = {},
     }
     -- 不自动弹出
-    vim.g.vimtex_quickfix_mode = 0
+    vim.g.vimtex_quickfix_mode = 2
+    vim.g.vimtex_quickfix_open_on_warning = 0
     -- 忽略编译警告
     vim.g.vimtex_quickfix_ignore_filters = {
         "Package fontspec Warning",
-        "underfull",
+        "Missing character",
+        "Underfull",
         "Overfull",
     }
 
@@ -122,6 +124,7 @@ local function vimtex_setup()
     })
 end
 
+---@type LazySpec
 return {
     "lervag/vimtex",
     version = "*",

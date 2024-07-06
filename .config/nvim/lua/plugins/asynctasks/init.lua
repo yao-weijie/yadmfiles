@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
     "skywind3000/asynctasks.vim",
     event = { "VimEnter" },
@@ -29,14 +30,17 @@ return {
             generic = _G.pathlib.readfile("~/.config/nvim/templates/tasks/generic.ini"),
             openwrt = _G.pathlib.readfile("~/.config/nvim/templates/tasks/openwrt.ini"),
         }
-        vim.api.nvim_create_user_command("AsyncTaskSelect", require("helper.asynctask").ui_select, {})
+        local util = require("plugins.asynctasks.util")
 
-        require("helper.asynctask").toggleterm_setup({
+        vim.api.nvim_create_user_command("AsyncTaskSelect", util.ui_select, {})
+
+        util.toggleterm_setup({
             mapping = "\\",
             start_in_insert = false,
             float_opts = {
                 width = function(_term)
-                    local width = math.ceil(vim.o.columns / 2)
+                    -- local width = math.ceil(vim.o.columns / 2)
+                    local width = vim.o.columns
                     _term.float_opts.col = width
                     return width
                 end,
@@ -47,8 +51,7 @@ return {
                 end,
             },
         })
-        vim.keymap.set("n", "<C-b>", "<cmd>lua require('helper.asynctask').fzf_select()<CR>", {})
-        -- { "<leader>fa", "<cmd>lua require('helper.asynctask').fzf_select()<CR>", desc = "asynctask" },
+        vim.keymap.set("n", "<C-b>", util.fzf_select, {})
     end,
     keys = {
         { "<F5>", "<cmd>AsyncTask file-run<CR>", desc = "file-run" },

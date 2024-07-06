@@ -40,10 +40,12 @@ local opts = {
     },
 }
 
+---@type LazySpec
 return {
     "folke/which-key.nvim",
-    event = { "VeryLazy" },
+    -- event = { "VeryLazy" },
     opts = opts,
+    lazy = true,
     config = function(_, opts)
         require("which-key").setup(opts)
         require("which-key").register({

@@ -1,35 +1,29 @@
-local diagnostic_signs = {
-    { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn", text = "" },
-    { name = "DiagnosticSignHint", text = "" },
-    { name = "DiagnosticSignInfo", text = "" },
-}
-for _, sign in ipairs(diagnostic_signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-end
-
 vim.diagnostic.config({
-    virtual_text = true,
-    signs = {
-        active = diagnostic_signs,
-    },
-    update_in_insert = false,
     underline = true,
+    -- virtual_text = true,
+    update_in_insert = false,
     severity_sort = true,
+    signs = {
+        -- active = diagnostic_signs,
+        text = {
+            [vim.diagnostic.severity.HINT] = "",
+            [vim.diagnostic.severity.INFO] = "",
+            [vim.diagnostic.severity.WARN] = "",
+            [vim.diagnostic.severity.ERROR] = "",
+        },
+    },
     float = {
-        focusable = true,
-        style = "minimal",
         border = "rounded",
-        source = "always",
+        source = true,
         header = "",
         prefix = "",
     },
 })
 
+---@type LazySpec
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        { "folke/neodev.nvim", version = "*", config = true, lazy = true },
         "hrsh7th/cmp-nvim-lsp",
         { "williamboman/mason-lspconfig.nvim", version = "*", config = true },
     },
@@ -39,8 +33,10 @@ return {
             function(server_name)
                 local configs = {
                     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+                    ---@param client vim.lsp.Client
+                    ---@param bufnr integer
                     on_attach = function(client, bufnr)
-                        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+                        -- vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
                         -- client.server_capabilities.semanticTokensProvider = nil --禁用lsp 语义高亮
                     end,
                 }

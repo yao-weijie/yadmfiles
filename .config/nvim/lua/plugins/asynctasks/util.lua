@@ -3,8 +3,7 @@ local M = {}
 -- fork from https://github.com/deathmaz/fzf-lua-asynctasks/blob/main/lua/fzf-lua-asynctasks/init.lua
 
 local default_action = function(choice)
-    local command = "AsyncTask " .. choice[1]
-    vim.api.nvim_exec(command, false)
+    vim.cmd("AsyncTask " .. choice[1])
 end
 
 local default_opts = {
@@ -65,7 +64,7 @@ M.asyncrun_destroy = function()
             -- TODO: handle multiple terminals
             error("Terminal existed is not support . please set g.asynctasks_term_reuse = 1")
         else
-            vim.notify("Delete existing terminal", "info")
+            vim.notify("Delete existing terminal", vim.log.levels.INFO)
         end
         M._asyncrun_term:shutdown()
     end
@@ -109,6 +108,15 @@ M.toggleterm_setup = function(opts)
     if M._asyncrun_term_opts.mapping then
         vim.keymap.set("n", M._asyncrun_term_opts.mapping, M.asyncrun_toggle, {})
     end
+end
+
+M.load_vs_task = function()
+    -- {}
+    local f = vim.fs.find("task.json", { path = "./vscode/" })
+    if vim.tbl_count(f) == 0 then
+        return {}
+    end
+    --
 end
 
 return M

@@ -5,6 +5,7 @@ local cwd = vim.loop.cwd()
 
 -- CONDA_SHLVL 环境变量标志是否有conda环境激活
 -- VIRTUAL_ENV 环境变量标志是否有venv激活
+-- CONDA_DEFAULT_ENV 激活后的 conda 环境名称
 
 local function get_version(bin)
     -- Python x.xx.x
@@ -14,8 +15,8 @@ end
 
 local opts = {
     conda_root = {
-        vim.fn.expand("~/anaconda3"),
-        vim.fn.expand("~/miniconda3"),
+        vim.fs.normalize("~/anaconda3"),
+        vim.fs.normalize("~/miniconda3"),
     },
     sys_python = {
         "/usr/bin/python3",
@@ -32,17 +33,24 @@ local curr_env
 
 M.setup = function()
     for _, root in ipairs(opts.conda_root) do
-        local conda_bin = root .. "/bin/conda"
+        local conda_bin = vim.fs.joinpath(root, "bin/conda")
         if _G.pathlib.executable(conda_bin) then
             local envs_tbl
-            Job:new({
-                command = conda_bin,
-                args = { "env", "list", "--json" },
-                on_exit = function(j, _)
-                    local result = table.concat(j:result(), "\n")
-                    envs_tbl = vim.json.decode(result)["envs"]
-                end,
-            }):sync()
+            -- Job:new({
+            --     command = conda_bin,
+            --     args = { "env", "list", "--json" },
+            --     on_exit = function(j, _)
+            --         local result = table.concat(j:result(), "\n")
+            --         envs_tbl = vim.json.decode(result)["envs"]
+            --     end,
+            -- }):sync()
+
+            local json_envs
+            vim.system({ "conda", "env", "list", "--json" }, { text = true }, function(ret)
+                if ret.code == 0 then
+                    json_envs = vim.json.decode(ret.stdout).envs
+                end
+            end)
 
             for i, env_path in ipairs(envs_tbl) do
                 local env_name

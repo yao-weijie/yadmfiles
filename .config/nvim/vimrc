@@ -4,6 +4,8 @@ setlocal foldmethod=marker
 set list
 set listchars=tab:→\ ,eol:⏎
 set nocompatible
+" let loaded_matchparen = 1 " set 1 to disable
+
 ".nvim.lua .nvimrc .exrc
 set exrc
 
@@ -13,14 +15,16 @@ set termguicolors
 if !has('nvim')
     colorscheme slate
 endif
-highlight! CursorLine gui=underline cterm=underline
 
 set backup
-set backupdir=~/.cache/nvim/backup
 set undofile
-set undodir=~/.cache/nvim/undo
 set swapfile
-set directory=~/.cache/nvim/swap
+if has('nvim')
+    set backupdir=~/.cache/nvim/backup
+    set undodir=~/.cache/nvim/undo
+    set directory=~/.cache/nvim/swap
+endif
+
 
 set autoread
 set autowriteall
@@ -33,6 +37,8 @@ set fileformat=unix
 set fileformats=unix,dos
 
 set cursorline
+highlight! CursorLine gui=underline cterm=underline
+set synmaxcol=200 " 默认3000列
 set colorcolumn=80
 set number
 set numberwidth=2
@@ -85,8 +91,6 @@ let g:loaded_node_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
 let g:ROOT_MARKERS = [ '.git', '.hg', '.svn', '.root', '.project', 'Makefile' ]
-" append runtimepath
-set rtp+=~/.config/nvim/my-snippets/
 
 " }}}
 
@@ -125,20 +129,29 @@ nnoremap U <C-r>
 nnoremap <C-z> u
 vnoremap <C-z> u
 
+" nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+" nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+" vnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+" vnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
 " mini.move
-nnoremap <M-j> :m +1<CR>==
+" nnoremap <M-j> :m +1<CR>==
 vnoremap <M-j> :m '>+1<CR>gv=gv
-nnoremap <M-k> :m -2<CR>==
+" nnoremap <M-k> :m -2<CR>==
 vnoremap <M-k> :m '<-2<CR>gv=gv
-nnoremap <M-h> <<
+" nnoremap <M-h> <<
 vnoremap <M-h> <gv
-nnoremap <M-l> >>
+" nnoremap <M-l> >>
 vnoremap <M-l> >gv
+
+nnoremap <M-j> <cmd>resize   +2<CR>
+nnoremap <M-k> <cmd>resize   -2<CR>
+nnoremap <M-h> <cmd>vertical resize +2<CR>
+nnoremap <M-l> <cmd>vertical resize -2<CR>
 
 " H, L jump to line home / end
 nnoremap H ^
@@ -287,7 +300,8 @@ cnoremap <M-f> <C-Right>
 " autocmd {{{
 augroup _general_settings
     autocmd!
-    autocmd FileType qf,help,man,checkhealth,startuptime nnoremap <silent><buffer> q <cmd>close<CR>
+    autocmd FileType help,man,checkhealth,startuptime nnoremap <silent><buffer> q <cmd>close<CR>
+    autocmd FileType qf nnoremap <buffer> q <cmd>cclose<CR>
     autocmd FileType json,json5,yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType json,json5,yaml,help setlocal cursorcolumn
     autocmd FileType help setlocal nowrap

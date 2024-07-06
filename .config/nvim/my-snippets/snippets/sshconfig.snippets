@@ -1,0 +1,6 @@
+snippet host "ssh config host"
+	Host ${1:hostname}
+		HostName ${2:ip_or_domain}
+		User ${3:username}
+		# Port ${4:22}
+		IdentityFile ${5:~/.ssh/id_ed25519_git}

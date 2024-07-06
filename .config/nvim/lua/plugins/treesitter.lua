@@ -1,6 +1,16 @@
 local opts = {
-    ensure_installed = { "vim", "vimdoc", "lua", "luadoc", "markdown", "markdown_inline", "c", "cpp", "python" },
-    sync_install = true,
+    ensure_installed = {
+        "vim",
+        "vimdoc",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "comment",
+        "c",
+        "cpp",
+        "python",
+    },
     ignore_install = { "latex" },
     highlight = {
         enable = true,
@@ -13,7 +23,7 @@ local opts = {
 
             if
                 vim.tbl_contains(lang_backlist, lang) --
-                or _G.pathlib.is_hugefile(buf, max_size) --
+                or _G.pathlib.is_hugefile(max_size, buf) --
                 or vim.fn.line("$") > max_lines
             then
                 return true
@@ -73,9 +83,10 @@ local opts = {
     },
 }
 
+---@type LazySpec
 return {
     "nvim-treesitter/nvim-treesitter",
-    version = "*",
+    -- version = "*",
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
         "RRethy/nvim-treesitter-endwise",

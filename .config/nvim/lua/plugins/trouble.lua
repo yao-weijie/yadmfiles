@@ -1,8 +1,9 @@
+---@type LazySpec
 return {
     "folke/trouble.nvim",
     version = "*",
     keys = {
-        { "<leader>d", "<cmd>Trouble document_diagnostics<CR>", desc = "diagnostics trouble" },
+        { "<leader>d", "<cmd>Trouble diagnostics<CR>", desc = "diagnostics trouble" },
     },
     opts = {
         height = 10,

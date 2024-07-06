@@ -1,5 +1,7 @@
-local extras = require("luasnip.extras")
-local parse = require("luasnip.util.parser").parse_snippet
+---@diagnostic disable: unused-local
+
+local parse_snippet = require("luasnip.util.parser").parse_snippet
+local parse_snipmate = require("luasnip.util.parser").parse_snipmate
 
 local in_mathzone = require("helper.luasnip").in_mathzone
 local line_begin = require("helper.luasnip").line_begin
@@ -66,7 +68,7 @@ local snippet_templates = {
 
 local snips = {}
 for _, item in ipairs(snippet_templates) do
-    table.insert(snips, parse({ trig = item.trig, dscr = item.dscr }, item.body, global_opts))
+    table.insert(snips, parse_snippet({ trig = item.trig, dscr = item.dscr }, item.body, global_opts))
 end
 
 return snips

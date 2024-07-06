@@ -20,6 +20,7 @@ local surround_opts = {
     },
 }
 
+---@type LazySpec
 return {
     "echasnovski/mini.nvim",
     version = "*",

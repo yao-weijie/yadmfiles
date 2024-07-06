@@ -1,24 +1,22 @@
+---@type LazySpec
 return {
     "ibhagwan/fzf-lua",
-    -- dir = "~/workspace/neovim/fzf-lua/",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
     event = { "VeryLazy" },
     enabled = _G.pathlib.executable("fzf"),
     opts = {
-        "default",
-        -- "fzf-native",
+        -- "default",
         winopts = {
             preview = {
-                border = "noborder",
                 vertical = "up:50%",
                 horizontal = "right:50%",
                 delay = 50,
             },
         },
         files = {
-            path_shorten = 3,
+            path_shorten = 5,
         },
         diagnostics = {
             split = "belowright new",
@@ -37,9 +35,8 @@ return {
         { "<leader>fk", "<cmd>FzfLua keymaps<CR>", desc = "keymaps" },
         { "<leader>fq", "<cmd>FzfLua quickfix<CR>", desc = "quickfix" },
         { "<leader>fw", "<cmd>FzfLua grep_cword<CR>", desc = "cword" },
-        { "<leader>fa", "<cmd>lua require('helper.asynctask').fzf_select()<CR>", desc = "asynctask" },
 
-        { "<leader>d", "<cmd>FzfLua lsp_document_diagnostics<CR>", desc = "lsp_document_diagnostics" },
+        -- { "<leader>d", "<cmd>FzfLua lsp_document_diagnostics<CR>", desc = "lsp_document_diagnostics" },
         { "<leader>fd", "<cmd>FzfLua lsp_definitions<CR>", desc = "lsp_definition" },
         { "<leader>fr", "<cmd>FzfLua lsp_references<CR>", desc = "lsp_references" },
         { "<leader>fi", "<cmd>FzfLua lsp_implementations<CR>", desc = "lsp_implementations" },

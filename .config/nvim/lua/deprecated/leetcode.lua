@@ -167,8 +167,8 @@ end
 
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = defaults.pattern,
-    callback = function()
-        local bufnr = vim.api.nvim_get_current_buf()
+    callback = function(file)
+        local bufnr = file.buf
         keymap("n", defaults.mappings.submit, function()
             M.submit(get_no())
         end, { buffer = bufnr, desc = "Leetcode submit" })

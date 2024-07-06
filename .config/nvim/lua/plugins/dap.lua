@@ -65,6 +65,7 @@ local dapui_opts = {
     },
 }
 
+---@type LazySpec
 return {
     {
         "rcarriga/nvim-dap-ui",

@@ -12,6 +12,7 @@ local function toggle_rime()
     end)
 end
 
+---@type lspconfig.Config
 return {
     init_options = {
         enabled = vim.g.rime_enabled,
@@ -20,16 +21,16 @@ return {
         log_dir = "~/.local/share/rime-ls",
         schema_trigger_character = "&",
     },
-    commands = {
-        ToggleRime = {
-            toggle_rime,
-            description = "Toggle rime status",
-        },
-        SyncRimeData = {
-            function()
-                vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
-            end,
-            description = "Sync rime data",
-        },
-    },
+    -- commands = {
+    --     ToggleRime = {
+    --         toggle_rime,
+    --         description = "Toggle rime status",
+    --     },
+    --     SyncRimeData = {
+    --         function()
+    --             vim.lsp.buf.execute_command({ command = "rime-ls.sync-user-data" })
+    --         end,
+    --         description = "Sync rime data",
+    --     },
+    -- },
 }

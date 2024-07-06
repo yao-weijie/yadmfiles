@@ -5,6 +5,7 @@ local saga_keys = {
     quit = "q",
 }
 
+---@type LazySpec
 return {
     "nvimdev/lspsaga.nvim",
     dependencies = {
@@ -13,14 +14,15 @@ return {
     },
     event = { "BufRead" },
     keys = {
-        -- { "gr", "<cmd>Lspsaga rename<CR>", desc = "reanme symbol" },
         { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
+        { "[d", vim.diagnostic.goto_prev, desc = "diagnostics prev" },
+        { "]d", vim.diagnostic.goto_next, desc = "diagnostics next" },
+        -- { "<leader>d", vim.diagnostic.setqflist, desc = "diagnostics" }, -- open with quickfix
+
         { "ga", "<cmd>Lspsaga code_action<CR>", desc = "code_action" },
         { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "show document" },
         { "gh", "<cmd>Lspsaga finder<CR>", desc = "preview definition" },
         { "gd", "<cmd>Lspsaga peek_definition<CR>", desc = "preview definition" },
-        { "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "diagnostics prev" },
-        { "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "diagnostics next" },
         { "<C-LeftMouse>", "<cmd>Lspsaga finder<CR>", desc = "preview definition" },
         { "<C-t>", "<cmd>Lspsaga term_toggle<CR>", mode = { "n", "t" }, desc = "term_toggle" },
     },
@@ -29,6 +31,7 @@ return {
             enable = false,
         },
         rename = {
+            enable = false,
             keys = {
                 quit = "q",
             },

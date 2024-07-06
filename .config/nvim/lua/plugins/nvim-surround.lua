@@ -1,7 +1,8 @@
+---@type LazySpec
 return {
     "kylechui/nvim-surround",
     version = "*",
-    event = { "BufRead" },
+    -- event = { "BufRead" },
     opts = {
         keymaps = {
             insert = false,

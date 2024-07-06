@@ -25,4 +25,9 @@ _G.LangSetup({
     },
 })
 
-return {}
+return {
+    {
+        dir = "~/.config/nvim/lua/lang/python/conda.lua",
+        ft = { "python" },
+    },
+}

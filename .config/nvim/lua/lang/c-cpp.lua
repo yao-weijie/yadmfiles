@@ -28,11 +28,19 @@ _G.LangSetup({
         },
     },
 })
+
+-- for linux kernel
+-- device tree
 require("Comment.ft").set("dts", { "// %s", "/* %s */" })
--- vim.opt.expandtab = false
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "dts",
     command = "setlocal noexpandtab",
 })
+
+-- require('conform').formatters.clang_format = {
+--     append_args = {
+--         ''
+--     }
+-- }
 
 return {}

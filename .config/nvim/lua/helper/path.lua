@@ -1,14 +1,7 @@
 local M = {}
 
----@param path string
----@return string
-M.trim = function(path)
-    return vim.trim(path:gsub("\\+", "/"):gsub("/+", "/"))
-end
-
----@param path string
-M.expand = function(path)
-    return M.trim(vim.fn.expand(path))
+M.normalize = function(path)
+    return vim.fs.normalize(path)
 end
 
 ---@param path string
@@ -47,10 +40,11 @@ local UNIT = {
     g = math.pow(1024, 3),
 }
 
----@param buf integer
----@param size string: k,m,g
+---@param size string 10k, 10m, 10g etc.
+---@param buf integer? bufnr
 ---@return boolean
-M.is_hugefile = function(buf, size)
+M.is_hugefile = function(size, buf)
+    buf = buf or 0
     size = size:lower()
     local n = tonumber(size:sub(1, -2))
     local base = size:sub(-1, -1)
@@ -70,7 +64,7 @@ end
 M.readfile = function(fname, type, max)
     type = type or ""
     max = max or nil
-    return vim.fn.readfile(M.expand(fname), type)
+    return vim.fn.readfile(M.normalize(fname), type)
 end
 
 _G.pathlib = M

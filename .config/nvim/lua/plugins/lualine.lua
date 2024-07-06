@@ -18,16 +18,20 @@ local buffers = {
     end,
 }
 
+---@type LazySpec
 return {
     "nvim-lualine/lualine.nvim",
     event = { "VeryLazy" },
+    lazy = false,
     opts = {
         options = {
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             globalstatus = true,
             disabled_filetypes = {
-                tabline = {
+                "NvimTree",
+                "neo-tree",
+                winbar = {
                     "NvimTree",
                     "neo-tree",
                 },
@@ -39,7 +43,9 @@ return {
         },
 
         sections = {
-            lualine_a = { "mode" },
+            lualine_a = {
+                "mode",
+            },
             lualine_b = { "branch", "diagnostics" },
             lualine_c = {
                 rime_status,

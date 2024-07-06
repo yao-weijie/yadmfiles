@@ -1,14 +1,30 @@
+---@type LazySpec
 return {
+    {
+        "NeogitOrg/neogit",
+        version = "*",
+        cmd = { "Neogit" },
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- required
+            "sindrets/diffview.nvim", -- optional - Diff integration
+
+            -- Only one of these is needed, not both.
+            -- "nvim-telescope/telescope.nvim", -- optional
+            "ibhagwan/fzf-lua", -- optional
+        },
+        config = true,
+    },
     {
         "lewis6991/gitsigns.nvim",
         event = { "BufRead", "BufNewFile" },
+        version = "*",
         opts = {
             current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
             yadm = { enable = true },
             worktrees = {
                 {
                     toplevel = vim.env.HOME,
-                    gitdir = vim.fn.expand("~/.local/share/yadm/repo.git"),
+                    gitdir = vim.fs.normalize("~/.local/share/yadm/repo.git"),
                 },
             },
             -- keymapping

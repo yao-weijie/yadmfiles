@@ -6,7 +6,7 @@ local function format_file()
     end
 
     local async = false
-    if _G.pathlib.is_hugefile(0, "100k") or vim.fn.line("$") > 1000 then
+    if _G.pathlib.is_hugefile("100k") or vim.fn.line("$") > 1000 then
         async = true
     end
 

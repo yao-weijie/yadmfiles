@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
     "stevearc/dressing.nvim",
     event = { "VeryLazy" },
@@ -23,7 +24,7 @@ return {
             },
         },
         select = {
-            backend = { "telescope", "fzf_lua", "nui" },
+            backend = { "fzf_lua", "telescope", "nui" },
             fzf_lua = {
                 winopts = {
                     height = 0.5,

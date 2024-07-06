@@ -3,6 +3,7 @@ vim.cmd([[
     highlight! MySpectreReplace guifg=gray guibg=lightgreen
 ]])
 
+---@type LazySpec
 return {
     "nvim-pack/nvim-spectre",
     dependencies = { "nvim-lua/plenary.nvim" },

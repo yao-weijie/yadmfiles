@@ -1,3 +1,4 @@
+// vim:ft=json5
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
 
 // ### DEFAULT v2 (Laptop)  - Top ### //
@@ -10,47 +11,39 @@
 "position": "top",
 "spacing": 3,
 "fixed-center": true,
-"ipc": true,
+// "ipc": true,
 "margin-top": 3,
-"margin-left": 8,
-"margin-right": 8,
+"margin-left": 3,
+"margin-right": 3,
 
 "modules-left": [
 	"custom/menu",
 	"custom/light_dark",
 	"custom/separator#dot-line",
-	"power-profiles-daemon",
-	"group/mobo_drawer",
-	"custom/separator#blank",
-	"group/laptop",
-	"custom/separator#line",
-	"custom/weather",
 	],
 
 "modules-center": [
 	"custom/swaync",
-	"custom/cava_mviz",
 	"custom/separator#dot-line",
-	"clock",
 	"custom/separator#line",
-	"hyprland/workspaces#kanji",
+	"hyprland/workspaces",
 	"custom/separator#dot-line",
 	"idle_inhibitor",
 	"custom/hint",
 	],
 
 "modules-right": [
+	"custom/cava_mviz",
+  "pulseaudio",
+  "pulseaudio#microphone",
+	"custom/separator#line",
 	"network#speed",
-	"group/connections",
 	"custom/separator#line",
 	"tray",
-	"mpris",
-	"group/audio",
 	"custom/separator#line",
-	"keyboard-state",
 	"custom/keyboard",
-	"custom/lock",
+	"clock",
+  "battery",
 	"custom/power",
 	],
 }
-

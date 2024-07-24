@@ -136,27 +136,34 @@ end
 
 ---@type LazySpec
 return {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = {
-        "nvim-tree/nvim-web-devicons",
-    },
-    version = "*",
-    keys = {
-        { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
-    },
-    opts = opts,
-    config = function(_, opts)
-        require("nvim-tree").setup(opts)
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        version = "*",
+        keys = {
+            { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
+        },
+        config = function()
+            require("nvim-tree").setup(opts)
 
-        local api = require("nvim-tree.api")
-        local Event = api.events.Event
-        api.events.subscribe(Event.FileCreated, function(file)
-            api.tree.reload()
-            vim.cmd("edit " .. vim.fn.fnamemodify(file.fname, ":p"))
-        end)
+            local api = require("nvim-tree.api")
+            local Event = api.events.Event
+            api.events.subscribe(Event.FileCreated, function(file)
+                api.tree.reload()
+                vim.cmd("edit " .. vim.fn.fnamemodify(file.fname, ":p"))
+            end)
 
-        api.events.subscribe(Event.FolderCreated, function(folder)
-            api.tree.reload()
-        end)
-    end,
+            api.events.subscribe(Event.FolderCreated, function(folder)
+                api.tree.reload()
+            end)
+        end,
+    },
+    {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-tree/nvim-tree.lua",
+        },
+    },
 }

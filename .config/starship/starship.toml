@@ -1,12 +1,61 @@
+# export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_commit\
+$git_status\
+$cmake\
+$conda\
+$python\
+$custom\
+$line_break\
+$cmd_duration\
+$shell\
+$character\
+"""
+
+scan_timeout = 100
+command_timeout = 1000
+add_newline = false
+
+[directory]
+truncation_length = 2
+fish_style_pwd_dir_length = 3
+
 [time]
 disabled = false
 format = '[\[ $time \]]($style) '
 time_format = "%H:%M"
 
+[git_commit]
+tag_disabled = false
+
 [conda]
+format = "[$symbol$environment]($style)"
 ignore_base = false
 
+[python]
+format = '[${symbol}(\($virtualenv\))${version}]($style)'
+version_format = " v${major}.${minor}"
+
+[cmake]
+format = '[cmake]($style) '
+
+[custom.xmake]
+detect_files = [ 'xmake.lua' ]
+symbol = 'xmake'
+format = '[$symbol($output )]($style)'
+
+[cmd_duration]
+format = '\[[$duration]($style)\] '
+
+[shell]
+disabled = false
+
 [character]
-success_symbol = "[➜ ](bold green)"
-error_symbol = "[✗ ](bold red)"
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
 vicmd_symbol = "[V](bold italic green) "

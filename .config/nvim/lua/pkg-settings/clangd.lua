@@ -30,10 +30,4 @@ return {
         "clangd",
         unpack(args),
     },
-    settings = {
-        clangd = {
-            -- arguments = args,
-            -- arguments = {},
-        },
-    },
 }

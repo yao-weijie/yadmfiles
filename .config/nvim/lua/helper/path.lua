@@ -29,9 +29,13 @@ M.filewritable = function(path)
     return vim.fn.filewritable(path) == 1 and true or false
 end
 
----@param paths table [string]
-M.join = function(paths)
-    return M.trim(table.concat(paths, "/"))
+---@vararg string
+M.join = function(...)
+    if vim.fs.joinpath then
+        return vim.fs.joinpath(...)
+    else
+        return M.trim(table.concat({ ... }, "/"))
+    end
 end
 
 local UNIT = {

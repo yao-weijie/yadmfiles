@@ -29,6 +29,12 @@ local config = {
 	font = wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "SimHei" }),
 }
 
+if os.getenv("XDG_CURRENT_DESKTOP") == "Hyprland" then
+	config.enable_wayland = false
+else
+	config.enable_wayland = true
+end
+
 ----------------------- keymaps -----------------------------------------------
 config.leader = { mods = "CTRL", key = "s", timeout_milliseconds = 1000 }
 config.keys = {

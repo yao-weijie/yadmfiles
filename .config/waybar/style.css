@@ -12,7 +12,7 @@
 
 window#waybar {
   background: white;
-  border-radius: 12px;
+  border-radius: 0px;
 }
 
 window#waybar.hidden {

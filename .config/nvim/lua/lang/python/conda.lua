@@ -1,19 +1,19 @@
 local M = {}
 local Job = require("plenary.job")
-local Path = _G.pathlib
+
 local cwd = vim.loop.cwd()
+
+local function get_version(bin)
+    -- Python x.xx.x
+    local ret = vim.trim(vim.fn.system(bin .. " -V"))
+    return ret:match("[%d.]*$")
+end
 
 -- CONDA_SHLVL 环境变量标志是否有conda环境激活
 -- VIRTUAL_ENV 环境变量标志是否有venv激活
 -- CONDA_DEFAULT_ENV 激活后的 conda 环境名称
 
-local function get_version(bin)
-    -- Python x.xx.x
-    local res = vim.trim(vim.fn.system(bin .. " -V"))
-    return string.match(res, "[%d.]*$")
-end
-
-local opts = {
+local default_opts = {
     conda_root = {
         vim.fs.normalize("~/anaconda3"),
         vim.fs.normalize("~/miniconda3"),
@@ -28,74 +28,94 @@ local opts = {
     },
 }
 
-local PYTHON_ENVS = {}
-local curr_env
+---@class pyEnv
+---@field type "conda"|"system"|"venv"
+---@field bin string
+---@field name string
+---@field version string
+---@field path string
 
-M.setup = function()
-    for _, root in ipairs(opts.conda_root) do
-        local conda_bin = vim.fs.joinpath(root, "bin/conda")
-        if _G.pathlib.executable(conda_bin) then
-            local envs_tbl
-            -- Job:new({
-            --     command = conda_bin,
-            --     args = { "env", "list", "--json" },
-            --     on_exit = function(j, _)
-            --         local result = table.concat(j:result(), "\n")
-            --         envs_tbl = vim.json.decode(result)["envs"]
-            --     end,
-            -- }):sync()
+PYTHON_ENVS = {} ---@type pyEnv[]
+curr_env = nil ---@type pyEnv
 
-            local json_envs
-            vim.system({ "conda", "env", "list", "--json" }, { text = true }, function(ret)
-                if ret.code == 0 then
-                    json_envs = vim.json.decode(ret.stdout).envs
+M.setup = function(opts)
+    opts = vim.tbl_extend("force", default_opts, opts or {})
+
+    vim.schedule(function()
+        local environ = vim.fn.environ()
+        local curr_python_bin = vim.fn.system("which python")
+
+        -- conda
+        for _, root in ipairs(opts.conda_root) do
+            local conda_bin = vim.fs.joinpath(root, "bin/conda")
+            if _G.pathlib.executable(conda_bin) then
+                local result = vim.fn.system({ conda_bin, "env", "list", "--json" })
+                local envs_list = vim.json.decode(result).envs ---@type string[]
+                for i, env_path in ipairs(envs_list) do
+                    local env_name = (i == 1) and "base" or env_path:match("/([%w_-]+)$")
+                    local bin = env_path .. "/bin/python"
+
+                    local env = {
+                        type = "conda",
+                        name = env_name,
+                        path = env_path,
+                        bin = bin,
+                        version = get_version(bin),
+                    }
+                    table.insert(PYTHON_ENVS, env)
+                    if curr_python_bin == env.bin then
+                        curr_env = env
+                    end
+                    -- if environ.CONDA_SHLVL == 1 and environ.CONDA_PYTHON_EXE == env.bin then
+                    --     curr_env = env
+                    -- end
                 end
-            end)
-
-            for i, env_path in ipairs(envs_tbl) do
-                local env_name
-                if i == 1 then
-                    env_name = "base"
-                else
-                    env_name = string.match(env_path, "[%w_-]*$")
-                end
-                local bin = env_path .. "/bin/python"
-                table.insert(PYTHON_ENVS, {
-                    type = "conda",
-                    name = env_name,
-                    path = env_path,
-                    bin = bin,
-                    version = get_version(bin),
-                })
             end
         end
-    end
 
-    for _, bin in pairs(opts.sys_python) do
-        table.insert(PYTHON_ENVS, {
-            type = "system",
-            name = "python",
-            path = bin,
-            bin = bin,
-            version = get_version(bin),
-        })
-    end
-
-    for _, pattern in pairs(opts.venv_pattern) do
-        local venv_root = Path.join({ cwd, pattern })
-        local act_bin = venv_root .. "/bin/activate"
-        local venv_bin = venv_root .. "/bin/python"
-        if Path.dir_exist(venv_root) and Path.file_exist(act_bin) then
-            table.insert(PYTHON_ENVS, {
-                type = "venv",
-                name = pattern,
-                path = venv_root,
-                bin = venv_bin,
-                version = get_version(venv_bin),
-                act_bin = act_bin,
-            })
+        -- venv
+        for _, pattern in pairs(opts.venv_pattern) do
+            local venv_root = _G.pathlib.join(cwd, pattern)
+            local act_bin = _G.pathlib.join(venv_root, "bin/activate")
+            local venv_bin = _G.pathlib.join(venv_root, "bin/python")
+            if _G.pathlib.dir_exist(venv_root) and _G.pathlib.file_exist(act_bin) then
+                local env = {
+                    type = "venv",
+                    name = pattern,
+                    path = venv_root,
+                    bin = venv_bin,
+                    version = get_version(venv_bin),
+                }
+                table.insert(PYTHON_ENVS, env)
+                if curr_python_bin == env.bin then
+                    curr_env = env
+                end
+                -- if environ.VIRTUAL_ENV and environ.VIRTUAL_ENV == env.path then
+                --     curr_env = env
+                -- end
+            end
         end
-    end
+
+        -- system
+        for _, bin in pairs(opts.sys_python) do
+            if _G.pathlib.executable(bin) then
+                local env = {
+                    type = "system",
+                    name = "python",
+                    path = bin,
+                    bin = bin,
+                    version = get_version(bin),
+                }
+                table.insert(PYTHON_ENVS, env)
+                if curr_python_bin == env.bin then
+                    curr_env = env
+                end
+                -- if curr_env == nil then
+                --     curr_env = env
+                -- end
+            end
+        end
+    end)
 end
 
 M.set_env = function(env)

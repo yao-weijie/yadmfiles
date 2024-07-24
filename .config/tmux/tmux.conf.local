@@ -337,8 +337,8 @@ tmux_conf_copy_to_os_clipboard=false
 # this is the place to override or undo settings
 
 set -g default-shell /bin/zsh
-# set -g default-terminal "xterm-256color"
-set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
+# set -g default-terminal "tmux-256color"
 set -as terminal-features ",alacritty:RGB"
 set -g terminal-overrides ",*256col*:Tc"
 

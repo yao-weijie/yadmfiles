@@ -7,6 +7,7 @@ Example:
 python3 ./decrypt.py \
 	--source_root=./qqmusic/ \
 	--target_root=./qqmusic_decrypted/ \
+	--backup_root=./qqmusic_backup/ \
 	--workers=8
 """
 
@@ -46,7 +47,7 @@ MAPS = (0x77, 0x48, 0x32, 0x73, 0xDE, 0xF2, 0xC0, 0xC8, 0x95, 0xEC, 0x30, 0xB2,
         0xF0, 0x0E, 0xCD, 0x16, 0x49, 0xFE, 0x53, 0x47, 0x13, 0x1A, 0xBD, 0xA4,
         0xF1, 0x40, 0x19, 0x60, 0x0E, 0xED, 0x68, 0x09, 0x06, 0x5F, 0x4D, 0xCF,
         0x3D, 0x1A, 0xFE, 0x20, 0x77, 0xE4, 0xD9, 0xDA, 0xF9, 0xA4, 0x2B, 0x76,
-        0x1C, 0x71, 0xDB, 0x00, 0xBC, 0xFD, 0xC,  0x6C, 0xA5, 0x47, 0xF7, 0xF6,
+        0x1C, 0x71, 0xDB, 0x00, 0xBC, 0xFD, 0x0C, 0x6C, 0xA5, 0x47, 0xF7, 0xF6,
         0x00, 0x79, 0x4A, 0x11)
 # fmt: on
 
@@ -59,7 +60,9 @@ def convert_data(data: bytearray):
     return data
 
 
-def qmc_file_decrypt(source_root: Path, fname: str, target_root: Path):
+def qmc_file_decrypt(
+    source_root: Path, fname: str, target_root: Path, backup_root: Path
+):
     file_path = source_root / fname
     file_prefix = (source_root / fname).stem
     file_suffix = (source_root / fname).suffix[1:]
@@ -79,6 +82,10 @@ def qmc_file_decrypt(source_root: Path, fname: str, target_root: Path):
             wf.write(data)
         print(f"{fname} -> {file_prefix}.{SUFFIX_MAP[file_suffix]}")
 
+    # backup
+    backup_path = backup_root / fname
+    shutil.move(file_path, backup_path)
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -95,6 +102,13 @@ def parse_args():
         type=str,
         default="./qqmusic_decrypted/",
         help="decrypted file save path, default ./qqmusic_decrypted/",
+    )
+    parser.add_argument(
+        "-b",
+        "--backup_root",
+        type=str,
+        default="./qqmusic_backup/",
+        help="raw file backup path, default ./qqmusic_backup/",
     )
     parser.add_argument(
         "-w",
@@ -116,6 +130,7 @@ def main():
     args = parse_args()
     source_root = Path(args.source_root)
     target_root = Path(args.target_root)
+    backup_root = Path(args.backup_root)
     workers = args.workers
 
     target_root.mkdir(exist_ok=True)
@@ -125,12 +140,16 @@ def main():
     with Pool(workers) as pool:
         print(f"Start converting {len(file_list)} qqmusic files!\n")
         for fname in file_list:
-            pool.apply_async(qmc_file_decrypt, args=(source_root, fname, target_root))
+            pool.apply_async(
+                qmc_file_decrypt, args=(source_root, fname, target_root, backup_root)
+            )
 
         pool.close()
         pool.join()
 
+        print("---------------------------------------------------------------")
         print(f"All {len(file_list)} qqmusic files converted!")
+        print("---------------------------------------------------------------")
 
 
 if __name__ == "__main__":

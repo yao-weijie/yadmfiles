@@ -7,14 +7,16 @@ local M = {}
 -- priority
 -- max_item_count
 -- group_index
+---@type table<string, cmp.SourceConfig>
 CMP_SOURCES = {
     luasnip = { name = "luasnip", menu = "[Snip]" },
     nvim_lsp = {
         name = "nvim_lsp",
         menu = "[LSP]",
-        -- entry_filter = function(entry) return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind() end,
+        -- entry_filter = function(entry, ctx) return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind() end,
     },
     path = { name = "path", menu = "[Path]" },
+    async_path = { name = "async_path", menu = "[Path]" },
     buffer = { name = "buffer", menu = "[Buf]" },
     cmdline = { name = "cmdline", menu = "[Cmd]", group_index = 2 },
     rime = { name = "rime", menu = "[Rime]" },
@@ -28,7 +30,7 @@ CMP_SOURCES = {
         menu = "[Fzf]",
         group_index = 1,
         -- entry_filter = false,
-        entry_filter = function(entry)
+        entry_filter = function(entry, ctx)
             return false
         end,
     },

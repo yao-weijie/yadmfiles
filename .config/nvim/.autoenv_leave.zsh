@@ -1,0 +1,1 @@
+yadm add ~/.config/nvim

@@ -3,9 +3,9 @@
 local parse_snippet = require("luasnip.util.parser").parse_snippet
 local parse_snipmate = require("luasnip.util.parser").parse_snipmate
 
-local in_mathzone = require("helper.luasnip").in_mathzone
-local line_begin = require("helper.luasnip").line_begin
-local line_end = require("helper.luasnip").line_end
+local in_mathzone = require("plugins.luasnip.condition").in_mathzone
+local line_begin = require("plugins.luasnip.condition").line_begin
+local line_end = require("plugins.luasnip.condition").line_end
 
 local global_opts = { condition = in_mathzone, show_condition = in_mathzone }
 

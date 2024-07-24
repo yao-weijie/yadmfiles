@@ -30,6 +30,8 @@ if [[ -d /opt/java/jdk-11 ]]; then
 	export JAVA_HOME JRE_HOME CLASS_PATH
 fi
 
+test -f "$HOME/.xmake/profile" && source "$HOME/.xmake/profile"
+
 # 去除重复内容, 且不排序
 export PATH=$(echo $PATH | sed "s/:/\n/g" | uniq | tr -s "\n" ":" | sed "s/:$//g")
 
@@ -38,6 +40,15 @@ export PYTHONUNBUFFERED=1
 
 # default editor
 export EDITOR=nvim
+
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# turn off bell ring
+xset b off
+
+[[ -x "batcat" || -x "bat" ]] && export MANPAGER="sh -c 'bat -l man -p'"
+
+[[ -f ~/.fzfrc ]] && source ~/.fzfrc
 
 GLFW_IM_MODULE=ibus
 

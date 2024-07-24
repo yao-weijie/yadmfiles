@@ -14,6 +14,9 @@ autoload -Uz compinit && compinit
 
 ##############################################################################
 [[ -f ~/.zinitrc ]] && source ~/.zinitrc
-
-### End of Zinit's installer chunk
+[[ -f /usr/bin/fzf ]] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[[ -f /usr/bin/fzf ]] && source /usr/share/doc/fzf/examples/completion.zsh
 [[ -f ~/.shell_local ]] && source ~/.shell_local
+alias reload="source ~/.zshrc && clear"
+
+alias reload="source ~/.zshrc && clear"

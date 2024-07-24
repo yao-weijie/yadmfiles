@@ -4,7 +4,7 @@ _G.LangSetup({
         formatter = { "clang_format" },
     },
     dap = {
-        type = "codelldb",
+        type = "codelldb_cxx",
         adapter = {
             type = "server",
             port = "${port}",
@@ -15,7 +15,7 @@ _G.LangSetup({
         },
         configurations = {
             {
-                type = "codelldb",
+                type = "codelldb_cxx",
                 name = "LLDB: Launch file",
                 request = "launch",
                 -- 编译输出目录在 cwd/build/,和asynctask中定义的一致

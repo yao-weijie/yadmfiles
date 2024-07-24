@@ -25,9 +25,22 @@ _G.LangSetup({
     },
 })
 
+---@type LazySpec
 return {
     {
         dir = "~/.config/nvim/lua/lang/python/conda.lua",
         ft = { "python" },
+        opts = {},
+        config = function(_, opts)
+            require("lang.python.conda").setup(opts)
+        end,
+    },
+    {
+        dir = "~/.config/nvim/lua/lang/python/lcode.lua",
+        ft = { "python" },
+        opts = {},
+        config = function(_, opts)
+            require("lang.python.lcode").setup(opts)
+        end,
     },
 }

@@ -2,14 +2,14 @@
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls="ls --color=auto"
-	alias dir="dir --color=auto"
-	alias vdir="vdir --color=auto"
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls="ls --color=auto"
+    alias dir="dir --color=auto"
+    alias vdir="vdir --color=auto"
 
-	alias grep="grep --color=auto"
-	alias fgrep="fgrep --color=auto"
-	alias egrep="egrep --color=auto"
+    alias grep="grep --color=auto"
+    alias fgrep="fgrep --color=auto"
+    alias egrep="egrep --color=auto"
 fi
 
 # some more ls aliases
@@ -36,22 +36,29 @@ alias distupgrade="sudo apt dist-upgrade -y"
 alias upgradable="apt list --upgradable"
 alias autoremove="sudo apt autoremove"
 alias cleanconf="dpkg -l | grep ^rc | awk '{print \$2}' | sudo xargs dpkg -P"
+alias apts="apt search "
+alias apti="sudo apt install "
+alias aptl="apt list "
+alias aptfzf="apt list | fzf "
 
 alias of5="source ~/OpenFOAM/OpenFOAM-5.x/etc/bashrc; echo sourced OpenFOAM-5.x"
 
-if [[ $SHELL == *zsh* ]]; then
-	alias reload="source ~/.zshrc; echo reloaded ~/.zshrc"
-elif [[ $SHELL == *bash* ]]; then
-	alias reload="source ~/.bashrc; echo reloaded ~/.bashrc"
-fi
+# rsync
+alias rsync="rsync -av --progress "
+alias rsync_mirror="rsync --delete "
 
 alias nv="nvim"
 alias nvim-tiny="nvim -u ~/.config/nvim/vimrc "
 # alias vim="nvim -u ~/.config/nvim/vimrc "
-syncvim() {
-	local server=$1
-	rsync -a --delete ~/.config/nvim/ "$server:~/.config/nvim/"
-	rsync -a --delete ~/.local/share/nvim/lazy/ "$server:~/.local/share/nvim/lazy/"
+sync_vim() {
+    local server=$1
+    rsync ~/.vimrc $server:~/.vimrc
+}
+sync_nvim() {
+    local server=$1
+    rsync ~/.vimrc $server:~/.vimrc
+    rsync_mirror --exclude test/ ~/.config/nvim/ $server:~/.config/nvim/
+    rsync_mirror --exclude .git/ ~/.local/share/nvim/lazy/ $server:~/.local/share/nvim/lazy/
 }
 
 alias cls="clear"
@@ -71,25 +78,39 @@ alias psg="ps -A | grep "
 alias dst="yadm status "
 alias gst="git status "
 alias ga="git add "
+alias gc1="git clone --depth=1 "
+alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
+gpull() {
+    echo "pull from origin"
+    local current_branch=$(git branch --show-current)
+    git pull origin $current_branch:$current_branch
+}
 
 # dd
 alias dd="dd status=progress "
+ddgz_w() {
+    local file=$1
+    local device=$2
+    gzip -dc "$file" | sudo dd of="$device" bs=128K
+}
+ddgz_r() {
+    local device=$1
+    local file=$2
+    sudo dd if="$device" | gzip >"$file"
+}
 
 # ssh
 alias ssh-keygen="ssh-keygen -t ed25519 " # ed25519 不需要指定长度
 alias ssh-keygen-rsa="ssh-keygen -t rsa -b 4096 "
 
-# rsync
-alias rsync="rsync -r --progress "
-
 # if has command
 function executable() {
-	local cmd=$1
-	if command -v $cmd >/dev/null 2>&1; then
-		return $(true)
-	else
-		return $(false)
-	fi
+    local cmd=$1
+    if command -v $cmd >/dev/null 2>&1; then
+        return $(true)
+    else
+        return $(false)
+    fi
 }
 # example
 # if $(executable "git") ; then

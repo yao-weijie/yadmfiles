@@ -1,20 +1,36 @@
 local cmp_utils = require("plugins.cmp.utils")
 local CMP_SOURCES = cmp_utils.CMP_SOURCES
 
+local function t(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local function in_snippet_map(str)
+    return require("cmp").mapping(function(fallback)
+        if require("luasnip").in_snippet() then
+            return vim.api.nvim_feedkeys(t(str), "n", true)
+        else
+            fallback()
+        end
+    end, { "s" })
+end
+
 ---@type LazySpec
 return {
     "hrsh7th/nvim-cmp",
     dependencies = {
         -- cmp-nvim-lsp in lsp/init.lua
         -- cmp-luasnip in edit/luasnip.lua
-        "hrsh7th/cmp-cmdline",
+        -- "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-buffer",
         -- "hrsh7th/cmp-path",
-        { url = "https://codeberg.org/FelipeLema/cmp-async-path" },
+        -- { url = "https://codeberg.org/FelipeLema/cmp-async-path" },
         "ray-x/cmp-treesitter",
-        require("plugins.cmp.rime"),
+        "hrsh7th/cmp-nvim-lsp",
+        -- require("plugins.cmp.rime"),
     },
     event = { "InsertEnter", "CmdlineEnter" },
+    ---@type cmp.ConfigSchema
     opts = {
         window = {
             completion = {
@@ -31,7 +47,7 @@ return {
             },
         },
         formatting = {
-            fields = { "abbr", "kind", "menu" },
+            fields = { "kind", "abbr", "menu" },
             expandable_indicator = false,
             format = cmp_utils.cmp_format,
         },
@@ -42,10 +58,11 @@ return {
             CMP_SOURCES.nvim_lsp,
             CMP_SOURCES.luasnip,
             CMP_SOURCES.buffer,
-            CMP_SOURCES.rime,
-            CMP_SOURCES.async_path,
+            -- CMP_SOURCES.rime,
+            -- CMP_SOURCES.async_path,
+            CMP_SOURCES.path,
             CMP_SOURCES.treesitter,
-            CMP_SOURCES.xmake,
+            -- CMP_SOURCES.xmake,
         },
         snippet = {
             expand = function(args)
@@ -59,6 +76,11 @@ return {
         local compare = require("cmp.config.compare")
         local luasnip = require("luasnip")
         vim.opt.completeopt = "menu,menuone,noselect"
+
+        -- extract sources from plugin single file
+        require("plugins.cmp.sources.path").register()
+        require("plugins.cmp.sources.luasnip").register()
+        require("plugins.cmp.sources.cmdline").register()
 
         opts.sorting = {
             priority_weight = 1,
@@ -93,6 +115,14 @@ return {
                     fallback()
                 end
             end),
+
+            ["p"] = in_snippet_map("p"),
+            ["P"] = in_snippet_map("P"),
+            ["j"] = in_snippet_map("j"),
+            ["k"] = in_snippet_map("k"),
+            ["<"] = in_snippet_map("<"),
+            [">"] = in_snippet_map(">"),
+            ["q"] = in_snippet_map("q"),
 
             ["<C-Space>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then

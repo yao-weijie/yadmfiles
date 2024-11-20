@@ -1,4 +1,5 @@
 local opts = {
+    icons = { colors = false }, -- disable mini.icons
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -43,15 +44,9 @@ local opts = {
 ---@type LazySpec
 return {
     "folke/which-key.nvim",
-    -- event = { "VeryLazy" },
+    dependencies = {
+        "echasnovski/mini.nvim",
+    },
     opts = opts,
     lazy = true,
-    config = function(_, opts)
-        require("which-key").setup(opts)
-        require("which-key").register({
-            ["g"] = "goto",
-            ["["] = "prev",
-            ["]"] = "next",
-        })
-    end,
 }

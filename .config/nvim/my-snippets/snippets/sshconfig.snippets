@@ -4,3 +4,6 @@ snippet host "ssh config host"
 		User ${3:username}
 		# Port ${4:22}
 		IdentityFile ${5:~/.ssh/id_ed25519_git}
+		# ProxyCommand ncat --proxy-type socks5 --proxy 127.0.0.1:7890 %h %p
+		# ProxyCommand ncat --proxy-type socks5 --proxy 127.0.0.1:7890 --proxy-auth user:passwd %h %p
+        $0

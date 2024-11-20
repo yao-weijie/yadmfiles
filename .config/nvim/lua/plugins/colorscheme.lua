@@ -1,6 +1,6 @@
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     -- colorscheme override
-    command = "source ~/.config/nvim/colors/mycolor.vim",
+    command = "source ~/.config/nvim/colors/override.vim",
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

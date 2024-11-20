@@ -1,16 +1,38 @@
 #!/bin/zsh
 # vim:ft=sh
 
-ZINIT_HOME="${HOME}/.local/share/zinit/zinit.git"
-source "${ZINIT_HOME}/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" &&
+        print -P "%F{33} %F{34}Installation successful.%f%b" ||
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
+
+# load first
+if [[ -f /usr/bin/fzf ]]; then
+    zinit light Aloxaf/fzf-tab
+fi
+
+# zinit load starship/starship
 
 # load from repository
-zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma-continuum/history-search-multi-word
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light skywind3000/z.lua
+zinit light-mode for \
+    zsh-users/zsh-autosuggestions \
+    zdharma-continuum/history-search-multi-word \
+    zdharma-continuum/fast-syntax-highlighting # highlight zsh cli
+# ignore case sensitive when completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+export ZLUA_EXEC=$( (which luajit))
+export _ZL_ADD_ONCE=1
+export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json"
+# zinit light skywind3000/z.lua
+z_root="$HOME/.local/share/zinit/plugins/skywind3000---z.lua"
+eval "$(luajit $z_root/z.lua --init zsh enhanced once echo fzf)"
 # use .autoenv.zsh and .autoenv_leave.zsh
 zinit light Tarrasch/zsh-autoenv
 
@@ -21,8 +43,6 @@ zinit light Tarrasch/zsh-autoenv
 zinit snippet OMZP::extract
 # zinit snippet OMZP::tmux
 
-zinit snippet OMZP::fzf
-
 ENABLE_CORRECTION="true"
 zinit snippet OMZL::completion.zsh
 # zinit snippet OMZL::clipboard.zsh
@@ -30,15 +50,13 @@ zinit snippet OMZL::completion.zsh
 zinit snippet OMZL::history.zsh
 # zinit snippet OMZL::grep.zsh
 
-if [[ -f ~/.cargo/bin/lcode ]]; then
-    zinit ice lucid wait as'completion' blockf has'lcode'
-    zinit snippet https://github.com/saying121/lcode/blob/main/completions/_lcode
-fi
+zinit ice lucid wait as'completion' blockf has'lcode'
+zinit snippet https://github.com/saying121/lcode/blob/main/completions/_lcode
 
+# zinit ice lucid wait as'completion' blockf has'task'
+# zinit snippet https://github.com/go-task/task/blob/main/completion/zsh/_task
 
 ##############################################################################
-# ignore case sensitive when completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)

@@ -1,8 +1,8 @@
 [init]
     defaultBranch = main
 [user]
-    name = Yao Weijie
-    email = yaowj.it@outlook.com
+	name = Yao Weijie
+	email = yaowj.it@outlook.com
 [core]
 	quotepath = false
 [cola]

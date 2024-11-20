@@ -1,2 +1,2 @@
-vim.g.autoformat_enabled = false
+vim.g.autoformat = false
 vim.opt.expandtab = false

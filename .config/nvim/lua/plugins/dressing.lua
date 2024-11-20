@@ -3,6 +3,9 @@ return {
     "stevearc/dressing.nvim",
     event = { "VeryLazy" },
     version = "*",
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+    },
     opts = {
         input = {
             prefer_width = 40,

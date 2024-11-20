@@ -1,16 +1,3 @@
-_G.LangSetup({
-    filetypes = { "tex" },
-    conform = {
-        custom_formatters = {
-            latexindent = {
-                command = "latexindent",
-                args = { "-g", "/dev/null", "-" },
-            },
-        },
-        formatter = { "latexindent" },
-    },
-})
-
 local function vimtex_setup()
     -- vimtex settings
     vim.g.tex_flavor = "latex"

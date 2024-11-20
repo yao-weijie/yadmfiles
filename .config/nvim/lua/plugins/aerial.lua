@@ -6,6 +6,7 @@ return {
         { "<leader>o", "<cmd>AerialToggle<CR>", desc = "aerial outline" },
     },
     opts = {
+        backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
         layout = {
             min_width = 30,
             default_direction = "right",

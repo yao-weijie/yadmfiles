@@ -14,7 +14,7 @@ local opts = {
     ignore_install = { "latex" },
     highlight = {
         enable = true,
-        disable = function(lang, buf)
+        disable = function(lang, bufnr)
             local lang_backlist = {
                 "latex",
             }
@@ -23,7 +23,7 @@ local opts = {
 
             if
                 vim.tbl_contains(lang_backlist, lang) --
-                or _G.pathlib.is_hugefile(max_size, buf) --
+                or _G.pathlib.is_hugefile(max_size, bufnr) --
                 or vim.fn.line("$") > max_lines
             then
                 return true
@@ -47,7 +47,15 @@ local opts = {
 
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     textobjects = {
-        swap = { enable = false },
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>."] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>,"] = "@parameter.inner",
+            },
+        },
         select = {
             enable = true,
             -- Automatically jump forward to textobj, similar to targets.vim
@@ -87,6 +95,8 @@ local opts = {
 return {
     "nvim-treesitter/nvim-treesitter",
     -- version = "*",
+    -- event = { "VeryLazy" },
+    event = { "BufRead", "BufNewFile" },
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
         "RRethy/nvim-treesitter-endwise",

@@ -1,8 +1,5 @@
-_G.LangSetup({
-    filetypes = { "sh", "zsh" },
-    conform = {
-        formatter = { "shfmt" },
-    },
-})
+-- vim.cmd([[
+--     autocmd FileType sh setlocal noexpandtab
+-- ]])
 
 return {}

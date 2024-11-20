@@ -4,24 +4,40 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    event = { "VeryLazy" },
-    enabled = _G.pathlib.executable("fzf"),
-    opts = {
-        -- "default",
-        winopts = {
-            preview = {
-                vertical = "up:50%",
-                horizontal = "right:50%",
-                delay = 50,
+    opts = function()
+        return {
+            -- "default",
+            winopts = {
+                -- split = "belowright new",
+                preview = {
+                    vertical = "up:50%",
+                    horizontal = "right:50%",
+                    delay = 50,
+                },
             },
-        },
-        files = {
-            path_shorten = 5,
-        },
-        diagnostics = {
-            split = "belowright new",
-        },
-    },
+            files = {
+                path_shorten = 5,
+            },
+            diagnostics = {
+                split = "belowright new",
+            },
+            lsp = {
+                finder = {
+                    includeDeclaration = true, -- include current declaration in LSP context
+                    providers = {
+                        { "references", prefix = require("fzf-lua").utils.ansi_codes.blue("ref ") },
+                        { "definitions", prefix = require("fzf-lua").utils.ansi_codes.green("def ") },
+                        -- { "declarations", prefix = require("fzf-lua").utils.ansi_codes.magenta("decl") },
+                        -- { "typedefs", prefix = require("fzf-lua").utils.ansi_codes.red("tdef") },
+                        -- { "implementations", prefix = require("fzf-lua").utils.ansi_codes.green("impl") },
+                        -- { "incoming_calls", prefix = require("fzf-lua").utils.ansi_codes.cyan("in  ") },
+                        -- { "outgoing_calls", prefix = require("fzf-lua").utils.ansi_codes.yellow("out ") },
+                    },
+                },
+            },
+        }
+    end,
+    cmd = { "FzfLua" },
     keys = {
         { "<leader>f/", "<cmd>FzfLua <CR>", desc = "FzfLua self" },
         { "<leader>ff", "<cmd>FzfLua files<CR>", desc = "files" },
@@ -40,6 +56,7 @@ return {
         { "<leader>fd", "<cmd>FzfLua lsp_definitions<CR>", desc = "lsp_definition" },
         { "<leader>fr", "<cmd>FzfLua lsp_references<CR>", desc = "lsp_references" },
         { "<leader>fi", "<cmd>FzfLua lsp_implementations<CR>", desc = "lsp_implementations" },
+        { "<leader>fF", "<cmd>FzfLua lsp_finder<CR>", desc = "lsp_finder" },
         { "<leader>fs", "<cmd>FzfLua lsp_document_symbols<CR>", desc = "lsp_document_symbols" },
         { "<leader>fS", "<cmd>FzfLua lsp_workspace_symbols<CR>", desc = "lsp_workspace_symbols" },
 

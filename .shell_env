@@ -43,12 +43,32 @@ export EDITOR=nvim
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
+export GOPATH=~/.cache/go
+export GOBIN=~/.local/bin
+
 # turn off bell ring
 xset b off
 
 [[ -x "batcat" || -x "bat" ]] && export MANPAGER="sh -c 'bat -l man -p'"
 
-[[ -f ~/.fzfrc ]] && source ~/.fzfrc
+# [[ -f ~/.fzfrc ]] && source ~/.fzfrc
+# fzf settigns
+export FZF_DEFAULT_COMMAND="
+    fdfind
+    --type file
+    --hidden
+    --follow
+    --exclude={.git,node_modules,build}
+    . /etc /home
+    "
+export FZF_DEFAULT_OPTS="
+	--layout=reverse
+    --preview-window 'right:60%'
+    "
+# --preview 'batcat --color=always --style=header,grid --line-range :300 {}'
+
+# --border
+# --height 50%
 
 GLFW_IM_MODULE=ibus
 

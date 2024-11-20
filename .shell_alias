@@ -41,7 +41,7 @@ alias apti="sudo apt install "
 alias aptl="apt list "
 alias aptfzf="apt list | fzf "
 
-alias of5="source ~/OpenFOAM/OpenFOAM-5.x/etc/bashrc; echo sourced OpenFOAM-5.x"
+[[ -f /usr/local/bin/yazi ]] && alias lf="yazi"
 
 # rsync
 alias rsync="rsync -av --progress "
@@ -104,7 +104,7 @@ alias ssh-keygen="ssh-keygen -t ed25519 " # ed25519 不需要指定长度
 alias ssh-keygen-rsa="ssh-keygen -t rsa -b 4096 "
 
 # if has command
-function executable() {
+executable() {
     local cmd=$1
     if command -v $cmd >/dev/null 2>&1; then
         return $(true)

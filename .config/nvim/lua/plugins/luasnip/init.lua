@@ -4,7 +4,7 @@ return {
     version = "*",
     dependencies = {
         "honza/vim-snippets",
-        "saadparwaiz1/cmp_luasnip",
+        -- "saadparwaiz1/cmp_luasnip",
         "hrsh7th/nvim-cmp",
     },
     build = "make install_jsregexp",

@@ -1,0 +1,11 @@
+hyprcursor-util
+hyprland-backgrounds
+hyprland-dev
+hyprland-protocols
+hyprland
+hyprpaper
+hyprwayland-scanner
+waybar
+tofi
+mako-notifier
+wlogout

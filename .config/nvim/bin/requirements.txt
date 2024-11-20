@@ -1,0 +1,7 @@
+fd-find
+ripgrep
+fzf
+gitui
+lazygit
+global/gtags
+starship

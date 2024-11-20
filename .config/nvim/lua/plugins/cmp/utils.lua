@@ -29,7 +29,6 @@ CMP_SOURCES = {
         name = "FzfLua",
         menu = "[Fzf]",
         group_index = 1,
-        -- entry_filter = false,
         entry_filter = function(entry, ctx)
             return false
         end,
@@ -58,13 +57,81 @@ M.underline_sorter = function(entry1, entry2)
     end
 end
 
+---@type table<lsp.CompletionItemKind, string>
+local symbol_icons = {
+    Text = "󰉿",
+    Method = "󰆧",
+    Function = "󰊕",
+    Constructor = "",
+    Field = "󰜢",
+    Variable = "󰀫",
+    Class = "󰠱",
+    Interface = "",
+    Module = "",
+    Property = "󰜢",
+    Unit = "󰑭",
+    Value = "󰎠",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "",
+    Color = "󰏘",
+    File = "󰈙",
+    Reference = "󰈇",
+    Folder = "󰉋",
+    EnumMember = "",
+    Constant = "󰏿",
+    Struct = "󰙅",
+    Event = "",
+    Operator = "󰆕",
+    -- TypeParameter = "",
+
+    -- Text = "",
+    -- Method = "",
+    -- Function = "",
+    -- Constructor = "",
+    -- Field = "",
+    -- Variable = "",
+    -- Class = "",
+    -- Interface = "",
+    -- Module = "",
+    -- Property = "",
+    -- Unit = "",
+    -- Value = "",
+    -- Enum = "",
+    -- Keyword = "",
+    -- Snippet = "",
+    -- Color = "",
+    -- File = "",
+    -- Reference = "",
+    -- Folder = "",
+    -- EnumMember = "",
+    -- Constant = "",
+    -- Struct = "",
+    -- Event = "",
+    -- Operator = "",
+    -- TypeParameter = "",
+
+    -- treesitter
+    -- Comment = "C",
+    -- String = "S",
+}
+M.symbol_icons = symbol_icons
+
 ---@param entry cmp.Entry
 ---@param vim_item vim.CompletedItem
 ---@return vim.CompletedItem
 M.cmp_format = function(entry, vim_item)
+    vim_item.kind = symbol_icons[vim_item.kind] or " "
+
+    if CMP_SOURCES[entry.source.name] then
+        vim_item.menu = CMP_SOURCES[entry.source.name].menu
+    else
+        vim_item.menu = entry.source.name
+    end
+
     local max_width = 80
     vim_item.abbr = string.sub(vim_item.abbr, 1, max_width)
-    vim_item.menu = CMP_SOURCES[entry.source.name].menu
+
     return vim_item
 end
 

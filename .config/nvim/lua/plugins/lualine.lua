@@ -1,15 +1,3 @@
-local rime_status = function()
-    if vim.g.rime_available then
-        return "ㄓ"
-    else
-        return "EN"
-    end
-end
-
-local tabsize = function()
-    return "tab:" .. vim.bo.shiftwidth
-end
-
 local buffers = {
     "buffers",
     mode = 2,
@@ -21,7 +9,6 @@ local buffers = {
 ---@type LazySpec
 return {
     "nvim-lualine/lualine.nvim",
-    event = { "VeryLazy" },
     lazy = false,
     opts = {
         options = {
@@ -46,13 +33,20 @@ return {
             lualine_a = {
                 "mode",
             },
-            lualine_b = { "branch", "diagnostics" },
+            lualine_b = {
+                "branch",
+                "diagnostics",
+            },
             lualine_c = {
-                rime_status,
+                "vim.g.rime_status and 'ㄓ' or 'EN'",
+                "overseer",
+                "g:build_profile",
             },
 
             lualine_x = {
-                tabsize,
+                "searchcount",
+                "selectioncount",
+                "'tab:' .. vim.bo.shiftwidth",
                 "encoding",
                 "fileformat",
             },
@@ -77,6 +71,7 @@ return {
             "neo-tree",
             "nvim-dap-ui",
             "nvim-tree",
+            "overseer",
             "quickfix",
             "toggleterm",
             "trouble",

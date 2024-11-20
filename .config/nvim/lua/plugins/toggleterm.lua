@@ -2,7 +2,7 @@
 return {
     "akinsho/toggleterm.nvim",
     version = "*",
-    event = { "VeryLazy" },
+    -- event = { "VeryLazy" },
     opts = {
         open_mapping = [[<C-\>]],
         direction = "float",
@@ -39,6 +39,7 @@ return {
         end, {})
     end,
     keys = {
+        { "<C-\\>" },
         { "<leader>gl", "<cmd>LazyGit<CR>" },
         { "<leader>gg", "<cmd>GitUI<CR>" },
     },

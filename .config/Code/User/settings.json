@@ -1,4 +1,5 @@
 {
-  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace"
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'monospace', monospace",
+  "update.showReleaseNotes": false
 }
 

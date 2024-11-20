@@ -45,6 +45,8 @@ local opts = {
         custom = {
             "lazy-lock.json",
             "__pycache__",
+            "*.o",
+            "*.ko",
         },
         exclude = {
             ".vscode",
@@ -136,34 +138,35 @@ end
 
 ---@type LazySpec
 return {
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        version = "*",
-        keys = {
-            { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
-        },
-        config = function()
-            require("nvim-tree").setup(opts)
-
-            local api = require("nvim-tree.api")
-            local Event = api.events.Event
-            api.events.subscribe(Event.FileCreated, function(file)
-                api.tree.reload()
-                vim.cmd("edit " .. vim.fn.fnamemodify(file.fname, ":p"))
-            end)
-
-            api.events.subscribe(Event.FolderCreated, function(folder)
-                api.tree.reload()
-            end)
-        end,
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    keys = {
+        { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "toggle nvim-tree" },
     },
-    {
-        "antosha417/nvim-lsp-file-operations",
-        dependencies = {
-            "nvim-tree/nvim-tree.lua",
-        },
+    config = function()
+        require("nvim-tree").setup(opts)
+
+        local api = require("nvim-tree.api")
+        local Event = api.events.Event
+        api.events.subscribe(Event.FileCreated, function(file)
+            api.tree.reload()
+            vim.cmd("edit " .. vim.fn.fnamemodify(file.fname, ":p"))
+        end)
+
+        api.events.subscribe(Event.FolderCreated, function(folder)
+            api.tree.reload()
+        end)
+    end,
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        -- {
+        --     "antosha417/nvim-lsp-file-operations",
+        --     event = { "VeryLazy" },
+        --     dependencies = {
+        --         "nvim-lua/plenary.nvim",
+        --         "nvim-tree/nvim-tree.lua",
+        --     },
+        --     opts = {},
+        -- },
     },
 }

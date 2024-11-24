@@ -1,0 +1,14 @@
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://__MIRROR__/ubuntu/ __VERSION__ main restricted universe multiverse
+# deb-src https://__MIRROR__/ubuntu/ __VERSION__ main restricted universe multiverse
+deb https://__MIRROR__/ubuntu/ __VERSION__-updates main restricted universe multiverse
+# deb-src https://__MIRROR__/ubuntu/ __VERSION__-updates main restricted universe multiverse
+deb https://__MIRROR__/ubuntu/ __VERSION__-backports main restricted universe multiverse
+# deb-src https://__MIRROR__/ubuntu/ __VERSION__-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu/ __VERSION__-security main restricted universe multiverse
+# deb-src http://security.ubuntu.com/ubuntu/ __VERSION__-security main restricted universe multiverse
+
+# 预发布软件源，不建议启用
+# deb https://__MIRROR__/ubuntu/ __VERSION__-proposed main restricted universe multiverse
+# # deb-src https://__MIRROR__/ubuntu/ __VERSION__-proposed main restricted universe multiverse

@@ -1,0 +1,12 @@
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://__MIRROR__/debian/ __VERSION main contrib non-free non-free-firmware
+# deb-src https://__MIRROR__/debian/ __VERSION main contrib non-free non-free-firmware
+
+deb https://__MIRROR__/debian/ __VERSION-updates main contrib non-free non-free-firmware
+# deb-src https://__MIRROR__/debian/ __VERSION-updates main contrib non-free non-free-firmware
+
+deb https://__MIRROR__/debian/ __VERSION-backports main contrib non-free non-free-firmware
+# deb-src https://__MIRROR__/debian/ __VERSION-backports main contrib non-free non-free-firmware
+
+deb https://security.debian.org/debian-security __VERSION-security main contrib non-free non-free-firmware
+# deb-src https://security.debian.org/debian-security __VERSION-security main contrib non-free non-free-firmware

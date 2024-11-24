@@ -1,0 +1,22 @@
+{
+  "site": {
+    "tuna": "mirrors.tuna.tsinghua.edu.cn",
+    "ustc": "mirrors.ustc.edu.cn",
+    "aliyun": "mirrors.aliyun.com",
+    "edu": "mirrors.cernet.edu.cn",
+    "debian-official": "deb.debian.org",
+    "ubuntu-official": "archive.ubuntu.com"
+  },
+  "code": {
+    "debian": {
+      "11": "bullseye",
+      "12": "bookworm"
+    },
+    "ubuntu": {
+      "1804": "bionic",
+      "2004": "focal",
+      "2204": "jammy",
+      "2404": "noble"
+    }
+  }
+}

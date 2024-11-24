@@ -1,8 +1,5 @@
 # 清华源
-sed -i "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
+sed "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list    # not inplace
+sed -i "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list # inplace
 
-# 中科大
-sed -i "s/archive.ubuntu.com/mirrors.ustc.edu.cn/g" /etc/apt/sources.list
-
-# 阿里云
-sed -i "s/archive.ubuntu.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+sed -e "s/__MIRROR__/mirrors.tuna.tsinghua.edu.cn/g" -e "s/__VERSION__/jammy/g" ./ubuntu.list.tmpl

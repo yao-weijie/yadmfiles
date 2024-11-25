@@ -20,12 +20,12 @@ set backup
 set undofile
 set swapfile
 if has('nvim')
-    call system('mkdir -p $HOME/.cache/nvim/')
+    call system('mkdir -p ~/.cache/nvim/ ~/.cache/nvim/backup ~/.cache/nvim/undo ~/.cache/nvim/swap')
     set backupdir=~/.cache/nvim/backup
     set undodir=~/.cache/nvim/undo
     set directory=~/.cache/nvim/swap
 else
-    call system('mkdir -p $HOME/.cache/vim/')
+    call system('mkdir -p ~/.cache/vim/ ~/.cache/vim/backup ~/.cache/vim/undo ~/.cache/vim/swap')
     set backupdir=~/.cache/vim/backup
     set undodir=~/.cache/vim/undo
     set directory=~/.cache/vim/swap
@@ -523,17 +523,17 @@ function! s:apc_enable()
 	if g:apc_enable_tab
 		inoremap <silent><buffer><expr> <tab>
 					\ pumvisible()? "\<c-n>" :
-					\ <SID>check_back_space() ? "\<tab>" : 
+					\ <SID>check_back_space() ? "\<tab>" :
 					\ get(b:, 'apc_trigger', g:apc_trigger)
 		inoremap <silent><buffer><expr> <s-tab>
 					\ pumvisible()? "\<c-p>" : "\<s-tab>"
 		let b:apc_init_tab = 1
 	endif
 	if get(g:, 'apc_cr_confirm', 0) == 0
-		inoremap <silent><buffer><expr> <cr> 
+		inoremap <silent><buffer><expr> <cr>
 					\ pumvisible()? "\<c-y>\<cr>" : "\<cr>"
 	else
-		inoremap <silent><buffer><expr> <cr> 
+		inoremap <silent><buffer><expr> <cr>
 					\ pumvisible()? "\<c-y>" : "\<cr>"
 	endif
 	inoremap <silent><buffer><expr> <bs> <SID>on_backspace()
@@ -548,7 +548,7 @@ endfunc
 function! s:apc_disable()
 	if get(b:, 'apc_init_autocmd', 0)
 		augroup ApcEventGroup
-			au! 
+			au!
 		augroup END
 	endif
 	if get(b:, 'apc_init_tab', 0)

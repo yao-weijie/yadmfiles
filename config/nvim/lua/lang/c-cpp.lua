@@ -14,12 +14,7 @@ _G.setup_dap({ "c", "cpp" }, {
 
 ---@type LazySpec
 return {
-    -- "p00f/clangd_extensions.nvim",
-    -- ft = { "c", "cpp" },
-    -- opts = {
-    --     inlay_hints = {
-    --         inline = true,
-    --         only_current_line = false,
-    --     },
-    -- },
+    "p00f/clangd_extensions.nvim",
+    ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+    opts = {},
 }

@@ -87,11 +87,12 @@ return {
             comparators = {
                 -- require("cmp_rime.compare").order,
                 cmp_utils.underline_sorter,
+                require("clangd_extensions.cmp_scores"),
+                compare.offset,
+                compare.exact,
                 compare.score,
                 compare.kind,
-                compare.exact,
                 compare.length,
-                compare.offset,
                 compare.sort_text,
             },
         }

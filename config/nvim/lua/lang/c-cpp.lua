@@ -14,7 +14,17 @@ _G.setup_dap({ "c", "cpp" }, {
 
 ---@type LazySpec
 return {
-    "p00f/clangd_extensions.nvim",
-    ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-    opts = {},
+    {
+        "p00f/clangd_extensions.nvim",
+        ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+        opts = {},
+    },
+    {
+        "Civitasv/cmake-tools.nvim",
+        optional = true,
+    },
+    {
+        "sakhnik/nvim-gdb",
+        optional = true,
+    },
 }

@@ -64,6 +64,8 @@ M.clangd = {
     end,
 }
 
+M.neocmake = {}
+
 M.rust_analyzer = {}
 
 return M

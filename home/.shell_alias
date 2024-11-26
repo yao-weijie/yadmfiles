@@ -70,8 +70,8 @@ alias autoenv="touch .autoenv.zsh .autoenv_leave.zsh \
 && chmod +x .autoenv.zsh .autoenv_leave.zsh"
 alias rmautoenv='trash .autoenv.zsh .autoenv_leave.zsh'
 alias cp="cp -r "
-# alias rm="rm -i " # 使用rm 删除的时候，会有一个确认的提示。
-alias rm="trash"
+alias rm="rm -i "                            # 使用rm 删除的时候，会有一个确认的提示。
+[[ -f /usr/bin/trash ]] && alias rm="trash " # 如果有trash, 用trash覆盖
 alias psg="ps -A | grep "
 
 # git

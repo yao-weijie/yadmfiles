@@ -8,7 +8,7 @@ return {
         "hrsh7th/nvim-cmp",
     },
     build = "make install_jsregexp",
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "BufNewFile" },
     config = function()
         -- load snippet folders in runtimeapth
         vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/my-snippets")

@@ -31,4 +31,6 @@ _G.setup_dap({ "rust" }, {
     },
 })
 
-return {}
+return {
+    { "neovim/nvim-lspconfig", opts = { servers = { rust_analyzer = {} } } },
+}

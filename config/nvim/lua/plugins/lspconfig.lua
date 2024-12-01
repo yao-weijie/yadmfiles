@@ -74,21 +74,26 @@ return {
         -- { "<C-LeftMouse>", vim.lsp.buf.definition, desc = "definition" },
         -- { "gd", vim.lsp.buf.definition, desc = "definition" },
     },
-    config = function()
+    opts = {
+        servers = {
+            lua_ls = {},
+            vimls = {},
+        },
+    },
+    config = function(_, opts)
         local lspconfig = require("lspconfig")
-        local myservers = require("plugins.lsp.servers")
         local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-        for server_name, config in pairs(myservers) do
+        for server, config in pairs(opts.servers) do
             if config.capabilities ~= nil then
                 config.capabilities = vim.tbl_extend("force", config.capabilities, cmp_capabilities)
             else
                 config.capabilities = cmp_capabilities
             end
-            local default_cmd = require("lspconfig.configs." .. server_name).default_config.cmd[1]
+            local default_cmd = require("lspconfig.configs." .. server).default_config.cmd[1]
             if vim.fn.executable(default_cmd) == 1 then
-                lspconfig[server_name].setup(config)
+                lspconfig[server].setup(config)
             else
-                vim.notify(server_name .. " is not executable", vim.log.levels.WARN)
+                vim.notify(server .. " is not executable", vim.log.levels.WARN)
             end
         end
     end,

@@ -2,4 +2,6 @@
 --     autocmd FileType sh setlocal noexpandtab
 -- ]])
 
-return {}
+return {
+    { "neovim/nvim-lspconfig", opts = { servers = { bashls = {} } } },
+}

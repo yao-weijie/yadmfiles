@@ -24,6 +24,33 @@ _G.setup_dap({ "python" }, {
 
 ---@type LazySpec
 return {
+    {
+        "neovim/nvim-lspconfig",
+        opts = {
+            servers = {
+                jedi_language_server = {
+                    init_options = {
+                        markupKindPreferred = "markdown",
+                        jediSettings = {
+                            autoImportModules = { "numpy", "pandas", "torch" },
+                        },
+                    },
+                },
+                -- basedpyright = {
+                --     settings = {
+                --         basedpyright = {
+                --             analysis = {
+                --                 autoImportCompletions = false,
+                --                 disableOrganizeImports = true,
+                --             },
+                --         },
+                --     },
+                -- }
+                ruff = {},
+            },
+        },
+    },
+
     -- {
     --     "linux-cultist/venv-selector.nvim",
     --     branch = "regexp",

@@ -24,9 +24,9 @@ hide_when_typing = false
 history = 10000
 
 [shell]
-program = "/bin/fish"
-# args = ["--login"]
+# program = "/bin/fish"
+program = "/bin/zsh"
+args = ["--login"]
 
 [env]
 term = "xterm-256color"
-

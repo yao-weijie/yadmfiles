@@ -84,12 +84,12 @@ return {
             else
                 config.capabilities = cmp_capabilities
             end
-            -- local default_cmd = require("lspconfig.configs." .. server_name).default_config.cmd[1]
-            -- if vim.fn.executable(default_cmd) == 1 then
-            lspconfig[server_name].setup(config)
-            -- else
-            --     vim.notify(server_name .. " is not executable", vim.log.levels.WARN)
-            -- end
+            local default_cmd = require("lspconfig.configs." .. server_name).default_config.cmd[1]
+            if vim.fn.executable(default_cmd) == 1 then
+                lspconfig[server_name].setup(config)
+            else
+                vim.notify(server_name .. " is not executable", vim.log.levels.WARN)
+            end
         end
     end,
 }

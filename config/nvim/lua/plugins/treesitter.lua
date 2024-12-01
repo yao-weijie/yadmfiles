@@ -12,24 +12,7 @@ local opts = {
         "python",
     },
     ignore_install = { "latex" },
-    highlight = {
-        enable = true,
-        disable = function(lang, bufnr)
-            local lang_backlist = {
-                "latex",
-            }
-            local max_size = "100k"
-            local max_lines = 1000
-
-            if
-                vim.tbl_contains(lang_backlist, lang) --
-                or _G.pathlib.is_hugefile(max_size, bufnr) --
-                or vim.fn.line("$") > max_lines
-            then
-                return true
-            end
-        end,
-    },
+    highlight = { enable = true }, -- conditionally disabled by snacks.nvim
     incremental_selection = {
         enable = true,
         keymaps = {

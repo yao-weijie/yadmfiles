@@ -52,12 +52,23 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
     },
-    -- event = { "BufReadPre", "BufNewFile" },
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
     keys = {
         { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
-        { "[d", vim.diagnostic.goto_prev, desc = "diagnostics prev" },
-        { "]d", vim.diagnostic.goto_next, desc = "diagnostics next" },
+        {
+            "[d",
+            function()
+                vim.diagnostic.jump({ count = -1, float = true })
+            end,
+            desc = "diagnostics prev",
+        },
+        {
+            "]d",
+            function()
+                vim.diagnostic.jump({ count = 1, float = true })
+            end,
+            desc = "diagnostics next",
+        },
         { "ga", vim.lsp.buf.code_action, desc = "code action" },
         { "K", vim.lsp.buf.hover, desc = "show document" },
         -- { "<C-LeftMouse>", vim.lsp.buf.definition, desc = "definition" },
@@ -65,12 +76,20 @@ return {
     },
     config = function()
         local lspconfig = require("lspconfig")
-        local server_config_override = require("plugins.lsp.servers")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        for server_name, config in pairs(server_config_override) do
-            config = vim.tbl_deep_extend("force", config, { capabilities = capabilities }) ---@type lspconfig.Config
-            -- TODO: lsp servers not in lspconfig
+        local myservers = require("plugins.lsp.servers")
+        local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+        for server_name, config in pairs(myservers) do
+            if config.capabilities ~= nil then
+                config.capabilities = vim.tbl_extend("force", config.capabilities, cmp_capabilities)
+            else
+                config.capabilities = cmp_capabilities
+            end
+            -- local default_cmd = require("lspconfig.configs." .. server_name).default_config.cmd[1]
+            -- if vim.fn.executable(default_cmd) == 1 then
             lspconfig[server_name].setup(config)
+            -- else
+            --     vim.notify(server_name .. " is not executable", vim.log.levels.WARN)
+            -- end
         end
     end,
 }

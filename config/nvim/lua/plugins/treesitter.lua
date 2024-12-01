@@ -41,9 +41,6 @@ local opts = {
     },
 
     indent = { enable = true },
-    -- Wisely add "end" in Ruby, Vimscript, Lua, etc.
-    -- https://github.com/RRethy/nvim-treesitter-endwise
-    endwise = { enable = true },
 
     -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     textobjects = {
@@ -99,7 +96,6 @@ return {
     event = { "BufRead", "BufNewFile" },
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "RRethy/nvim-treesitter-endwise",
         -- "ray-x/cmp-treesitter",
     },
     build = ":TSUpdate",

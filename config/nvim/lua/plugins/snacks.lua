@@ -7,6 +7,7 @@ return {
     opts = {
         dashboard = {
             enabled = true,
+            width = 50,
             preset = {
                 pick = "fzf-lua",
                 keys = {
@@ -43,7 +44,7 @@ return {
             },
             sections = {
                 { section = "header" },
-                { section = "keys", indent = 2, padding = 1 },
+                { section = "keys", indent = 2, padding = 1, gap = 1 },
                 { section = "startup" },
             },
         },

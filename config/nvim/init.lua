@@ -11,4 +11,3 @@ require("helper.lazy").setup({
         { import = "lang" },
     },
 })
-

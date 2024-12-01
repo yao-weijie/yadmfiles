@@ -1,6 +1,7 @@
 source /etc/profile
-[[ -f ~/.shell_env ]] && source ~/.shell_env
-[[ -f ~/.shell_alias ]] && source ~/.shell_alias
+export DOTFILES=$HOME/.dotfiles
+[[ -d $DOTFILES ]] && source $DOTFILES/shell/shell_env
+[[ -d $DOTFILES ]] && source $DOTFILES/shell/shell_alias
 
 $(executable "starship") && eval "$(starship init bash)"
 

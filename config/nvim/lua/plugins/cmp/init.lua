@@ -36,6 +36,7 @@ return {
             completion = {
                 border = "none",
                 winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:MyCmpSel",
+                col_offset = -2,
             },
             documentation = {
                 border = "none",
@@ -145,6 +146,11 @@ return {
         })
 
         cmp.setup.cmdline(":", {
+            window = {
+                completion = {
+                    col_offset = -1,
+                },
+            },
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
                 CMP_SOURCES.path,

@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# .env file example
+# ENV1=value1
+# ENV2=value2
+loadenv() {
+    local envfile=".env"
+    [[ $1 ]] && envfile=$1
+    if [[ -f $envfile ]]; then
+        set -a
+        source $envfile
+        set +a
+    else
+        echo "no env file founnd"
+    fi
+}
+
 add_to_path() {
 	local p=$1
 	if [[ ! $p ]]; then

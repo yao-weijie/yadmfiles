@@ -27,12 +27,8 @@ zinit light-mode for \
 # ignore case sensitive when completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-export ZLUA_EXEC=$( (which luajit))
-export _ZL_ADD_ONCE=1
-export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json"
-# zinit light skywind3000/z.lua
-z_root="$HOME/.local/share/zinit/plugins/skywind3000---z.lua"
-eval "$(luajit $z_root/z.lua --init zsh enhanced once echo fzf)"
+zinit light skywind3000/z.lua # env settings in shell_env
+
 # use .autoenv.zsh and .autoenv_leave.zsh
 zinit light Tarrasch/zsh-autoenv
 

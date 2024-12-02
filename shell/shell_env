@@ -85,6 +85,14 @@ export FZF_DEFAULT_OPTS="
 # --border
 # --height 50%
 
+# z.lua
+export ZLUA_LUAEXE=$(which luajit)
+export _ZL_ADD_ONCE=1
+export _ZL_ECHO=1
+export _ZL_MATCH_MODE=1
+export _ZL_DATA=~/.cache/zlua
+export _ZL_ROOT_MARKERS=".git,.svn,.hg,.root,package.json"
+
 GLFW_IM_MODULE=ibus
 
 if [ $WSL_DISTRO_NAME ]; then

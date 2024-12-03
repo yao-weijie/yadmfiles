@@ -28,7 +28,7 @@ add_to_path() {
 
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/.cargo/bin"
-. "$HOME/anaconda3/etc/profile.d/conda.sh"
+[ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ] && source "$HOME/anaconda3/etc/profile.d/conda.sh"
 add_to_path "/opt/TinyTeX/bin/x86_64-linux"
 add_to_path "$HOME/.local/share/nvim/mason/bin"
 # need to config npm
@@ -62,9 +62,10 @@ export GOPATH=~/.cache/go
 export GOBIN=~/.local/bin
 
 # turn off bell ring
-xset b off
+[ -f /usr/bin/xset ] && xset b off
 
-[[ -x "batcat" || -x "bat" ]] && export MANPAGER="sh -c 'bat -l man -p'"
+# batcat
+export MANPAGER="sh -c 'bat -l man -p'"
 
 # [[ -f ~/.fzfrc ]] && source ~/.fzfrc
 # fzf settigns

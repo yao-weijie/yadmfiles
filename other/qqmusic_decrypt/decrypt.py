@@ -11,7 +11,6 @@ python3 ./decrypt.py \
 	--workers=8
 """
 
-
 import argparse
 import os
 import shutil

@@ -39,9 +39,16 @@ tools=(
     basedpyright
     clangd
     neocmakelsp
+    vim-language-server
+    lua-language-server
+    bash-language-server
 
     # formatters
     clang-format
+    stylua
+    shfmt
+    prettierd
+    fixjson
 
     # debugger
     lldb
@@ -52,10 +59,8 @@ check_installed() {
     for cmd in ${tools[*]}; do
         if command -v $cmd >/dev/null 2>&2; then
             echo -e "${Green}[INFO] $cmd"
-            # Info "$cmd is executable"
         else
-            # Warn "$cmd is not executable"
-            echo -e "${Red}[WARN] $cmd"
+            echo -e "${Yellow}[WARN] $cmd"
         fi
     done
 }

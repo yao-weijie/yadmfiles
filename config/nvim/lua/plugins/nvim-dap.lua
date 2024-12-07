@@ -124,21 +124,33 @@ return {
             { "thehamsta/nvim-dap-virtual-text", config = true },
             { "weissle/persistent-breakpoints.nvim", opts = { load_breakpoints_event = { "BufReadPost" } } },
         },
-        -- lazy = false,
-        event = { "VeryLazy" },
+        lazy = false,
+        -- event = { "VeryLazy" },
         config = function(_, opts)
-            for adapter, adapter_config in pairs(require("plugins.dap.adapters")) do
+            for adapter, adapter_config in pairs(opts.adapters or {}) do
                 require("dap").adapters[adapter] = adapter_config
             end
-            for fts, ft_config in pairs(require("plugins.dap.configurations")) do
-                fts = fts:find(",") and vim.fn.split(fts, ",") or { fts }
-                for _, ft in ipairs(fts) do
-                    require("dap").configurations[ft] = ft_config
-                end
+            -- for adapter, adapter_config in pairs(require("plugins.dap.adapters")) do
+            --     require("dap").adapters[adapter] = adapter_config
+            -- end
+            opts.configurations.c = opts.configurations.cpp
+            for ft, ft_config in pairs(opts.configurations or {}) do
+                require("dap").configurations[ft] = ft_config
             end
+            require("dap").configurations.c = opts.configurations.cpp
             require("dap.ext.vscode").load_launchjs(".vscode/launch.json", {
                 debugpy = { "python" },
                 codelldb = { "c", "cpp", "rust" },
+            })
+            vim.api.nvim_create_autocmd("FileType", {
+                -- pattern = filetypes,
+                pattern = { "python", "c", "cpp" },
+                callback = function(event)
+                    local opt = { buffer = event.buf }
+                    vim.keymap.set("n", "<leader>b", require("persistent-breakpoints.api").toggle_breakpoint, opt)
+                    vim.keymap.set("n", "<2-LeftMouse>", require("persistent-breakpoints.api").toggle_breakpoint, opt)
+                    vim.api.nvim_buf_create_user_command(event.buf, "DapRunToCursor", require("dap").run_to_cursor, {})
+                end,
             })
         end,
         keys = {

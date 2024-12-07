@@ -1,9 +1,9 @@
 -- vim:foldmethod=marker:
 
--- icons {{{
+-- diagnostic {{{
 vim.diagnostic.config({
     underline = true,
-    -- virtual_text = true,
+    virtual_text = true,
     update_in_insert = false,
     severity_sort = true,
     signs = {
@@ -22,6 +22,12 @@ vim.diagnostic.config({
         prefix = "",
     },
 })
+vim.api.nvim_create_user_command("LspEnableDiagnostics", function()
+    vim.diagnostic.enable(true)
+end, {})
+vim.api.nvim_create_user_command("LspDisableDiagnostics", function()
+    vim.diagnostic.enable(false)
+end, {})
 -- }}}
 
 --- {{{ global lsp attach
@@ -49,9 +55,7 @@ vim.api.nvim_create_autocmd("LspDetach", {
 ---@type LazySpec
 return {
     "neovim/nvim-lspconfig",
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-    },
+    dependencies = "rafamadriz/friendly-snippets",
     event = { "BufReadPre", "BufNewFile" },
     keys = {
         { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
@@ -76,19 +80,28 @@ return {
     },
     opts = {
         servers = {
-            lua_ls = {},
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        hint = { enable = true },
+                    },
+                },
+            },
             vimls = {},
         },
     },
     config = function(_, opts)
         local lspconfig = require("lspconfig")
-        local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
         for server, config in pairs(opts.servers) do
+            -- capabilities
             if config.capabilities ~= nil then
                 config.capabilities = vim.tbl_extend("force", config.capabilities, cmp_capabilities)
             else
                 config.capabilities = cmp_capabilities
             end
+
+            -- if server is executable
             local default_cmd = require("lspconfig.configs." .. server).default_config.cmd[1]
             if vim.fn.executable(default_cmd) == 1 then
                 lspconfig[server].setup(config)

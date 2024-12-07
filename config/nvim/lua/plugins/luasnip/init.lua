@@ -2,10 +2,11 @@
 return {
     "L3MON4D3/LuaSnip",
     version = "*",
+    enabled = false,
     dependencies = {
         "honza/vim-snippets",
         -- "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/nvim-cmp",
+        -- "hrsh7th/nvim-cmp",
     },
     build = "make install_jsregexp",
     event = { "InsertEnter", "BufNewFile" },

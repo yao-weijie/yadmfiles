@@ -19,7 +19,17 @@ M.codelldb = {
     type = "server",
     port = "${port}",
     executable = {
-        command = "codelldb",
+        command = "lldb",
+        -- command = function()
+        --     if vim.fn.executable("codelldb") then
+        --         return "codelldb"
+        --     elseif vim.fn.executable("lldb") then
+        --         return "lldb"
+        --     else
+        --         vim.notify("codelldb is not executable!", vim.log.levels.ERROR)
+        --         return require("dap").ABORT
+        --     end
+        -- end,
         args = { "--port", "${port}" },
     },
 }

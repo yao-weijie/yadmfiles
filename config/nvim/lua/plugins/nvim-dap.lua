@@ -70,6 +70,29 @@ local dapui_opts = {
 }
 -- }}}
 
+-- adapters {{{
+local adapters = {
+    ---https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+    python = {
+        type = "executable",
+        command = "python3",
+        args = {
+            "-m",
+            "debugpy.adapter",
+        },
+    },
+    ---@source https://github.com/vadimcn/codelldb/blob/master/MANUAL.md#parameterized-launch-configurations
+    codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "codelldb",
+            args = { "--port", "${port}" },
+        },
+    },
+}
+-- }}}
+
 ---@type LazySpec
 return {
     {
@@ -127,13 +150,9 @@ return {
         lazy = false,
         -- event = { "VeryLazy" },
         config = function(_, opts)
-            for adapter, adapter_config in pairs(opts.adapters or {}) do
+            for adapter, adapter_config in pairs(adapters) do
                 require("dap").adapters[adapter] = adapter_config
             end
-            -- for adapter, adapter_config in pairs(require("plugins.dap.adapters")) do
-            --     require("dap").adapters[adapter] = adapter_config
-            -- end
-            opts.configurations.c = opts.configurations.cpp
             for ft, ft_config in pairs(opts.configurations or {}) do
                 require("dap").configurations[ft] = ft_config
             end
@@ -143,7 +162,6 @@ return {
                 codelldb = { "c", "cpp", "rust" },
             })
             vim.api.nvim_create_autocmd("FileType", {
-                -- pattern = filetypes,
                 pattern = { "python", "c", "cpp" },
                 callback = function(event)
                     local opt = { buffer = event.buf }

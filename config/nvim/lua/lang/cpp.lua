@@ -1,7 +1,18 @@
--- require('dap').adapters['lldb-cxx'] = {}
--- local dap_configurations_cpp = {}
--- require("dap").configurations.cpp = dap_configurations_cpp
--- require("dap").configurations.c = dap_configurations_cpp
+local lldb_cxx_configs = {
+    {
+        type = "codelldb",
+        name = "LLDB: Launch file",
+        request = "launch",
+        -- program = "${workspaceFolder}/build/${fileBasenameNoExtension}",
+        program = function()
+            return vim.fn.input({ prompt = "input exec path: ", default = vim.fn.expand("%:t:r") })
+        end,
+        console = "integratedTerminal",
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false, -- stop on main()
+        runInTerminal = true,
+    },
+}
 
 ---@type LazySpec
 return {
@@ -19,33 +30,7 @@ return {
     },
     {
         "mfussenegger/nvim-dap",
-        opts = {
-            adapters = {
-                codelldb = {
-                    type = "server",
-                    port = "${port}",
-                    executable = {
-                        command = vim.fn.executable("lldb") == 1 and "lldb" or "codelldb",
-                        args = { "--port", "${port}" },
-                    },
-                },
-            },
-            configurations = {
-                cpp = {
-                    {
-                        type = "codelldb",
-                        name = "LLDB: Launch file",
-                        request = "launch",
-                        -- 编译输出目录在 cwd/build/,和asynctask中定义的一致
-                        program = "${workspaceFolder}/build/${fileBasenameNoExtension}",
-                        console = "integratedTerminal",
-                        cwd = "${workspaceFolder}",
-                        stopOnEntry = false,
-                        runInTerminal = true,
-                    },
-                },
-            },
-        },
+        opts = { configurations = { c = lldb_cxx_configs, cpp = lldb_cxx_configs } },
     },
     {
         "neovim/nvim-lspconfig",

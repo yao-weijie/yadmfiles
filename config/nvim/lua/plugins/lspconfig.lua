@@ -55,7 +55,6 @@ vim.api.nvim_create_autocmd("LspDetach", {
 ---@type LazySpec
 return {
     "neovim/nvim-lspconfig",
-    dependencies = "rafamadriz/friendly-snippets",
     event = { "BufReadPre", "BufNewFile" },
     keys = {
         { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },

@@ -24,8 +24,6 @@ zinit light-mode for \
     zsh-users/zsh-autosuggestions \
     zdharma-continuum/history-search-multi-word \
     zdharma-continuum/fast-syntax-highlighting # highlight zsh cli
-# ignore case sensitive when completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 zinit light skywind3000/z.lua # env settings in shell_env
 

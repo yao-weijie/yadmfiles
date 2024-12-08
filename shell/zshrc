@@ -13,7 +13,8 @@ eval "$(starship init zsh)"
 
 bindkey -e emacs
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+compinit -d ~/.cache/zdompdump
 
 ##############################################################################
 [[ -d $DOTFILES ]] && source $DOTFILES/shell/zinitrc

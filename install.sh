@@ -35,7 +35,6 @@ tools=(
 
     # lsp
     jedi-language-server
-    ruff
     basedpyright
     clangd
     neocmakelsp
@@ -45,6 +44,7 @@ tools=(
 
     # formatters
     clang-format
+    ruff
     stylua
     shfmt
     prettierd
@@ -52,7 +52,7 @@ tools=(
 
     # debugger
     lldb
-    codelldb # alias name
+    codelldb
 )
 
 check_installed() {

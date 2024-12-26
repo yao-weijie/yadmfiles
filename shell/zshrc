@@ -20,3 +20,6 @@ compinit -d ~/.cache/zdompdump
 [[ -d $DOTFILES ]] && source $DOTFILES/shell/zinitrc
 [[ -f ~/.shell_local ]] && source ~/.shell_local
 alias reload="exec zsh && clear"
+# >>> xmake >>>
+test -f "/home/yaowj/.xmake/profile" && source "/home/yaowj/.xmake/profile"
+# <<< xmake <<<

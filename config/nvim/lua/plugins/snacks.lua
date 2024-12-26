@@ -50,6 +50,19 @@ return {
             size = 2 * 1024 * 1024, -- 2MiB
         },
         -- quickfile = { enabled = true },
+        indent = {
+            enabled = true,
+            animate = {
+                enabled = false,
+            },
+            scope = {
+                enabled = true,
+                underline = false,
+            },
+            chunk = {
+                enabled = false,
+            },
+        },
     },
     keys = {
         {

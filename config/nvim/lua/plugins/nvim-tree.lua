@@ -25,6 +25,9 @@ local opts = {
     renderer = {
         group_empty = true,
         indent_markers = { enable = true },
+        icons = {
+            git_placement = "after",
+        },
     },
 
     update_focused_file = {
@@ -50,10 +53,11 @@ local opts = {
         },
         exclude = {
             ".vscode",
-            ".gitignore",
-            ".fdignore",
-            ".rgignore",
-            ".nvim.lua",
+            -- ".gitignore",
+            -- ".fdignore",
+            -- ".rgignore",
+            -- ".nvim.lua",
+            -- ".lazy.lua",
         },
     },
     git = {

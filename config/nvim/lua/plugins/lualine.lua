@@ -38,7 +38,7 @@ return {
                 "diagnostics",
             },
             lualine_c = {
-                "vim.g.rime_status and 'ㄓ' or 'EN'",
+                -- "vim.g.rime_status and 'ㄓ' or 'EN'",
                 "overseer",
                 "g:build_profile",
             },
@@ -54,6 +54,7 @@ return {
                 "filetype",
             },
             lualine_z = {
+                "location",
                 "progress",
                 "filesize",
             },

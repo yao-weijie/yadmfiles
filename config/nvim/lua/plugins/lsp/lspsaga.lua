@@ -1,10 +1,3 @@
-local saga_keys = {
-    split = "<C-x>",
-    vsplit = "<C-v>",
-    tabe = "<C-t>",
-    quit = "q",
-}
-
 ---@type LazySpec
 return {
     "nvimdev/lspsaga.nvim",
@@ -12,7 +5,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },
-    event = { "BufRead" },
+    event = { "LspAttach" },
     keys = {
         -- { "gr", vim.lsp.buf.rename, desc = "reanme symbol" },
         -- { "[d", vim.diagnostic.goto_prev, desc = "diagnostics prev" },
@@ -30,27 +23,36 @@ return {
         symbol_in_winbar = {
             enable = false,
         },
-        rename = {
-            enable = false,
+        finder = {
             keys = {
+                shuttle = "w",
+                toggle_or_open = "o",
+                split = "<C-x>",
+                vsplit = "<C-v>",
+                tabe = "<C-t>",
                 quit = "q",
+                close = "<C-c>k",
             },
         },
-        finder = {
-            keys = vim.tbl_extend("force", saga_keys, {
-                shuttle = "[w",
-            }),
-        },
         definition = {
-            keys = vim.tbl_extend("force", saga_keys, {
-                edit = "o",
-            }),
+            keys = {
+                edit = "<CR>",
+                split = "<C-x>",
+                vsplit = "<C-v>",
+                tabe = "<C-t>",
+                quit = "q",
+                close = "<C-c>k",
+            },
         },
         callhierarchy = {
-            keys = vim.tbl_extend("force", saga_keys, {
-                shuttle = "[w",
+            keys = {
                 edit = "<CR>",
-            }),
+                shuttle = "w",
+                split = "<C-x>",
+                vsplit = "<C-v>",
+                tabe = "<C-t>",
+                quit = "q",
+            },
         },
         lightbulb = {
             enable = false,

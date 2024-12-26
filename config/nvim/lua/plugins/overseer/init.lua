@@ -4,9 +4,10 @@ return {
     -- version = "*",
     event = { "VeryLazy" },
     opts = {
-        strategy = "terminal",
-        -- strategy = "toggleterm",
-        -- templates = { "builtin" },
+        -- strategy = "terminal",
+        strategy = "toggleterm",
+        template_dirs = { "overseer.template", "plugins.overseer.template" },
+        templates = { "builtin", "asynctask" },
         task_list = {
             min_width = { 50, 0.3 },
             bindings = {
@@ -25,9 +26,4 @@ return {
             },
         },
     },
-    config = function(_, opts)
-        require("overseer").setup(opts)
-        require("overseer").register_template(require("plugins.overseer.template.asynctask"))
-        -- require("overseer").register_template(require("plugins.overseer.template.xmake"))
-    end,
 }

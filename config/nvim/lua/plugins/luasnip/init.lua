@@ -9,12 +9,13 @@ return {
     build = "make install_jsregexp",
     event = { "InsertEnter", "BufNewFile" },
     config = function()
-        -- load snippet folders in runtimeapth
-        vim.opt.runtimepath:append(vim.fn.stdpath("config") .. "/my-snippets")
-
+        require("luasnip").setup({})
         -- snippets/<ft>.snippets and snippets/<ft>/*.snippets
         require("luasnip.loaders.from_snipmate").lazy_load()
         -- luasnippets/<ft>.lua and luasnippets/<ft>/*.lua
-        require("luasnip.loaders.from_lua").lazy_load()
+        -- require("luasnip.loaders.from_lua").lazy_load()
+        require("luasnip.loaders.from_lua").lazy_load({
+            paths = { "~/.config/nvim/snippets" },
+        })
     end,
 }

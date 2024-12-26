@@ -43,4 +43,8 @@ return {
         { "<leader>gl", "<cmd>LazyGit<CR>" },
         { "<leader>gg", "<cmd>GitUI<CR>" },
     },
+    cmd = {
+        "GitUI",
+        "LazyGit",
+    },
 }

@@ -43,8 +43,8 @@ return {
             sh = { "shfmt" },
             bash = { "shfmt" },
             tex = { "latexindent" },
-            json5 = { "fixjson" },
-            json = { "fixjson" },
+            json5 = { "prettierd", "jq", stop_after_first = true },
+            json = { "prettierd", "jq", stop_after_first = true },
             -- prettierd
             markdown = { "prettierd" },
             yaml = { "prettierd" },
@@ -64,7 +64,7 @@ return {
                 return
             end
 
-            local cbopts = { timeout_ms = 500, lsp_fallback = false }
+            local cbopts = { timeout_ms = 1000, lsp_fallback = false }
             if _G.pathlib.is_hugefile("1m", bufnr) or vim.fn.line("$") > 1000 then
                 cbopts.timeout_ms = 2000
             end

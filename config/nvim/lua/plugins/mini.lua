@@ -2,6 +2,7 @@
 return {
     "echasnovski/mini.nvim",
     version = "*",
+    enabled = false,
     -- event = { "VeryLazy" },
     opts = {
         -- sub-plug: opts
@@ -11,7 +12,7 @@ return {
                 start_with_preview = "<leader>A",
             },
         },
-        cursorword = { delay = 100 },
+        -- cursorword = { delay = 100 },
         -- surround = {
         --     mappings = {
         --         add = "ys",

@@ -19,6 +19,7 @@ local default_opts = {
         vim.fs.normalize("~/miniconda3"),
     },
     sys_python = {
+        -- "/usr/",
         "/usr/bin/python3",
         "/usr/bin/python2",
     },

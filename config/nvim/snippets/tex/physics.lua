@@ -1,5 +1,7 @@
 ---@diagnostic disable: unused-local
 
+local make_condition = require("luasnip.extras.conditions").make_condition
+
 local parse_snippet = require("luasnip.util.parser").parse_snippet
 local parse_snipmate = require("luasnip.util.parser").parse_snipmate
 

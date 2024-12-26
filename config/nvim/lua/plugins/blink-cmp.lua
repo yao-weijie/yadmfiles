@@ -5,10 +5,10 @@ return {
     dependencies = {
         "L3MON4D3/LuaSnip",
     },
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "CmdlineEnter" },
     opts = {
         keymap = {
-            -- preset = "enter",
+            preset = "enter",
             ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
             ["<C-e>"] = { "hide", "fallback" },
             ["<CR>"] = { "accept", "fallback" },
@@ -41,21 +41,30 @@ return {
             end,
         },
         sources = {
-            completion = {
-                enabled_providers = { "lsp", "path", "luasnip", "buffer" },
+            default = { "lsp", "path", "luasnip", "buffer" },
+            min_keyword_length = 0,
+            providers = {
+                lsp = {
+                    score_offset = 3,
+                },
+                buffer = {
+                    async = true,
+                    min_keyword_length = 1,
+                },
             },
         },
         completion = {
             accept = {
                 auto_brackets = {
                     enabled = true,
-                    -- default_brackets = { "(", ")" },
-                    -- override_brackets_for_filetypes = {},
+                    override_brackets_for_filetypes = {
+                        tex = { "{", "}" },
+                    },
                 },
             },
             menu = {
                 draw = {
-                    treesitter = true,
+                    treesitter = { "lsp" },
                     columns = {
                         { "kind_icon" },
                         { "label", "label_description", gap = 1 },
@@ -68,6 +77,9 @@ return {
             },
             list = {
                 selection = "auto_insert", -- preselect, manual, auto_insert
+            },
+            ghost_text = {
+                enabled = true,
             },
         },
         signature = {

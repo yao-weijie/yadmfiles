@@ -25,7 +25,7 @@ return {
         },
         finder = {
             keys = {
-                shuttle = "w",
+                shuttle = "[w",
                 toggle_or_open = "o",
                 split = "<C-x>",
                 vsplit = "<C-v>",
@@ -47,7 +47,7 @@ return {
         callhierarchy = {
             keys = {
                 edit = "<CR>",
-                shuttle = "w",
+                shuttle = "[w",
                 split = "<C-x>",
                 vsplit = "<C-v>",
                 tabe = "<C-t>",

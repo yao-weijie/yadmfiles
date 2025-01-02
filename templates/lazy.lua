@@ -1,5 +1,5 @@
-vim.g.autoformat = true -- default true
-vim.g.editorconfig = true -- default true
+vim.g.autoformat = true
+vim.g.editorconfig = true
 vim.g.enable_endhints = true
 
 -- cpp projects

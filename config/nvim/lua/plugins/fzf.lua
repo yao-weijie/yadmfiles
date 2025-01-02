@@ -16,7 +16,7 @@ return {
                 },
             },
             files = {
-                path_shorten = 5,
+                path_shorten = 3,
             },
             diagnostics = {
                 split = "belowright new",
@@ -27,8 +27,8 @@ return {
                     providers = {
                         { "references", prefix = require("fzf-lua").utils.ansi_codes.blue("ref ") },
                         { "definitions", prefix = require("fzf-lua").utils.ansi_codes.green("def ") },
-                        -- { "declarations", prefix = require("fzf-lua").utils.ansi_codes.magenta("decl") },
-                        -- { "typedefs", prefix = require("fzf-lua").utils.ansi_codes.red("tdef") },
+                        { "declarations", prefix = require("fzf-lua").utils.ansi_codes.magenta("decl") },
+                        { "typedefs", prefix = require("fzf-lua").utils.ansi_codes.red("tdef") },
                         -- { "implementations", prefix = require("fzf-lua").utils.ansi_codes.green("impl") },
                         -- { "incoming_calls", prefix = require("fzf-lua").utils.ansi_codes.cyan("in  ") },
                         -- { "outgoing_calls", prefix = require("fzf-lua").utils.ansi_codes.yellow("out ") },

@@ -2,8 +2,8 @@
 return {
     "echasnovski/mini.nvim",
     version = "*",
-    enabled = false,
-    -- event = { "VeryLazy" },
+    enabled = true,
+    event = { "VeryLazy" },
     opts = {
         -- sub-plug: opts
         align = {

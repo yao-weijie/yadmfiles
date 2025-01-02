@@ -70,5 +70,3 @@ end
 
 vim.api.nvim_create_user_command("AntoVim", antovim_swap, {})
 vim.keymap.set("n", "gs", antovim_swap, { desc = "反义词" })
-
-return {}
